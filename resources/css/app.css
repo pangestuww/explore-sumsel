@@ -1,11 +1,38 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+/* Theme Icon Swap — pastikan cuma 1 icon yang tampil */
+.theme-icon-sun {
+    display: inline-block;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+.theme-icon-moon {
+    display: none;
+}
+
+html.dark .theme-icon-sun {
+    display: none;
+}
+
+html.dark .theme-icon-moon {
+    display: inline-block;
+}
+
+/* ============================
+        Theme Toggle Icon Swap
+   ============================ */
+.theme-sun,
+.theme-moon {
+    display: none;
+}
+
+/* Light mode → cuma matahari */
+html:not(.dark) .theme-sun {
+    display: inline-block;
+}
+
+/* Dark mode → cuma bulan */
+html.dark .theme-moon {
+    display: inline-block;
 }

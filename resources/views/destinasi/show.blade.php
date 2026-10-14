@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $destinasi->nama . ' - Explore Sumsel')
+@section('title', $destinasi->nama . ' - Explore Sumatera')
 
 @section('content')
 

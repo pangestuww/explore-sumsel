@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Destinasi;
-use App\Models\Kabupaten;
 
 class HomeController extends Controller
 {
@@ -14,8 +13,6 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
-        $kabupatens = Kabupaten::all();
-
-        return view('home', compact('destinasiPopuler', 'kabupatens'));
+        return view('home', compact('destinasiPopuler'));
     }
 }
