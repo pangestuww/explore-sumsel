@@ -15,4 +15,9 @@ class Budaya extends Model
     {
         return $this->belongsTo(Kabupaten::class);
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

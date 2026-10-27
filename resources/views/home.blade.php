@@ -243,7 +243,7 @@
 {{-- HERO --}}
 <section id="heroSection" class="relative min-h-[700px] flex items-center overflow-hidden">
     <div class="absolute inset-0 z-0 parallax-bg" id="parallaxBg">
-        <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=1920&q=80" alt="Sumatera" class="w-full h-[120%] object-cover">
+        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1920&q=90" alt="Keindahan alam Pulau Sumatera" class="w-full h-[120%] object-cover object-center">
         <div class="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/70 to-slate-900/30"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent"></div>
     </div>
@@ -276,12 +276,10 @@
                 Dari puncak vulkanik hingga pesisir tersembunyi — temukan keindahan alam, kekayaan budaya, dan cita rasa kuliner Pulau Sumatera.
             </p>
 
-            <form action="{{ route('search') }}" method="GET"
-                class="reveal-4 search-glow bg-white/[0.08] backdrop-blur-2xl border border-white/[0.15] rounded-2xl p-2 flex gap-2 max-w-2xl shadow-2xl">
+            <form action="{{ route('search') }}" method="GET" class="reveal-4 search-glow bg-white/[0.08] backdrop-blur-2xl border border-white/[0.15] rounded-2xl p-2 flex gap-2 max-w-2xl shadow-2xl">
                 <div class="flex-1 flex items-center gap-3 px-5">
                     <i class="fas fa-compass text-emerald-400 text-lg" id="searchIcon"></i>
-                    <input type="text" name="q" id="searchInput" placeholder="Cari destinasi, kota, atau provinsi..."
-                        class="w-full bg-transparent py-3.5 outline-none text-white placeholder-white/50 font-medium">
+                    <input type="text" name="q" id="searchInput" placeholder="Cari destinasi, kota, atau provinsi..." class="w-full bg-transparent py-3.5 outline-none text-white placeholder-white/50 font-medium">
                 </div>
                 <button type="submit" class="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white px-7 py-3.5 rounded-xl transition-all font-bold shadow-lg hover:shadow-emerald-500/40 hover:scale-105">
                     Cari
@@ -313,30 +311,18 @@
 {{-- KATEGORI --}}
 <section class="container mx-auto px-6 -mt-16 relative z-20 pt-16">
     <div class="scroll-reveal bg-white dark:bg-slate-900 rounded-3xl shadow-2xl shadow-gray-900/[0.08] dark:shadow-black/40 border border-gray-100 dark:border-slate-800 p-10">
-        <div class="text-center mb-8">
-            <div class="inline-flex items-center gap-2 text-emerald-700 dark:text-emerald-400 text-xs font-bold uppercase tracking-[0.2em] mb-3">
-                <span class="w-8 h-px bg-emerald-700 dark:bg-emerald-400"></span>
-                Kategori Wisata
-                <span class="w-8 h-px bg-emerald-700 dark:bg-emerald-400"></span>
-            </div>
-            <h2 class="text-3xl font-black text-gray-900 dark:text-white mb-2 tracking-tight">Jelajahi Berdasarkan Kategori</h2>
-            <p class="text-gray-500 dark:text-slate-400">Pilih kategori wisata favoritmu</p>
-        </div>
-
         <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
             @php
             $kategori = [
-            ['icon' => 'fa-mountain', 'label' => 'Gunung', 'url' => route('destinasi.index', ['kategori' => 'alam']), 'color' => 'from-emerald-500 to-green-600', 'delay' => 0],
-            ['icon' => 'fa-water', 'label' => 'Air Terjun', 'url' => route('destinasi.index', ['kategori' => 'alam']), 'color' => 'from-cyan-500 to-blue-600', 'delay' => 150],
+            ['icon' => 'fa-map-marker-alt', 'label' => 'Destinasi', 'url' => route('destinasi.index'), 'color' => 'from-emerald-500 to-green-600', 'delay' => 0],
+            ['icon' => 'fa-masks-theater', 'label' => 'Budaya', 'url' => route('budaya.index'), 'color' => 'from-purple-500 to-pink-600', 'delay' => 150],
             ['icon' => 'fa-utensils', 'label' => 'Kuliner', 'url' => route('kuliner.index'), 'color' => 'from-orange-500 to-red-600', 'delay' => 300],
-            ['icon' => 'fa-masks-theater', 'label' => 'Budaya', 'url' => route('budaya.index'), 'color' => 'from-purple-500 to-pink-600', 'delay' => 450],
+            ['icon' => 'fa-map', 'label' => 'Peta', 'url' => route('peta.index'), 'color' => 'from-blue-500 to-cyan-600', 'delay' => 450],
             ];
             @endphp
 
             @foreach ($kategori as $k)
-            <a href="{{ $k['url'] }}"
-                class="kategori-card group relative flex flex-col items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 dark:hover:bg-slate-800 transition-all duration-500"
-                data-delay="{{ $k['delay'] }}">
+            <a href="{{ $k['url'] }}" class="kategori-card group relative flex flex-col items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 dark:hover:bg-slate-800 transition-all duration-500" data-delay="{{ $k['delay'] }}">
                 <div class="kategori-icon relative w-20 h-20 rounded-2xl bg-gradient-to-br {{ $k['color'] }} bg-[length:200%_200%] flex items-center justify-center shadow-lg transition-all duration-500">
                     <span class="ripple-effect absolute inset-0 rounded-2xl bg-white/30 opacity-0"></span>
                     <i class="fas {{ $k['icon'] }} text-white text-3xl transition-transform duration-500 kategori-icon-inner"></i>
@@ -373,10 +359,8 @@
         @php
         $gambarUrl = $d->gambar ? (str_starts_with($d->gambar, 'http') ? $d->gambar : asset($d->gambar)) : 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600';
         @endphp
-        <a href="{{ route('destinasi.show', $d->slug) }}"
-            class="scroll-reveal card-hover group bg-white rounded-3xl overflow-hidden block shadow-md border border-gray-100"
-            data-delay="{{ $i * 100 }}">
-            <div class="h-64 bg-gray-200 overflow-hidden relative shimmer" data-image-wrapper>
+        <a href="{{ route('destinasi.show', $d->slug) }}" class="scroll-reveal card-hover group bg-white dark:bg-slate-900 rounded-3xl overflow-hidden block shadow-md border border-gray-100 dark:border-slate-800" data-delay="{{ $i * 100 }}">
+            <div class="h-64 bg-gray-200 dark:bg-slate-800 overflow-hidden relative shimmer" data-image-wrapper>
                 <img src="{{ $gambarUrl }}" alt="{{ $d->nama }}" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" data-image>
                 <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center gap-1 shadow-lg">
                     <i class="fas fa-star text-amber-500 text-xs"></i>
@@ -394,17 +378,17 @@
                 </div>
             </div>
             <div class="p-6">
-                <h3 class="font-extrabold text-xl text-gray-900 mb-2 group-hover:text-emerald-700 transition line-clamp-1">{{ $d->nama }}</h3>
-                <p class="text-sm text-gray-500 line-clamp-2 mb-5 leading-relaxed">{{ Str::limit($d->deskripsi, 80) }}</p>
-                <div class="flex items-center justify-between pt-5 border-t border-gray-100">
+                <h3 class="font-extrabold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-emerald-700 transition line-clamp-1">{{ $d->nama }}</h3>
+                <p class="text-sm text-gray-500 dark:text-slate-400 line-clamp-2 mb-5 leading-relaxed">{{ Str::limit($d->deskripsi, 80) }}</p>
+                <div class="flex items-center justify-between pt-5 border-t border-gray-100 dark:border-slate-800">
                     <div>
                         <p class="text-[10px] text-gray-400 uppercase tracking-wider font-bold">Mulai dari</p>
-                        <p class="text-emerald-700 font-black text-lg">
+                        <p class="text-emerald-700 dark:text-emerald-400 font-black text-lg">
                             {{ $d->harga_tiket == 0 ? 'Gratis' : 'Rp ' . number_format($d->harga_tiket, 0, ',', '.') }}
                         </p>
                     </div>
-                    <span class="w-10 h-10 rounded-full bg-gray-100 group-hover:bg-emerald-700 flex items-center justify-center transition-all group-hover:rotate-[-45deg]">
-                        <i class="fas fa-arrow-right text-gray-700 group-hover:text-white text-sm transition"></i>
+                    <span class="w-10 h-10 rounded-full bg-gray-100 dark:bg-slate-800 group-hover:bg-emerald-700 flex items-center justify-center transition-all group-hover:rotate-[-45deg]">
+                        <i class="fas fa-arrow-right text-gray-700 dark:text-slate-300 group-hover:text-white text-sm transition"></i>
                     </span>
                 </div>
             </div>
@@ -616,5 +600,4 @@
         });
     });
 </script>
-
 @endsection

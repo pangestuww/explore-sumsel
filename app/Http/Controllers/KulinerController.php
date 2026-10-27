@@ -39,12 +39,23 @@ class KulinerController extends Controller
         return view('kuliner.index', compact('kuliners', 'provinsis', 'kabupatens'));
     }
 
-    public function show($slug)
+    // Tambahkan Request $request di dalam parameter show
+    public function show(Request $request, $slug)
     {
-        $kuliner = Kuliner::with('kabupaten')
-            ->where('slug', $slug)
-            ->firstOrFail();
+        $kuliner = Kuliner::with('kabupaten.provinsi')->where('slug', $slug)->firstOrFail();
 
-        return view('kuliner.show', compact('kuliner'));
+        $isFavorited = false;
+        $user = $request->user();
+
+        if ($user) {
+            // Paksa panggil langsung tanpa lewat 'use'
+            $isFavorited = \App\Models\Favorit::where('user_id', $user->id)
+                ->where('kuliner_id', $kuliner->id)
+                ->exists();
+        }
+        // Ambil ulasan
+        $reviews = $kuliner->reviews()->with('user')->latest()->get();
+
+        return view('kuliner.show', compact('kuliner', 'isFavorited', 'reviews'));
     }
 }

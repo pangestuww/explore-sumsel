@@ -1,0 +1,702 @@
+[
+    {
+        "kab": "Banda Aceh",
+        "nama": "Rumah Krong Bade",
+        "jenis": "rumah_adat",
+        "desk": "Rumah adat Aceh berbentuk panggung memanjang dengan tangga depan.",
+        "img": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80"
+    },
+    {
+        "kab": "Banda Aceh",
+        "nama": "Tari Saman",
+        "jenis": "tari",
+        "desk": "Tarian suku Gayo dengan gerakan tepuk tangan serentak dan cepat.",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/7/73/Penari_Saman_Aceh.jpg"
+    },
+    {
+        "kab": "Banda Aceh",
+        "nama": "Tari Seudati",
+        "jenis": "tari",
+        "desk": "Tari tradisional Aceh penuh energi, ditarikan 8 pria dengan syair pujian.",
+        "img": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&q=80"
+    },
+    {
+        "kab": "Banda Aceh",
+        "nama": "Tari Likok Pulo",
+        "jenis": "tari",
+        "desk": "Tarian yang berasal dari Pulau Breuh, Aceh Besar.",
+        "img": "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80"
+    },
+    {
+        "kab": "Banda Aceh",
+        "nama": "Rencong",
+        "jenis": "senjata",
+        "desk": "Senjata tradisional khas Aceh berbentuk mirip kaligrafi Arab.",
+        "img": "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800&q=80"
+    },
+    {
+        "kab": "Banda Aceh",
+        "nama": "Kupiah Meukeutop",
+        "jenis": "pakaian",
+        "desk": "Tutup kepala pria Aceh yang menjadi simbol keislaman.",
+        "img": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+    },
+    {
+        "kab": "Banda Aceh",
+        "nama": "Peusijuek",
+        "jenis": "upacara",
+        "desk": "Tradisi adat Aceh untuk mendinginkan atau memberi restu.",
+        "img": "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=800&q=80"
+    },
+    {
+        "kab": "Medan",
+        "nama": "Rumah Adat Bolon",
+        "jenis": "rumah_adat",
+        "desk": "Rumah adat suku Batak Toba dengan atap melengkung.",
+        "img": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80"
+    },
+    {
+        "kab": "Karo",
+        "nama": "Rumah Siwaluh Jabu",
+        "jenis": "rumah_adat",
+        "desk": "Rumah adat Karo yang dihuni 8 keluarga.",
+        "img": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80"
+    },
+    {
+        "kab": "Medan",
+        "nama": "Tari Tor-Tor",
+        "jenis": "tari",
+        "desk": "Tarian tradisional Batak yang diiringi alat musik Gondang.",
+        "img": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80"
+    },
+    {
+        "kab": "Medan",
+        "nama": "Tari Serampang Dua Belas",
+        "jenis": "tari",
+        "desk": "Tarian pergaulan khas Melayu Deli, Sumatera Utara.",
+        "img": "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80"
+    },
+    {
+        "kab": "Medan",
+        "nama": "Ulos",
+        "jenis": "pakaian",
+        "desk": "Kain tenun khas Batak yang memiliki nilai sakral.",
+        "img": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+    },
+    {
+        "kab": "Medan",
+        "nama": "Piso Surit",
+        "jenis": "senjata",
+        "desk": "Senjata tradisional khas suku Karo.",
+        "img": "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800&q=80"
+    },
+    {
+        "kab": "Medan",
+        "nama": "Gondang",
+        "jenis": "alat_musik",
+        "desk": "Ansambel musik tradisional Batak.",
+        "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+    },
+    {
+        "kab": "Bukittinggi",
+        "nama": "Rumah Gadang",
+        "jenis": "rumah_adat",
+        "desk": "Rumah adat Minangkabau dengan atap gonjong (tanduk kerbau).",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Rumah_Gadang.jpg"
+    },
+    {
+        "kab": "Padang",
+        "nama": "Tari Piring",
+        "jenis": "tari",
+        "desk": "Tarian khas Minang dengan piring di telapak tangan.",
+        "img": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&q=80"
+    },
+    {
+        "kab": "Padang",
+        "nama": "Tari Payung",
+        "jenis": "tari",
+        "desk": "Tarian khas Minang yang menggambarkan kasih sayang.",
+        "img": "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80"
+    },
+    {
+        "kab": "Padang",
+        "nama": "Tari Indang",
+        "jenis": "tari",
+        "desk": "Tarian dakwah khas Minang yang ditarikan pria.",
+        "img": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80"
+    },
+    {
+        "kab": "Padang",
+        "nama": "Saluang",
+        "jenis": "alat_musik",
+        "desk": "Alat musik tiup bambu khas Minang.",
+        "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+    },
+    {
+        "kab": "Padang",
+        "nama": "Karih",
+        "jenis": "senjata",
+        "desk": "Senjata tajam khas Minangkabau.",
+        "img": "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800&q=80"
+    },
+    {
+        "kab": "Padang",
+        "nama": "Songket Pandai Sikek",
+        "jenis": "pakaian",
+        "desk": "Kain tenun khas Minang dengan benang emas.",
+        "img": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+    },
+    {
+        "kab": "Pekanbaru",
+        "nama": "Rumah Selaso Jatuh Kembar",
+        "jenis": "rumah_adat",
+        "desk": "Rumah adat Melayu Riau untuk balai musyawarah.",
+        "img": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80"
+    },
+    {
+        "kab": "Pekanbaru",
+        "nama": "Tari Zapin",
+        "jenis": "tari",
+        "desk": "Tarian pergaulan khas Melayu.",
+        "img": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80"
+    },
+    {
+        "kab": "Pekanbaru",
+        "nama": "Tari Makan Sirih",
+        "jenis": "tari",
+        "desk": "Tarian penyambutan tamu khas Riau.",
+        "img": "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80"
+    },
+    {
+        "kab": "Pekanbaru",
+        "nama": "Gambus",
+        "jenis": "alat_musik",
+        "desk": "Alat musik petik khas Melayu.",
+        "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+    },
+    {
+        "kab": "Pekanbaru",
+        "nama": "Calempong",
+        "jenis": "alat_musik",
+        "desk": "Alat musik pukul khas Riau.",
+        "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+    },
+    {
+        "kab": "Siak",
+        "nama": "Tenun Siak",
+        "jenis": "pakaian",
+        "desk": "Kain tenun khas Siak yang bermotif pucuk rebung.",
+        "img": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+    },
+    {
+        "kab": "Kampar",
+        "nama": "Tari Cindai",
+        "jenis": "tari",
+        "desk": "Tarian khas Kampar, Riau.",
+        "img": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&q=80"
+    },
+    {
+        "kab": "Tanjung Pinang",
+        "nama": "Rumah Panggung Melayu",
+        "jenis": "rumah_adat",
+        "desk": "Rumah adat Kepulauan Riau.",
+        "img": "https://images.unsplash.com/photo-1590247813693-5541d1c609fd?w=800&q=80"
+    },
+    {
+        "kab": "Tanjung Pinang",
+        "nama": "Tari Melemang",
+        "jenis": "tari",
+        "desk": "Tarian tradisional Kepulauan Riau.",
+        "img": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&q=80"
+    },
+    {
+        "kab": "Tanjung Pinang",
+        "nama": "Tari Lenggang",
+        "jenis": "tari",
+        "desk": "Tari pergaulan khas Kepulauan Riau.",
+        "img": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80"
+    },
+    {
+        "kab": "Tanjung Pinang",
+        "nama": "Baju Kurung Melayu",
+        "jenis": "pakaian",
+        "desk": "Pakaian adat Melayu Kepulauan Riau.",
+        "img": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+    },
+    {
+        "kab": "Jambi",
+        "nama": "Rumah Panggung Kajang Leko",
+        "jenis": "rumah_adat",
+        "desk": "Rumah adat Jambi dengan 8 ruangan.",
+        "img": "https://images.unsplash.com/photo-1590247813693-5541d1c609fd?w=800&q=80"
+    },
+    {
+        "kab": "Muaro Jambi",
+        "nama": "Tari Sekapur Sirih",
+        "jenis": "tari",
+        "desk": "Tarian penyambutan tamu agung khas Jambi.",
+        "img": "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80"
+    },
+    {
+        "kab": "Jambi",
+        "nama": "Tari Selaras Pinang Masak",
+        "jenis": "tari",
+        "desk": "Tarian klasik khas Jambi.",
+        "img": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&q=80"
+    },
+    {
+        "kab": "Jambi",
+        "nama": "Angso Duo",
+        "jenis": "senjata",
+        "desk": "Keris khas Jambi dengan dua bilah.",
+        "img": "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800&q=80"
+    },
+    {
+        "kab": "Jambi",
+        "nama": "Batik Jambi",
+        "jenis": "pakaian",
+        "desk": "Batik dengan motif khas Jambi.",
+        "img": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+    },
+    {
+        "kab": "Palembang",
+        "nama": "Rumah Limas",
+        "jenis": "rumah_adat",
+        "desk": "Rumah adat Sumatera Selatan dengan atap limas.",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/1/1d/TMII_South_Sumatra_Pavilion_Limas_House.jpg"
+    },
+    {
+        "kab": "Palembang",
+        "nama": "Rumah Rakit",
+        "jenis": "rumah_adat",
+        "desk": "Rumah tradisional di atas air Sungai Musi.",
+        "img": "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80"
+    },
+    {
+        "kab": "Palembang",
+        "nama": "Kain Songket",
+        "jenis": "pakaian",
+        "desk": "Kain tenun dengan benang emas khas Palembang.",
+        "img": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+    },
+    {
+        "kab": "Palembang",
+        "nama": "Kain Jumputan",
+        "jenis": "pakaian",
+        "desk": "Kain sasirangan khas Palembang.",
+        "img": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+    },
+    {
+        "kab": "Palembang",
+        "nama": "Tari Gending Sriwijaya",
+        "jenis": "tari",
+        "desk": "Tari penyambutan tamu kehormatan.",
+        "img": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80"
+    },
+    {
+        "kab": "Palembang",
+        "nama": "Tari Tanggai",
+        "jenis": "tari",
+        "desk": "Tarian Palembang dengan kuku panjang dari emas.",
+        "img": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&q=80"
+    },
+    {
+        "kab": "Palembang",
+        "nama": "Tari Putri Bekhusek",
+        "jenis": "tari",
+        "desk": "Tarian khas Sumsel yang menggambarkan keceriaan.",
+        "img": "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80"
+    },
+    {
+        "kab": "Palembang",
+        "nama": "Keris Palembang",
+        "jenis": "senjata",
+        "desk": "Senjata tradisional dengan bilah berlekuk khas Palembang.",
+        "img": "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800&q=80"
+    },
+    {
+        "kab": "Palembang",
+        "nama": "Upacara Sedekah Rame",
+        "jenis": "upacara",
+        "desk": "Tradisi syukuran masyarakat Sumsel.",
+        "img": "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=800&q=80"
+    },
+    {
+        "kab": "Lahat",
+        "nama": "Tari Kebagh",
+        "jenis": "tari",
+        "desk": "Tarian tradisional khas Lahat.",
+        "img": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80"
+    },
+    {
+        "kab": "Pangkal Pinang",
+        "nama": "Rumah Rakit Belitung",
+        "jenis": "rumah_adat",
+        "desk": "Rumah adat panggung khas Bangka Belitung.",
+        "img": "https://images.unsplash.com/photo-1590247813693-5541d1c609fd?w=800&q=80"
+    },
+    {
+        "kab": "Pangkal Pinang",
+        "nama": "Tari Campak",
+        "jenis": "tari",
+        "desk": "Tarian ceria masyarakat Bangka Belitung.",
+        "img": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&q=80"
+    },
+    {
+        "kab": "Pangkal Pinang",
+        "nama": "Tari Sepen",
+        "jenis": "tari",
+        "desk": "Tarian khas Bangka Belitung.",
+        "img": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80"
+    },
+    {
+        "kab": "Pangkal Pinang",
+        "nama": "Dambus",
+        "jenis": "alat_musik",
+        "desk": "Alat musik petik khas Bangka Belitung.",
+        "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+    },
+    {
+        "kab": "Pangkal Pinang",
+        "nama": "Kain Cual",
+        "jenis": "pakaian",
+        "desk": "Kain tenun khas Bangka Belitung.",
+        "img": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+    },
+    {
+        "kab": "Pangkal Pinang",
+        "nama": "Kopiah Resam",
+        "jenis": "pakaian",
+        "desk": "Topi anyaman khas Bangka Belitung.",
+        "img": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+    },
+    {
+        "kab": "Bengkulu",
+        "nama": "Rumah Bubungan Lima",
+        "jenis": "rumah_adat",
+        "desk": "Rumah adat tertinggi di Bengkulu.",
+        "img": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80"
+    },
+    {
+        "kab": "Bengkulu",
+        "nama": "Tari Andun",
+        "jenis": "tari",
+        "desk": "Tarian rakyat Bengkulu saat panen raya.",
+        "img": "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80"
+    },
+    {
+        "kab": "Bengkulu",
+        "nama": "Tari Bidadari Teminang Anak",
+        "jenis": "tari",
+        "desk": "Tarian klasik khas Bengkulu.",
+        "img": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&q=80"
+    },
+    {
+        "kab": "Bengkulu",
+        "nama": "Kain Besurek",
+        "jenis": "pakaian",
+        "desk": "Batik khas Bengkulu dengan tulisan Arab-Melayu.",
+        "img": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+    },
+    {
+        "kab": "Bengkulu",
+        "nama": "Keris Bengkulu",
+        "jenis": "senjata",
+        "desk": "Senjata tradisional khas Bengkulu.",
+        "img": "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800&q=80"
+    },
+    {
+        "kab": "Bengkulu",
+        "nama": "Doll",
+        "jenis": "alat_musik",
+        "desk": "Alat musik pukul khas Bengkulu.",
+        "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+    },
+    {
+        "kab": "Bandar Lampung",
+        "nama": "Rumah Nuwo Sesat",
+        "jenis": "rumah_adat",
+        "desk": "Rumah adat masyarakat Lampung.",
+        "img": "https://images.unsplash.com/photo-1590247813693-5541d1c609fd?w=800&q=80"
+    },
+    {
+        "kab": "Bandar Lampung",
+        "nama": "Tari Sigeh Penguten",
+        "jenis": "tari",
+        "desk": "Tarian penyambutan tamu adat Lampung.",
+        "img": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&q=80"
+    },
+    {
+        "kab": "Bandar Lampung",
+        "nama": "Tari Melinting",
+        "jenis": "tari",
+        "desk": "Tarian tertua di Lampung, tarian keprajuritan.",
+        "img": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80"
+    },
+    {
+        "kab": "Bandar Lampung",
+        "nama": "Siger",
+        "jenis": "pakaian",
+        "desk": "Mahkota pengantin wanita adat Lampung.",
+        "img": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+    },
+    {
+        "kab": "Bandar Lampung",
+        "nama": "Kain Tapis",
+        "jenis": "pakaian",
+        "desk": "Kain tenun sulam benang emas khas Lampung.",
+        "img": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+    },
+    {
+        "kab": "Bandar Lampung",
+        "nama": "Gamolan",
+        "jenis": "alat_musik",
+        "desk": "Alat musik xilofon khas Lampung.",
+        "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+    },
+    {
+        "kab": "Bandar Lampung",
+        "nama": "Upacara Cangget",
+        "jenis": "upacara",
+        "desk": "Upacara adat pernikahan masyarakat Lampung.",
+        "img": "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=800&q=80"
+    },
+    {
+        "kab": "Banda Aceh",
+        "nama": "Tari Ranup Lampuan",
+        "jenis": "tari",
+        "desk": "Tarian penyambutan tamu khas Aceh dengan gerakan lembut dan sirih.",
+        "img": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&q=80"
+    },
+    {
+        "kab": "Banda Aceh",
+        "nama": "Serune Kalee",
+        "jenis": "alat_musik",
+        "desk": "Alat musik tiup tradisional khas Aceh.",
+        "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+    },
+    {
+        "kab": "Lhokseumawe",
+        "nama": "Sikin Panyang",
+        "jenis": "senjata",
+        "desk": "Pedang panjang tradisional khas Aceh.",
+        "img": "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800&q=80"
+    },
+    {
+        "kab": "Nias",
+        "nama": "Omo Sebua",
+        "jenis": "rumah_adat",
+        "desk": "Rumah adat besar masyarakat Nias untuk kepala desa.",
+        "img": "https://images.unsplash.com/photo-1590247813693-5541d1c609fd?w=800&q=80"
+    },
+    {
+        "kab": "Nias",
+        "nama": "Tari Maena",
+        "jenis": "tari",
+        "desk": "Tarian rakyat Nias yang ditarikan secara berkelompok.",
+        "img": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80"
+    },
+    {
+        "kab": "Mandailing Natal",
+        "nama": "Gordang Sambilan",
+        "jenis": "alat_musik",
+        "desk": "Ansambel gendang sembilan khas Mandailing.",
+        "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+    },
+    {
+        "kab": "Simalungun",
+        "nama": "Piso Tumbuk Lada",
+        "jenis": "senjata",
+        "desk": "Senjata tradisional khas Simalungun.",
+        "img": "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800&q=80"
+    },
+    {
+        "kab": "Agam",
+        "nama": "Tari Randai",
+        "jenis": "tari",
+        "desk": "Teater tari Minang dengan gerakan melingkar.",
+        "img": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&q=80"
+    },
+    {
+        "kab": "Tanah Datar",
+        "nama": "Talempong",
+        "jenis": "alat_musik",
+        "desk": "Alat musik pukul logam khas Minangkabau.",
+        "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+    },
+    {
+        "kab": "Padang",
+        "nama": "Rabab",
+        "jenis": "alat_musik",
+        "desk": "Alat musik gesek tradisional khas Minang.",
+        "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+    },
+    {
+        "kab": "Bukittinggi",
+        "nama": "Kerambit",
+        "jenis": "senjata",
+        "desk": "Senjata lengkung kecil khas Minangkabau.",
+        "img": "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800&q=80"
+    },
+    {
+        "kab": "Bengkalis",
+        "nama": "Rumah Lontiok",
+        "jenis": "rumah_adat",
+        "desk": "Rumah adat Melayu Riau berbentuk panggung.",
+        "img": "https://images.unsplash.com/photo-1590247813693-5541d1c609fd?w=800&q=80"
+    },
+    {
+        "kab": "Pekanbaru",
+        "nama": "Tari Persembahan",
+        "jenis": "tari",
+        "desk": "Tarian penyambutan tamu khas Melayu Riau.",
+        "img": "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80"
+    },
+    {
+        "kab": "Pekanbaru",
+        "nama": "Kompang",
+        "jenis": "alat_musik",
+        "desk": "Alat musik pukul sejenis rebana khas Melayu.",
+        "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+    },
+    {
+        "kab": "Pekanbaru",
+        "nama": "Baju Melayu Riau",
+        "jenis": "pakaian",
+        "desk": "Pakaian adat Melayu Riau.",
+        "img": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+    },
+    {
+        "kab": "Tanjung Pinang",
+        "nama": "Tari Tandak",
+        "jenis": "tari",
+        "desk": "Tarian pergaulan Melayu Kepulauan Riau.",
+        "img": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80"
+    },
+    {
+        "kab": "Batam",
+        "nama": "Gendang Nobat",
+        "jenis": "alat_musik",
+        "desk": "Alat musik kerajaan Melayu Kepulauan Riau.",
+        "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+    },
+    {
+        "kab": "Tanjung Pinang",
+        "nama": "Baju Kebaya Labuh",
+        "jenis": "pakaian",
+        "desk": "Pakaian adat perempuan Melayu Kepulauan Riau.",
+        "img": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+    },
+    {
+        "kab": "Kerinci",
+        "nama": "Tari Rangguk",
+        "jenis": "tari",
+        "desk": "Tarian rakyat Kerinci dengan gerakan mengangguk.",
+        "img": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&q=80"
+    },
+    {
+        "kab": "Jambi",
+        "nama": "Serunai Jambi",
+        "jenis": "alat_musik",
+        "desk": "Alat musik tiup khas Jambi.",
+        "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+    },
+    {
+        "kab": "Jambi",
+        "nama": "Keris Siginjai",
+        "jenis": "senjata",
+        "desk": "Keris pusaka khas Jambi.",
+        "img": "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800&q=80"
+    },
+    {
+        "kab": "Palembang",
+        "nama": "Tari Kipas Serumpun",
+        "jenis": "tari",
+        "desk": "Tarian kipas khas Sumatera Selatan.",
+        "img": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80"
+    },
+    {
+        "kab": "Palembang",
+        "nama": "Aesan Gede",
+        "jenis": "pakaian",
+        "desk": "Pakaian adat pengantin khas Palembang.",
+        "img": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+    },
+    {
+        "kab": "Ogan Komering Ilir",
+        "nama": "Rebana Rudat",
+        "jenis": "alat_musik",
+        "desk": "Alat musik pukul dalam kesenian Rudat Sumatera Selatan.",
+        "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+    },
+    {
+        "kab": "Pangkal Pinang",
+        "nama": "Tari Kedidi",
+        "jenis": "tari",
+        "desk": "Tarian tradisional khas Bangka Belitung.",
+        "img": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&q=80"
+    },
+    {
+        "kab": "Pangkal Pinang",
+        "nama": "Paksian",
+        "jenis": "pakaian",
+        "desk": "Pakaian adat pengantin khas Bangka Belitung.",
+        "img": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+    },
+    {
+        "kab": "Belitung",
+        "nama": "Parang Bangka",
+        "jenis": "senjata",
+        "desk": "Senjata tradisional khas Bangka Belitung.",
+        "img": "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800&q=80"
+    },
+    {
+        "kab": "Bengkulu",
+        "nama": "Tari Gandai",
+        "jenis": "tari",
+        "desk": "Tarian rakyat khas Bengkulu.",
+        "img": "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80"
+    },
+    {
+        "kab": "Bengkulu",
+        "nama": "Redap",
+        "jenis": "alat_musik",
+        "desk": "Alat musik pukul tradisional khas Bengkulu.",
+        "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+    },
+    {
+        "kab": "Bengkulu",
+        "nama": "Kuduk",
+        "jenis": "senjata",
+        "desk": "Senjata tradisional khas Bengkulu.",
+        "img": "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800&q=80"
+    },
+    {
+        "kab": "Bandar Lampung",
+        "nama": "Tari Bedana",
+        "jenis": "tari",
+        "desk": "Tarian pergaulan khas Lampung.",
+        "img": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80"
+    },
+    {
+        "kab": "Bandar Lampung",
+        "nama": "Bende",
+        "jenis": "alat_musik",
+        "desk": "Alat musik tradisional khas Lampung.",
+        "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+    },
+    {
+        "kab": "Bandar Lampung",
+        "nama": "Keris Lampung",
+        "jenis": "senjata",
+        "desk": "Senjata tradisional khas Lampung.",
+        "img": "https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800&q=80"
+    },
+    {
+        "kab": "Tulang Bawang",
+        "nama": "Baju Adat Tulang Bawang",
+        "jenis": "pakaian",
+        "desk": "Pakaian adat khas masyarakat Tulang Bawang, Lampung.",
+        "img": "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+    }
+]

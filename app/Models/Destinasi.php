@@ -10,17 +10,17 @@ class Destinasi extends Model
     use HasFactory;
 
     protected $fillable = [
-        'kabupaten_id',
-        'nama',
-        'slug',
-        'deskripsi',
-        'gambar',
-        'harga_tiket',
-        'rating',
-        'kategori',
-        'latitude',
-        'longitude',
-    ];
+    'nama',
+    'slug',
+    'kabupaten_id',
+    'kategori',
+    'jenis', // <-- INI WAJIB ADA
+    'harga_tiket',
+    'deskripsi',
+    'gambar',
+    'latitude',
+    'longitude',
+];
 
     public function kabupaten()
     {
