@@ -2,59 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): View
+    public function update(Request $request)
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
-    }
-
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
-
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
         $user = $request->user();
 
-        Auth::logout();
+        // 🌟 1. VALIDASI (Wajib ada 'photo')
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Maks 2MB
+            'job' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255',
+        ]);
 
-        $user->delete();
+        // 🌟 2. UPDATE DATA TEKS
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->job = $request->job;
+        $user->address = $request->address;
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        // 🌟 3. PROSES UPLOAD FOTO
+        if ($request->hasFile('photo')) {
+            // Hapus foto lama kalau ada
+            if ($user->photo && Storage::disk('public')->exists($user->photo)) {
+                Storage::disk('public')->delete($user->photo);
+            }
 
-        return Redirect::to('/');
+            // Simpan foto baru
+            $path = $request->file('photo')->store('photos', 'public');
+            $user->photo = $path;
+        }
+
+        // Ganti password (opsional)
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return Redirect::back()->with('success', 'Profil berhasil diperbarui!');
     }
 }

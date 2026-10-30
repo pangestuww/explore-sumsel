@@ -143,7 +143,7 @@
                 <div class="md:col-span-2 relative">
                     <i class="fas fa-map-marker-alt absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 z-10 pointer-events-none"></i>
                     <select name="kabupaten" id="filterKabupaten" class="custom-select w-full pl-11 pr-10 py-3.5 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl focus:outline-none focus:border-emerald-500 transition-all cursor-pointer font-medium text-slate-900 dark:text-white">
-                        <option value="">Semua Kabupaten</option>
+                        <option value="">Kabupaten/Kota</option>
                         @foreach ($kabupatens as $kab)
                             <option value="{{ $kab->id }}" data-provinsi="{{ $kab->provinsi_id }}" {{ request('kabupaten') == $kab->id ? 'selected' : '' }}>
                                 {{ $kab->nama }}

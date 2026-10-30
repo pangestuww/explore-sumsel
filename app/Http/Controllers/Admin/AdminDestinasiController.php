@@ -18,7 +18,6 @@ class AdminDestinasiController extends Controller
     {
         $destinasis = Destinasi::with('kabupaten.provinsi')->latest()->paginate(10);
         $kabupatens = Kabupaten::orderBy('nama')->get();
-
         return view('admin.destinasi.index', compact('destinasis', 'kabupatens'));
     }
 
@@ -37,9 +36,13 @@ class AdminDestinasiController extends Controller
             'jenis' => 'required|string',
             'harga_tiket' => 'required|numeric',
             'deskripsi' => 'required|string',
+            'deskripsi_bawah' => 'nullable|string', // 🌟 Tambahan Baru
+            'jam_buka' => 'nullable|string|max:255', // 🌟 Tambahan Baru
+            'waktu_terbaik' => 'nullable|string|max:255', // 🌟 Tambahan Baru
             'gambar' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
+            'link_maps' => 'nullable|string',
         ]);
 
         $data = $request->all();
@@ -49,16 +52,15 @@ class AdminDestinasiController extends Controller
             $data['gambar'] = $request->file('gambar')->store('destinasi', 'public');
         }
 
-        Destinasi::create($data);
+        $destinasi = Destinasi::create($data);
 
-        // Kirim Notifikasi
         $kabupaten = Kabupaten::find($request->kabupaten_id);
         $users = User::where('role', 'user')->get();
         $notifData = [
             'nama' => $request->nama,
             'kategori' => $request->kategori,
             'kabupaten' => $kabupaten ? $kabupaten->nama : 'Sumatera',
-            'url' => route('destinasi.index')
+            'url' => route('destinasi.show', $destinasi->slug)
         ];
         Notification::send($users, new NewContentNotification($notifData));
 
@@ -81,9 +83,13 @@ class AdminDestinasiController extends Controller
             'jenis' => 'required|string',
             'harga_tiket' => 'required|numeric',
             'deskripsi' => 'required|string',
+            'deskripsi_bawah' => 'nullable|string', // 🌟 Tambahan Baru
+            'jam_buka' => 'nullable|string|max:255', // 🌟 Tambahan Baru
+            'waktu_terbaik' => 'nullable|string|max:255', // 🌟 Tambahan Baru
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
+            'link_maps' => 'nullable|string', // 🌟 Tambahan (sebelumnya belum ada di update)
         ]);
 
         $destinasi = Destinasi::findOrFail($id);

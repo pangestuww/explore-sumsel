@@ -9,7 +9,17 @@ class Kuliner extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['kabupaten_id', 'nama', 'slug', 'deskripsi', 'gambar', 'harga', 'jenis'];
+    protected $fillable = [
+        'nama',
+        'jenis',
+        'kabupaten_id',
+        'harga',
+        'deskripsi',
+        'gambar',
+        'link_maps',
+        'latitude',
+        'longitude' // <-- Pastikan ini ada
+    ];
 
     public function kabupaten()
     {

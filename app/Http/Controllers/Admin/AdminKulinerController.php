@@ -7,8 +7,8 @@ use App\Models\Kuliner;
 use App\Models\Kabupaten;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\NewContentNotification;
 
@@ -16,13 +16,14 @@ class AdminKulinerController extends Controller
 {
     public function index()
     {
-        $kuliners = Kuliner::with('kabupaten.provinsi')->latest()->paginate(10);
-        return view('admin.kuliner.index', compact('kuliners'));
+        $kuliners = Kuliner::with('kabupaten')->latest()->paginate(10);
+        $kabupatens = Kabupaten::with('provinsi')->get();
+        return view('admin.kuliner.index', compact('kuliners', 'kabupatens'));
     }
 
     public function create()
     {
-        $kabupatens = Kabupaten::with('provinsi')->orderBy('nama')->get();
+        $kabupatens = Kabupaten::with('provinsi')->get();
         return view('admin.kuliner.create', compact('kabupatens'));
     }
 
@@ -34,39 +35,38 @@ class AdminKulinerController extends Controller
             'jenis' => 'required|string',
             'harga' => 'required|numeric',
             'deskripsi' => 'required|string',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'latitude' => 'nullable|string',
+            'longitude' => 'nullable|string',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->nama);
-        $data['kategori'] = 'kuliner'; // Paksa kategori kuliner
 
         if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request->file('gambar')->store('kuliner', 'public');
+            $path = $request->file('gambar')->store('kuliner', 'public');
+            $data['gambar'] = $path;
         }
 
-        Kuliner::create($data);
+        $kuliner = Kuliner::create($data);
 
-        // Kirim Notifikasi
         $kabupaten = Kabupaten::find($request->kabupaten_id);
         $users = User::where('role', 'user')->get();
         $notifData = [
             'nama' => $request->nama,
-            'kategori' => 'Kuliner',
+            'kategori' => 'kuliner',
             'kabupaten' => $kabupaten ? $kabupaten->nama : 'Sumatera',
-            'url' => route('kuliner.index')
+            'url' => route('kuliner.show', $kuliner->slug)
         ];
         Notification::send($users, new NewContentNotification($notifData));
 
-        return redirect()->route('admin.kuliner.index')->with('success', 'Kuliner berhasil ditambahkan!');
+        return redirect()->route('admin.kuliner.index')->with('success', 'Data kuliner berhasil ditambahkan!');
     }
 
     public function edit($id)
     {
         $kuliner = Kuliner::findOrFail($id);
-        $kabupatens = Kabupaten::with('provinsi')->orderBy('nama')->get();
-
-        // Pastikan ngirim ke 'admin.kuliner.edit'
+        $kabupatens = Kabupaten::with('provinsi')->get();
         return view('admin.kuliner.edit', compact('kuliner', 'kabupatens'));
     }
 
@@ -78,7 +78,10 @@ class AdminKulinerController extends Controller
             'jenis' => 'required|string',
             'harga' => 'required|numeric',
             'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'latitude' => 'nullable|string',
+            'longitude' => 'nullable|string',
+            'link_maps' => 'nullable|string',
         ]);
 
         $kuliner = Kuliner::findOrFail($id);
@@ -89,12 +92,13 @@ class AdminKulinerController extends Controller
             if ($kuliner->gambar && Storage::disk('public')->exists($kuliner->gambar)) {
                 Storage::disk('public')->delete($kuliner->gambar);
             }
-            $data['gambar'] = $request->file('gambar')->store('kuliner', 'public');
+            $path = $request->file('gambar')->store('kuliner', 'public');
+            $data['gambar'] = $path;
         }
 
         $kuliner->update($data);
 
-        return redirect()->route('admin.kuliner.index')->with('success', 'Kuliner berhasil diperbarui!');
+        return redirect()->route('admin.kuliner.index')->with('success', 'Data kuliner berhasil diperbarui!');
     }
 
     public function destroy($id)
@@ -107,6 +111,6 @@ class AdminKulinerController extends Controller
 
         $kuliner->delete();
 
-        return redirect()->route('admin.kuliner.index')->with('success', 'Kuliner berhasil dihapus!');
+        return redirect()->route('admin.kuliner.index')->with('success', 'Data kuliner berhasil dihapus!');
     }
 }

@@ -6,11 +6,10 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up(): void
+    public function up()
     {
         Schema::table('favorits', function (Blueprint $table) {
-            $table->foreignId('budaya_id')->nullable()->after('destinasi_id');
-            $table->foreignId('kuliner_id')->nullable()->after('budaya_id');
+            // $table->foreignId('budaya_id')->nullable()->after('destinasi_id');
         });
     }
 

@@ -9,7 +9,21 @@ class Budaya extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['kabupaten_id', 'nama', 'slug', 'deskripsi', 'gambar', 'jenis'];
+    protected $fillable = [
+        'nama',
+        'slug',
+        'deskripsi',
+        'deskripsi_bawah', // Ditambahkan untuk fitur deskripsi bawah
+        'gambar',
+        'kabupaten_id',
+        'kategori',
+        'link_maps',
+        'latitude',
+        'longitude',
+        'harga_tiket',
+        'jam_buka',
+        'waktu_terbaik'
+    ];
 
     public function kabupaten()
     {

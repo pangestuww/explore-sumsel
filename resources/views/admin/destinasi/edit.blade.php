@@ -68,7 +68,17 @@
                         <input type="number" name="harga_tiket" value="{{ old('harga_tiket', $destinasi->harga_tiket) }}" required class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">
                     </div>
 
+                    {{-- 🌟 TAMBAHAN JAM BUKA & WAKTU TERBAIK 🌟 --}}
                     <div>
+                        <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Jam Buka</label>
+                        <input type="text" name="jam_buka" value="{{ old('jam_buka', $destinasi->jam_buka) }}" placeholder="Contoh: 08.00 - 17.00 WIB" class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Terbaik Dikunjungi</label>
+                        <input type="text" name="waktu_terbaik" value="{{ old('waktu_terbaik', $destinasi->waktu_terbaik) }}" placeholder="Contoh: Pagi / Sore" class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+
+                    <div class="md:col-span-2">
                         <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Ganti Gambar (Opsional)</label>
                         <input type="file" name="gambar" accept="image/*" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 dark:file:bg-emerald-900/30 dark:file:text-emerald-400">
                         <p class="text-xs text-slate-500 mt-1">Biarkan kosong jika tidak ingin mengganti gambar.</p>
@@ -76,24 +86,25 @@
                 </div>
 
                 <div class="mb-6">
-                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Deskripsi</label>
+                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Deskripsi Atas</label>
                     <textarea name="deskripsi" rows="4" required class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">{{ old('deskripsi', $destinasi->deskripsi) }}</textarea>
                 </div>
 
-                {{-- 🌟 FITUR BARU: PASTE LINK GMAPS UNTUK EDIT LOKASI 🌟 --}}
+                {{-- 🌟 DESKRIPSI BAWAH 🌟 --}}
+                <div class="mb-6">
+                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Deskripsi Bawah (Tambahan)</label>
+                    <textarea name="deskripsi_bawah" rows="4" placeholder="Masukkan deskripsi tambahan bagian bawah..." class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">{{ old('deskripsi_bawah', $destinasi->deskripsi_bawah ?? '') }}</textarea>
+                </div>
+
                 <div class="mb-8 p-4 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-xl">
                     <label class="block text-sm font-bold text-emerald-700 dark:text-emerald-400 mb-2">
                         <i class="fas fa-map-marker-alt mr-1"></i> Perbarui Lokasi (Tempel Link Google Maps)
                     </label>
-                    <input type="text" id="gmapsLink" placeholder="Contoh: https://www.google.com/maps/@-2.982,104.723,15z" class="w-full px-4 py-3 rounded-xl border border-emerald-300 dark:border-emerald-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none mb-2">
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Sistem akan otomatis mengambil koordinat dari link tersebut. Biarkan kosong jika tidak ingin mengubah lokasi.</p>
-
-                    {{-- Status Koordinat --}}
+                    <input type="text" name="link_maps" id="gmapsLink" value="{{ old('link_maps', $destinasi->link_maps) }}" placeholder="Contoh: https://www.google.com/maps/@-2.982,104.723,15z" class="w-full px-4 py-3 rounded-xl border border-emerald-300 dark:border-emerald-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none mb-2">
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Sistem akan otomatis mengambil koordinat dari link tersebut.</p>
                     <div id="coordStatus" class="mt-2 text-sm font-bold text-emerald-600 dark:text-emerald-400 {{ $destinasi->latitude ? '' : 'hidden' }}">
                         <i class="fas fa-check-circle"></i> Koordinat saat ini: <span id="coordDisplay">{{ $destinasi->latitude }}, {{ $destinasi->longitude }}</span>
                     </div>
-
-                    {{-- Input Hidden untuk menyimpan Lat & Lng ke Database --}}
                     <input type="hidden" name="latitude" id="inputLat" value="{{ old('latitude', $destinasi->latitude) }}">
                     <input type="hidden" name="longitude" id="inputLng" value="{{ old('longitude', $destinasi->longitude) }}">
                 </div>
@@ -105,48 +116,34 @@
                 </div>
             </form>
         </div>
-
     </div>
 </div>
 
-{{-- 🌟 JAVASCRIPT PENGEKSTRAK KOORDINAT DARI LINK GMAPS 🌟 --}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var gmapsInput = document.getElementById('gmapsLink');
         var inputLat = document.getElementById('inputLat');
         var inputLng = document.getElementById('inputLng');
         var coordStatus = document.getElementById('coordStatus');
-        var coordDisplay = document.getElementById('coordDisplay');
 
         gmapsInput.addEventListener('input', function() {
             var url = this.value;
-
-            // Regex untuk mencari format koordinat dari URL Gmaps
             var regexAt = /@(-?\d+\.\d+),(-?\d+\.\d+)/;
             var regexQ = /[?&]q=(-?\d+\.\d+),(-?\d+\.\d+)/;
             var regexData = /!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/;
-
             var match = url.match(regexAt) || url.match(regexQ) || url.match(regexData);
 
             if (match && match[1] && match[2]) {
-                // Jika ketemu, timpa nilai lat/lng lama di hidden input
                 inputLat.value = match[1];
                 inputLng.value = match[2];
-
-                // Tampilkan indikator sukses
-                coordDisplay.innerText = match[1] + ", " + match[2];
                 coordStatus.classList.remove('hidden');
-                coordStatus.innerHTML = '<i class="fas fa-check-circle"></i> Koordinat baru ditemukan: <span id="coordDisplay">' + match[1] + ", " + match[2] + '</span>';
+                coordStatus.innerHTML = '<i class="fas fa-check-circle"></i> Koordinat baru ditemukan: <span>' + match[1] + ", " + match[2] + '</span>';
             } else {
-                // Jika input dikosongkan, balikin ke koordinat awal
                 if (url.trim() === '') {
                     inputLat.value = "{{ $destinasi->latitude }}";
                     inputLng.value = "{{ $destinasi->longitude }}";
-                    if (inputLat.value) {
-                        coordStatus.innerHTML = '<i class="fas fa-check-circle"></i> Koordinat saat ini: <span>' + inputLat.value + ", " + inputLng.value + '</span>';
-                    } else {
-                        coordStatus.classList.add('hidden');
-                    }
+                    if (inputLat.value) coordStatus.innerHTML = '<i class="fas fa-check-circle"></i> Koordinat saat ini: <span>' + inputLat.value + ", " + inputLng.value + '</span>';
+                    else coordStatus.classList.add('hidden');
                 }
             }
         });

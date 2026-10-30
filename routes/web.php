@@ -4,13 +4,13 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DestinasiController;
 use App\Http\Controllers\BudayaController;
 use App\Http\Controllers\KulinerController;
-use App\Http\Controllers\PetaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FavoritController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\FeedbackController; // 🌟 BARU
 
 // ADMIN CONTROLLERS
 use App\Http\Controllers\Admin\AdminDashboardController;
@@ -28,7 +28,6 @@ Route::get('/budaya', [BudayaController::class, 'index'])->name('budaya.index');
 Route::get('/budaya/{slug}', [BudayaController::class, 'show'])->name('budaya.show');
 Route::get('/kuliner', [KulinerController::class, 'index'])->name('kuliner.index');
 Route::get('/kuliner/{slug}', [KulinerController::class, 'show'])->name('kuliner.show');
-Route::get('/peta', [PetaController::class, 'index'])->name('peta.index');
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 // ============ USER DASHBOARD & ACTIONS ============
@@ -40,9 +39,14 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/favorit/{type}/{id}', [FavoritController::class, 'destroy'])->name('favorit.destroy');
     Route::post('/review', [ReviewController::class, 'store'])->name('review.store');
 
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
     Route::get('/notifications/fetch', [NotificationController::class, 'fetch'])->name('notifications.fetch');
     Route::post('/notifications/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
     Route::post('/notifications/read/{id}', [NotificationController::class, 'markSingleAsRead'])->name('notifications.read.single');
+
+    // 🌟 FEEDBACK USER (KIRIM) 🌟
+    Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 });
 
 // ============ ADMIN DASHBOARD ============
@@ -53,6 +57,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/pengguna/api', [AdminPenggunaController::class, 'apiIndex'])->name('pengguna.api');
     Route::get('/pengguna', [AdminPenggunaController::class, 'index'])->name('pengguna.index');
     Route::delete('/pengguna/{user}', [AdminPenggunaController::class, 'destroy'])->name('pengguna.destroy');
+
+    // 🌟 FEEDBACK ADMIN (LIHAT & TANDAI DIBACA) 🌟
+    Route::get('/feedback/api', [FeedbackController::class, 'apiIndex'])->name('feedback.api');
+    Route::post('/feedback/read/{id}', [FeedbackController::class, 'markAsRead'])->name('feedback.read');
 
     // Kelola Profil Admin
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');

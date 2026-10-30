@@ -7,8 +7,8 @@ use App\Models\Budaya;
 use App\Models\Kabupaten;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\NewContentNotification;
 
@@ -16,13 +16,14 @@ class AdminBudayaController extends Controller
 {
     public function index()
     {
-        $budayas = Budaya::with('kabupaten.provinsi')->latest()->paginate(10);
-        return view('admin.budaya.index', compact('budayas'));
+        $budayas = Budaya::with('kabupaten')->latest()->paginate(10);
+        $kabupatens = Kabupaten::with('provinsi')->get();
+        return view('admin.budaya.index', compact('budayas', 'kabupatens'));
     }
 
     public function create()
     {
-        $kabupatens = Kabupaten::with('provinsi')->orderBy('nama')->get();
+        $kabupatens = Kabupaten::with('provinsi')->get();
         return view('admin.budaya.create', compact('kabupatens'));
     }
 
@@ -33,37 +34,43 @@ class AdminBudayaController extends Controller
             'kabupaten_id' => 'required|exists:kabupatens,id',
             'jenis' => 'required|string',
             'deskripsi' => 'required|string',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'deskripsi_bawah' => 'nullable|string', // 🌟 Tambahan Baru
+            'harga_tiket' => 'nullable|numeric', // 🌟 Tambahan Baru
+            'jam_buka' => 'nullable|string|max:255', // 🌟 Tambahan Baru
+            'waktu_terbaik' => 'nullable|string|max:255', // 🌟 Tambahan Baru
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'latitude' => 'nullable|string',
+            'longitude' => 'nullable|string',
+            'link_maps' => 'nullable|string',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->nama);
-        $data['kategori'] = 'budaya'; // Paksa kategori budaya
 
         if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request->file('gambar')->store('budaya', 'public');
+            $path = $request->file('gambar')->store('budaya', 'public');
+            $data['gambar'] = $path;
         }
 
-        Budaya::create($data);
+        $budaya = Budaya::create($data);
 
-        // Kirim Notifikasi
         $kabupaten = Kabupaten::find($request->kabupaten_id);
         $users = User::where('role', 'user')->get();
         $notifData = [
             'nama' => $request->nama,
-            'kategori' => 'Budaya',
+            'kategori' => 'budaya',
             'kabupaten' => $kabupaten ? $kabupaten->nama : 'Sumatera',
-            'url' => route('budaya.index')
+            'url' => route('budaya.show', $budaya->slug)
         ];
         Notification::send($users, new NewContentNotification($notifData));
 
-        return redirect()->route('admin.budaya.index')->with('success', 'Budaya berhasil ditambahkan!');
+        return redirect()->route('admin.budaya.index')->with('success', 'Data budaya berhasil ditambahkan!');
     }
 
     public function edit($id)
     {
         $budaya = Budaya::findOrFail($id);
-        $kabupatens = Kabupaten::with('provinsi')->orderBy('nama')->get();
+        $kabupatens = Kabupaten::with('provinsi')->get();
         return view('admin.budaya.edit', compact('budaya', 'kabupatens'));
     }
 
@@ -74,7 +81,14 @@ class AdminBudayaController extends Controller
             'kabupaten_id' => 'required|exists:kabupatens,id',
             'jenis' => 'required|string',
             'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'deskripsi_bawah' => 'nullable|string', // 🌟 Tambahan Baru
+            'harga_tiket' => 'nullable|numeric', // 🌟 Tambahan Baru
+            'jam_buka' => 'nullable|string|max:255', // 🌟 Tambahan Baru
+            'waktu_terbaik' => 'nullable|string|max:255', // 🌟 Tambahan Baru
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'latitude' => 'nullable|string',
+            'longitude' => 'nullable|string',
+            'link_maps' => 'nullable|string', // 🌟 Tambahan (sebelumnya belum ada di update)
         ]);
 
         $budaya = Budaya::findOrFail($id);
@@ -85,12 +99,13 @@ class AdminBudayaController extends Controller
             if ($budaya->gambar && Storage::disk('public')->exists($budaya->gambar)) {
                 Storage::disk('public')->delete($budaya->gambar);
             }
-            $data['gambar'] = $request->file('gambar')->store('budaya', 'public');
+            $path = $request->file('gambar')->store('budaya', 'public');
+            $data['gambar'] = $path;
         }
 
         $budaya->update($data);
 
-        return redirect()->route('admin.budaya.index')->with('success', 'Budaya berhasil diperbarui!');
+        return redirect()->route('admin.budaya.index')->with('success', 'Data budaya berhasil diperbarui!');
     }
 
     public function destroy($id)
@@ -103,6 +118,6 @@ class AdminBudayaController extends Controller
 
         $budaya->delete();
 
-        return redirect()->route('admin.budaya.index')->with('success', 'Budaya berhasil dihapus!');
+        return redirect()->route('admin.budaya.index')->with('success', 'Data budaya berhasil dihapus!');
     }
 }

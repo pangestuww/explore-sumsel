@@ -200,6 +200,27 @@
                     <textarea name="deskripsi" rows="4" required class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">{{ old('deskripsi') }}</textarea>
                 </div>
 
+                {{-- 🌟 BAGIAN LOKASI MAPS (BARU) 🌟 --}}
+                <div class="mb-8 p-5 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-sm font-bold text-slate-800 dark:text-white mb-4"><i class="fas fa-map-marked-alt text-emerald-500 mr-2"></i> Informasi Lokasi (Opsional)</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Link Google Maps</label>
+                            <input type="url" name="link_maps" value="{{ old('link_maps') }}" placeholder="https://maps.app.goo.gl/..." class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Latitude</label>
+                                <input type="text" name="latitude" value="{{ old('latitude') }}" placeholder="Contoh: -3.12345" class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Longitude</label>
+                                <input type="text" name="longitude" value="{{ old('longitude') }}" placeholder="Contoh: 104.12345" class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="flex justify-end gap-4 pt-4 border-t border-slate-200 dark:border-slate-800">
                     <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-8 py-3 rounded-xl transition-all shadow-lg shadow-emerald-600/30">
                         <i class="fas fa-save mr-2"></i> Simpan Kuliner

@@ -13,7 +13,8 @@ class DestinasiController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Destinasi::with(['kabupaten.provinsi']);
+        // 🌟 TAMBAHKAN 'reviews' DI DALAM WITH 🌟
+        $query = Destinasi::with(['kabupaten.provinsi', 'reviews']);
 
         if ($request->filled('provinsi')) {
             $query->whereHas('kabupaten', function ($q) use ($request) {
@@ -51,14 +52,12 @@ class DestinasiController extends Controller
             ->where('slug', $slug)
             ->firstOrFail();
 
-        // Destinasi terkait (kabupaten sama)
         $terkait = Destinasi::with('kabupaten')
             ->where('kabupaten_id', $destinasi->kabupaten_id)
             ->where('id', '!=', $destinasi->id)
             ->take(3)
             ->get();
 
-        // Fallback: random
         if ($terkait->isEmpty()) {
             $terkait = Destinasi::with('kabupaten')
                 ->where('id', '!=', $destinasi->id)
@@ -67,7 +66,6 @@ class DestinasiController extends Controller
                 ->get();
         }
 
-        // ✅ Cek apakah user sudah favorite destinasi ini
         $isFavorited = false;
         if (Auth::check()) {
             $isFavorited = Favorit::where('user_id', Auth::id())
@@ -75,10 +73,8 @@ class DestinasiController extends Controller
                 ->exists();
         }
 
-        // 🌟 TAMBAHKAN INI: Ambil data ulasan
         $reviews = $destinasi->reviews()->with('user')->latest()->get();
 
-        // 🌟 TAMBAHKAN $reviews DI DALAM COMPACT
         return view('destinasi.show', compact('destinasi', 'terkait', 'isFavorited', 'reviews'));
     }
 }

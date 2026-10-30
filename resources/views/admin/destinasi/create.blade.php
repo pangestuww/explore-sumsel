@@ -7,28 +7,131 @@
 {{-- 🌟 CUSTOM CSS UNTUK SELECT2 🌟 --}}
 <style>
     .select2-container--default .select2-selection--single {
-        background-color: #f8fafc !important; border: 1px solid #cbd5e1 !important; border-radius: 0.75rem !important;
-        height: 50px !important; display: flex !important; align-items: center !important; box-sizing: border-box !important; transition: all 0.2s !important;
+        background-color: #f8fafc !important;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 0.75rem !important;
+        height: 50px !important;
+        display: flex !important;
+        align-items: center !important;
+        box-sizing: border-box !important;
+        transition: all 0.2s !important;
     }
-    .dark .select2-container--default .select2-selection--single { background-color: #1e293b !important; border-color: #334155 !important; }
-    .select2-container--default .select2-selection--single .select2-selection__rendered { color: #0f172a !important; padding-left: 1rem !important; padding-right: 2.5rem !important; font-size: 0.875rem !important; line-height: normal !important; margin-top: 2px; }
-    .dark .select2-container--default .select2-selection--single .select2-selection__rendered { color: #ffffff !important; }
-    .select2-container--default .select2-selection--single .select2-selection__placeholder { color: #94a3b8 !important; }
-    .select2-container--default .select2-selection--single .select2-selection__arrow { height: 100% !important; right: 12px !important; display: flex !important; align-items: center !important; }
-    .select2-container--default .select2-selection--single .select2-selection__arrow b { border-color: #64748b transparent transparent transparent !important; }
-    .dark .select2-container--default .select2-selection--single .select2-selection__arrow b { border-color: #94a3b8 transparent transparent transparent !important; }
-    .select2-container--default.select2-container--focus .select2-selection--single, .select2-container--default.select2-container--open .select2-selection--single { border-color: #10b981 !important; box-shadow: 0 0 0 1px #10b981 !important; outline: none !important; }
-    .select2-dropdown { background-color: #ffffff !important; border: 1px solid #cbd5e1 !important; border-radius: 0.75rem !important; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1) !important; z-index: 9999 !important; padding: 4px !important; margin-top: 4px !important; }
-    .dark .select2-dropdown { background-color: #0f172a !important; border-color: #334155 !important; }
-    .select2-search--dropdown .select2-search__field { border-radius: 0.5rem !important; background-color: #f8fafc !important; border: 1px solid #cbd5e1 !important; color: #0f172a !important; padding: 0.5rem 0.75rem !important; margin: 4px !important; width: calc(100% - 8px) !important; outline: none !important; }
-    .dark .select2-search--dropdown .select2-search__field { background-color: #1e293b !important; border-color: #334155 !important; color: #ffffff !important; }
-    .select2-search--dropdown .select2-search__field:focus { border-color: #10b981 !important; }
-    .select2-results__option { padding: 8px 12px !important; font-size: 0.875rem !important; border-radius: 0.5rem !important; margin: 2px 4px !important; color: #0f172a !important; }
-    .dark .select2-results__option { color: #e2e8f0 !important; }
-    .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable { background-color: #10b981 !important; color: white !important; }
-    .select2-container--default .select2-results__option--selected { background-color: #e2e8f0 !important; color: #0f172a !important; }
-    .dark .select2-container--default .select2-results__option--selected { background-color: #334155 !important; color: #ffffff !important; }
-    .select2-results__group { font-weight: bold; color: #10b981; padding: 8px 12px 4px 12px !important; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .dark .select2-container--default .select2-selection--single {
+        background-color: #1e293b !important;
+        border-color: #334155 !important;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #0f172a !important;
+        padding-left: 1rem !important;
+        padding-right: 2.5rem !important;
+        font-size: 0.875rem !important;
+        line-height: normal !important;
+        margin-top: 2px;
+    }
+
+    .dark .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #ffffff !important;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__placeholder {
+        color: #94a3b8 !important;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 100% !important;
+        right: 12px !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow b {
+        border-color: #64748b transparent transparent transparent !important;
+    }
+
+    .dark .select2-container--default .select2-selection--single .select2-selection__arrow b {
+        border-color: #94a3b8 transparent transparent transparent !important;
+    }
+
+    .select2-container--default.select2-container--focus .select2-selection--single,
+    .select2-container--default.select2-container--open .select2-selection--single {
+        border-color: #10b981 !important;
+        box-shadow: 0 0 0 1px #10b981 !important;
+        outline: none !important;
+    }
+
+    .select2-dropdown {
+        background-color: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 0.75rem !important;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1) !important;
+        z-index: 9999 !important;
+        padding: 4px !important;
+        margin-top: 4px !important;
+    }
+
+    .dark .select2-dropdown {
+        background-color: #0f172a !important;
+        border-color: #334155 !important;
+    }
+
+    .select2-search--dropdown .select2-search__field {
+        border-radius: 0.5rem !important;
+        background-color: #f8fafc !important;
+        border: 1px solid #cbd5e1 !important;
+        color: #0f172a !important;
+        padding: 0.5rem 0.75rem !important;
+        margin: 4px !important;
+        width: calc(100% - 8px) !important;
+        outline: none !important;
+    }
+
+    .dark .select2-search--dropdown .select2-search__field {
+        background-color: #1e293b !important;
+        border-color: #334155 !important;
+        color: #ffffff !important;
+    }
+
+    .select2-search--dropdown .select2-search__field:focus {
+        border-color: #10b981 !important;
+    }
+
+    .select2-results__option {
+        padding: 8px 12px !important;
+        font-size: 0.875rem !important;
+        border-radius: 0.5rem !important;
+        margin: 2px 4px !important;
+        color: #0f172a !important;
+    }
+
+    .dark .select2-results__option {
+        color: #e2e8f0 !important;
+    }
+
+    .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+        background-color: #10b981 !important;
+        color: white !important;
+    }
+
+    .select2-container--default .select2-results__option--selected {
+        background-color: #e2e8f0 !important;
+        color: #0f172a !important;
+    }
+
+    .dark .select2-container--default .select2-results__option--selected {
+        background-color: #334155 !important;
+        color: #ffffff !important;
+    }
+
+    .select2-results__group {
+        font-weight: bold;
+        color: #10b981;
+        padding: 8px 12px 4px 12px !important;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
 </style>
 
 <div class="min-h-screen bg-slate-50 dark:bg-[#0b1120] py-10 transition-colors duration-300">
@@ -116,6 +219,11 @@
                 <div class="mb-6">
                     <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Deskripsi</label>
                     <textarea name="deskripsi" rows="4" required class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">{{ old('deskripsi') }}</textarea>
+                    <!-- Tambahan Deskripsi Bawah -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Deskripsi Bawah (Tambahan)</label>
+                        <textarea name="deskripsi_bawah" rows="4" placeholder="Masukkan deskripsi bagian bawah di sini..." class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"></textarea>
+                    </div>
                 </div>
 
                 <div class="mb-8 p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl">
@@ -162,18 +270,24 @@
         var allKabOptions = Array.from(kabSelect.querySelectorAll('option[data-provinsi]'));
 
         // Inisialisasi Select2 Provinsi & Kabupaten (Jenis udah gak pake ini)
-        $(provSelect).select2({ placeholder: "-- Pilih Provinsi --", width: '100%' });
-        $(kabSelect).select2({ placeholder: "-- Pilih Kabupaten --", width: '100%' });
+        $(provSelect).select2({
+            placeholder: "-- Pilih Provinsi --",
+            width: '100%'
+        });
+        $(kabSelect).select2({
+            placeholder: "-- Pilih Kabupaten --",
+            width: '100%'
+        });
 
         function filterKabupaten() {
             var selectedProv = provSelect.value;
-            
+
             // Hancurkan Select2 Kabupaten dulu biar gak bug
             $(kabSelect).select2('destroy');
-            
+
             // Reset HTML select kabupaten
             kabSelect.innerHTML = '<option value="">-- Pilih Kabupaten --</option>';
-            
+
             if (selectedProv !== '') {
                 allKabOptions.forEach(function(opt) {
                     if (opt.getAttribute('data-provinsi') === selectedProv) {
@@ -181,37 +295,48 @@
                     }
                 });
             }
-            
+
             // Bikin ulang Select2 Kabupaten
-            $(kabSelect).select2({ placeholder: "-- Pilih Kabupaten --", width: '100%' });
+            $(kabSelect).select2({
+                placeholder: "-- Pilih Kabupaten --",
+                width: '100%'
+            });
         }
 
-        $(provSelect).on('change', function() { filterKabupaten(); });
+        $(provSelect).on('change', function() {
+            filterKabupaten();
+        });
 
         var oldProvId = "{{ old('provinsi_id') }}";
         var oldKabId = "{{ old('kabupaten_id') }}";
-        
+
         if (oldProvId) {
             $(provSelect).val(oldProvId).trigger('change');
-            setTimeout(function() { 
+            setTimeout(function() {
                 if (oldKabId) {
-                    $(kabSelect).val(oldKabId).trigger('change'); 
+                    $(kabSelect).val(oldKabId).trigger('change');
                 }
             }, 100);
         }
 
         // PETA
         var map = L.map('mapPicker').setView([-2.99, 104.75], 11);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap contributors' }).addTo(map);
-        var marker = L.marker([-2.99, 104.75], { draggable: true }).addTo(map);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+        var marker = L.marker([-2.99, 104.75], {
+            draggable: true
+        }).addTo(map);
         var inputLat = document.getElementById('inputLat');
         var inputLng = document.getElementById('inputLng');
         var displayLat = document.getElementById('displayLat');
         var displayLng = document.getElementById('displayLng');
 
         function updateCoords(lat, lng) {
-            inputLat.value = lat; inputLng.value = lng;
-            displayLat.innerText = lat; displayLng.innerText = lng;
+            inputLat.value = lat;
+            inputLng.value = lng;
+            displayLat.innerText = lat;
+            displayLng.innerText = lng;
         }
 
         marker.on('dragend', function(e) {
@@ -220,16 +345,20 @@
         });
 
         map.on('click', function(e) {
-            var lat = e.latlng.lat; var lng = e.latlng.lng;
+            var lat = e.latlng.lat;
+            var lng = e.latlng.lng;
             marker.setLatLng([lat, lng]);
             updateCoords(lat.toFixed(6), lng.toFixed(6));
         });
 
         if (inputLat.value && inputLng.value) {
-            var oldLat = parseFloat(inputLat.value); var oldLng = parseFloat(inputLng.value);
+            var oldLat = parseFloat(inputLat.value);
+            var oldLng = parseFloat(inputLng.value);
             if (!isNaN(oldLat) && !isNaN(oldLng)) {
-                marker.setLatLng([oldLat, oldLng]); map.setView([oldLat, oldLng], 14);
-                displayLat.innerText = oldLat; displayLng.innerText = oldLng;
+                marker.setLatLng([oldLat, oldLng]);
+                map.setView([oldLat, oldLng], 14);
+                displayLat.innerText = oldLat;
+                displayLng.innerText = oldLng;
             }
         }
 
@@ -248,15 +377,20 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data && data.length > 0) {
-                        var lat = parseFloat(data[0].lat); var lon = parseFloat(data[0].lon);
-                        map.flyTo([lat, lon], 15, { duration: 1.5 });
+                        var lat = parseFloat(data[0].lat);
+                        var lon = parseFloat(data[0].lon);
+                        map.flyTo([lat, lon], 15, {
+                            duration: 1.5
+                        });
                         marker.setLatLng([lat, lon]);
                         updateCoords(lat.toFixed(6), lon.toFixed(6));
                     } else {
                         alert("Lokasi tidak ditemukan. Coba kata kunci lain.");
                     }
                 })
-                .catch(error => { alert("Gagal menghubungi server peta."); })
+                .catch(error => {
+                    alert("Gagal menghubungi server peta.");
+                })
                 .finally(() => {
                     btnSearch.innerHTML = originalBtnText;
                     btnSearch.disabled = false;
@@ -264,7 +398,10 @@
         });
 
         inputSearch.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') { e.preventDefault(); btnSearch.click(); }
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                btnSearch.click();
+            }
         });
     });
 </script>
