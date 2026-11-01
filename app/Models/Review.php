@@ -15,7 +15,8 @@ class Review extends Model
         'budaya_id',
         'kuliner_id',
         'rating',
-        'komentar', // Sesuaikan jika nama kolom di database kamu 'body' atau 'review'
+        'komentar',
+        'foto', // 🌟 Tambahan untuk foto
     ];
 
     // 🌟 INI YANG HILANG TADI (Relasi ke User) 🌟

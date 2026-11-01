@@ -7,62 +7,67 @@
 <div class="flex flex-col md:flex-row min-h-[calc(100vh-80px)] md:h-[calc(100vh-80px)] md:overflow-hidden bg-slate-50 dark:bg-[#0b1120] text-slate-800 dark:text-white transition-colors duration-300">
 
     <!-- SIDEBAR KIRI (di mobile menjadi menu horizontal di atas) -->
-    <aside class="w-full md:w-64 md:h-full bg-white dark:bg-[#0f172a] border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-800 flex flex-col shrink-0 transition-colors duration-300">
-        <div class="hidden md:block p-6 border-b border-slate-200 dark:border-slate-800 shrink-0">
-            <h2 class="font-bold text-lg text-slate-900 dark:text-white transition-colors" data-i18n="menu_admin">Menu Admin</h2>
-            <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="kelola_konten">Kelola Konten</p>
+    <aside class="w-full md:w-64 md:h-full bg-white dark:bg-[#0f172a] border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-800 flex flex-col shrink-0 transition-colors duration-300 shadow-[0_1px_0_0_rgba(15,23,42,0.03)] md:shadow-none">
+        <div class="hidden md:flex items-center gap-3 p-6 border-b border-slate-200 dark:border-slate-800 shrink-0">
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="min-w-0">
+                <h2 class="font-bold text-lg leading-tight text-slate-900 dark:text-white transition-colors" data-i18n="menu_admin">Menu Admin</h2>
+                <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="kelola_konten">Kelola Konten</p>
+            </div>
         </div>
 
         <div class="md:flex-1 overflow-x-auto md:overflow-x-visible md:overflow-y-auto py-3 md:py-6 px-3 md:px-4 [&::-webkit-scrollbar]:hidden md:[&::-webkit-scrollbar]:block">
             <p class="hidden md:block text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4 px-2" data-i18n="utama">Utama</p>
             <nav class="flex flex-row md:flex-col gap-2 md:gap-0 md:space-y-1 w-max md:w-auto">
-                <a href="{{ route('admin.dashboard') }}" class="shrink-0 whitespace-nowrap flex items-center gap-3 px-3 py-2.5 bg-emerald-600 text-white rounded-lg shadow-sm md:mb-3">
+                <a href="{{ route('admin.dashboard') }}" class="shrink-0 whitespace-nowrap flex items-center gap-3 px-3 py-2.5 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white rounded-xl shadow-md shadow-emerald-600/25 md:mb-3">
                     <i class="fas fa-th-large text-sm w-5 text-center"></i>
-                    <span class="font-medium text-sm" data-i18n="dashboard">Dashboard</span>
+                    <span class="font-semibold text-sm" data-i18n="dashboard">Dashboard</span>
                 </a>
 
-                <a href="{{ route('admin.destinasi.create') }}" class="shrink-0 whitespace-nowrap flex items-center gap-3 px-3 py-2.5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50 hover:bg-emerald-100 rounded-lg shadow-sm md:mb-4">
+                <a href="{{ route('admin.destinasi.create') }}" class="shrink-0 whitespace-nowrap flex items-center gap-3 px-3 py-2.5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-dashed border-emerald-300 dark:border-emerald-700/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 hover:border-emerald-400 rounded-xl transition-colors md:mb-4">
                     <i class="fas fa-plus-circle text-sm w-5 text-center"></i>
                     <span class="font-bold text-sm" data-i18n="tambah_konten">Tambah Konten</span>
                 </a>
 
                 <div class="hidden md:block h-px bg-slate-200 dark:bg-slate-800 my-4"></div>
 
-                <a href="{{ route('admin.destinasi.index') }}" class="shrink-0 whitespace-nowrap flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
-                    <i class="fas fa-map-marker-alt text-sm w-5 text-center"></i>
+                <a href="{{ route('admin.destinasi.index') }}" class="group shrink-0 whitespace-nowrap flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl transition-colors">
+                    <i class="fas fa-map-marker-alt text-sm w-5 text-center group-hover:text-emerald-500 transition-colors"></i>
                     <span class="font-medium text-sm" data-i18n="destinasi">Destinasi</span>
                 </a>
 
-                <a href="{{ route('admin.budaya.index') }}" class="shrink-0 whitespace-nowrap flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
-                    <i class="fas fa-masks-theater text-sm w-5 text-center"></i>
+                <a href="{{ route('admin.budaya.index') }}" class="group shrink-0 whitespace-nowrap flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl transition-colors">
+                    <i class="fas fa-masks-theater text-sm w-5 text-center group-hover:text-purple-500 transition-colors"></i>
                     <span class="font-medium text-sm" data-i18n="budaya">Budaya</span>
                 </a>
 
-                <a href="{{ route('admin.kuliner.index') }}" class="shrink-0 whitespace-nowrap flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
-                    <i class="fas fa-utensils text-sm w-5 text-center"></i>
+                <a href="{{ route('admin.kuliner.index') }}" class="group shrink-0 whitespace-nowrap flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl transition-colors">
+                    <i class="fas fa-utensils text-sm w-5 text-center group-hover:text-orange-500 transition-colors"></i>
                     <span class="font-medium text-sm" data-i18n="kuliner">Kuliner</span>
                 </a>
 
-                <button onclick="openUsersModal()" class="shrink-0 whitespace-nowrap md:w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-left">
-                    <i class="fas fa-users text-sm w-5 text-center"></i>
+                <button onclick="openUsersModal()" class="group shrink-0 whitespace-nowrap md:w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl text-left transition-colors">
+                    <i class="fas fa-users text-sm w-5 text-center group-hover:text-blue-500 transition-colors"></i>
                     <span class="font-medium text-sm" data-i18n="pengguna">Pengguna</span>
                 </button>
 
                 <!-- 🌟 MENU FEEDBACK BARU 🌟 -->
-                <button onclick="openAdminFeedbackModal()" class="shrink-0 whitespace-nowrap md:w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-left">
-                    <i class="fas fa-comment-dots text-sm w-5 text-center"></i>
+                <button onclick="openAdminFeedbackModal()" class="group shrink-0 whitespace-nowrap md:w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl text-left transition-colors">
+                    <i class="fas fa-comment-dots text-sm w-5 text-center group-hover:text-pink-500 transition-colors"></i>
                     <span class="font-medium text-sm" data-i18n="feedback">Feedback</span>
                 </button>
 
                 <!-- 📱 Pengaturan & Keluar: di mobile ikut masuk ke baris menu horizontal (disembunyikan di desktop) -->
-                <button onclick="openSettingsModal('general')" class="md:hidden shrink-0 whitespace-nowrap flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-left">
+                <button onclick="openSettingsModal('general')" class="md:hidden shrink-0 whitespace-nowrap flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl text-left">
                     <i class="fas fa-cog text-sm w-5 text-center"></i>
                     <span class="font-medium text-sm" data-i18n="pengaturan">Pengaturan</span>
                 </button>
 
                 <form method="POST" action="{{ route('logout') }}" class="md:hidden shrink-0">
                     @csrf
-                    <button type="submit" class="whitespace-nowrap flex items-center gap-3 px-3 py-2.5 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg text-left transition-colors">
+                    <button type="submit" class="whitespace-nowrap flex items-center gap-3 px-3 py-2.5 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-xl text-left transition-colors">
                         <i class="fas fa-sign-out-alt text-sm w-5 text-center"></i>
                         <span class="font-medium text-sm">Keluar</span>
                     </button>
@@ -73,7 +78,7 @@
         <!-- Bawah sidebar (hanya tampil di desktop) -->
         <div class="hidden md:block p-4 border-t border-slate-200 dark:border-slate-800 space-y-1 shrink-0">
             <!-- Tombol Pengaturan -->
-            <button onclick="openSettingsModal('general')" class="w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-left transition-colors">
+            <button onclick="openSettingsModal('general')" class="w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl text-left transition-colors">
                 <i class="fas fa-cog text-sm w-5 text-center"></i>
                 <span class="font-medium text-sm" data-i18n="pengaturan">Pengaturan</span>
             </button>
@@ -81,7 +86,7 @@
             <!-- 🌟 TOMBOL KELUAR BARU 🌟 -->
             <form method="POST" action="{{ route('logout') }}" class="w-full">
                 @csrf
-                <button type="submit" class="w-full flex items-center gap-3 px-3 py-2.5 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg text-left transition-colors">
+                <button type="submit" class="w-full flex items-center gap-3 px-3 py-2.5 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-xl text-left transition-colors">
                     <i class="fas fa-sign-out-alt text-sm w-5 text-center"></i>
                     <span class="font-medium text-sm">Keluar</span>
                 </button>
@@ -90,91 +95,147 @@
     </aside>
 
     <!-- KONTEN KANAN (DASHBOARD) -->
-    <main class="flex-1 p-4 md:p-10 md:overflow-y-auto md:h-full min-w-0">
-        <header class="flex items-center justify-between mb-6 md:mb-8">
-            <div>
-                <h1 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-1" data-i18n="dashboard_admin">Dashboard Admin</h1>
-                <p class="text-slate-500 dark:text-slate-400 text-sm" data-i18n="kelola_explore">Kelola Explore Sumatera</p>
-            </div>
-        </header>
+    <main class="flex-1 p-4 md:p-8 lg:p-10 md:overflow-y-auto md:h-full min-w-0">
+        <div class="max-w-7xl mx-auto">
 
-        <!-- Welcome Banner -->
-        <div class="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/50 dark:to-emerald-800/30 border border-emerald-200 dark:border-emerald-800/50 rounded-2xl p-6 mb-8 relative overflow-hidden">
-            <div class="relative z-10">
-                <p class="text-emerald-700 dark:text-emerald-400 text-sm font-medium mb-1" data-i18n="welcome_back">Selamat datang kembali!</p>
-                <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2"><span data-i18n="hello_admin">Halo, Admin</span> <span class="text-2xl">👋</span></h2>
-                <p class="text-slate-600 dark:text-slate-300 text-sm" data-i18n="pantau_aktivitas">Pantau aktivitas website kamu.</p>
-            </div>
-        </div>
+            <header class="flex items-center justify-between mb-5 md:mb-8">
+                <div class="flex items-center gap-3 md:gap-4">
+                    <div class="w-1.5 h-10 md:h-12 rounded-full bg-gradient-to-b from-emerald-500 to-teal-400 shrink-0"></div>
+                    <div>
+                        <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-0.5" data-i18n="dashboard_admin">Dashboard Admin</h1>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm" data-i18n="kelola_explore">Kelola Explore Sumatera</p>
+                    </div>
+                </div>
+            </header>
 
-        <!-- Stats Grid -->
-        <div class="grid grid-cols-2 gap-3 md:gap-4 mb-8">
-            <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 md:p-6 relative overflow-hidden group hover:border-emerald-500/50 transition-all shadow-sm">
-                <div class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-500/10 flex items-center justify-center mb-4">
-                    <i class="fas fa-map-marker-alt text-emerald-600 dark:text-emerald-400"></i>
+            <!-- Welcome Banner -->
+            <div class="relative overflow-hidden rounded-3xl p-6 md:p-8 mb-6 md:mb-8 bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-500 dark:from-emerald-900 dark:via-emerald-800 dark:to-teal-900 shadow-lg shadow-emerald-600/20 dark:shadow-black/30">
+                <div class="absolute -right-12 -top-12 w-56 h-56 rounded-full bg-white/10 blur-sm"></div>
+                <div class="absolute right-16 -bottom-16 w-48 h-48 rounded-full bg-teal-300/20 blur-2xl"></div>
+                <i class="fas fa-leaf absolute right-6 md:right-12 top-1/2 -translate-y-1/2 text-7xl md:text-[110px] text-white/15 -rotate-12 pointer-events-none"></i>
+                <div class="relative z-10">
+                    <p class="text-emerald-50/90 text-sm font-medium mb-1" data-i18n="welcome_back">Selamat datang kembali!</p>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-2 flex items-center gap-2"><span data-i18n="hello_admin">Halo, Admin</span> <span class="text-2xl md:text-3xl">👋</span></h2>
+                    <p class="text-emerald-50/90 text-sm" data-i18n="pantau_aktivitas">Pantau aktivitas website kamu.</p>
                 </div>
-                <p class="text-3xl font-bold text-slate-900 dark:text-white mb-1">{{ $stats['totalDestinasi'] ?? '0' }}</p>
-                <p class="text-slate-500 dark:text-slate-400 text-sm" data-i18n="destinasi">Destinasi</p>
             </div>
-            <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 md:p-6 relative overflow-hidden group hover:border-emerald-500/50 transition-all shadow-sm">
-                <div class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-500/10 flex items-center justify-center mb-4">
-                    <i class="fas fa-masks-theater text-emerald-600 dark:text-emerald-400"></i>
-                </div>
-                <p class="text-3xl font-bold text-slate-900 dark:text-white mb-1">{{ $stats['totalBudaya'] ?? '0' }}</p>
-                <p class="text-slate-500 dark:text-slate-400 text-sm" data-i18n="budaya">Budaya</p>
-            </div>
-            <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 md:p-6 relative overflow-hidden group hover:border-emerald-500/50 transition-all shadow-sm">
-                <div class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-500/10 flex items-center justify-center mb-4">
-                    <i class="fas fa-utensils text-emerald-600 dark:text-emerald-400"></i>
-                </div>
-                <p class="text-3xl font-bold text-slate-900 dark:text-white mb-1">{{ $stats['totalKuliner'] ?? '0' }}</p>
-                <p class="text-slate-500 dark:text-slate-400 text-sm" data-i18n="kuliner">Kuliner</p>
-            </div>
-            <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 md:p-6 relative overflow-hidden group hover:border-emerald-500/50 transition-all shadow-sm">
-                <div class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-500/10 flex items-center justify-center mb-4">
-                    <i class="fas fa-star text-emerald-600 dark:text-emerald-400"></i>
-                </div>
-                <p class="text-3xl font-bold text-slate-900 dark:text-white mb-1">{{ $stats['totalReview'] ?? '0' }}</p>
-                <p class="text-slate-500 dark:text-slate-400 text-sm" data-i18n="review">Review</p>
-            </div>
-        </div>
 
-        <!-- AREA GRAFIK -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-            <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
-                <h3 class="text-lg font-bold text-slate-900 dark:text-white" data-i18n="statistik_ulasan">Statistik Ulasan</h3>
-                <p class="text-slate-500 dark:text-slate-400 text-sm mb-4" data-i18n="distribusi_rating">Distribusi rating bintang.</p>
-                <div class="relative w-full h-[250px]"><canvas id="ratingChart"></canvas></div>
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 xl:grid-cols-4 gap-3 md:gap-5 mb-6 md:mb-8">
+                <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 md:p-6 relative overflow-hidden group hover:border-emerald-400/60 hover:shadow-lg hover:shadow-emerald-500/5 transition-all shadow-sm">
+                    <i class="fas fa-map-marker-alt absolute -right-3 -bottom-4 text-7xl md:text-8xl text-emerald-500/[0.07] group-hover:text-emerald-500/10 transition-colors pointer-events-none"></i>
+                    <div class="relative">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-500/10 flex items-center justify-center mb-4">
+                            <i class="fas fa-map-marker-alt text-emerald-600 dark:text-emerald-400"></i>
+                        </div>
+                        <p class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-1">{{ $stats['totalDestinasi'] ?? '0' }}</p>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm font-medium" data-i18n="destinasi">Destinasi</p>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 md:p-6 relative overflow-hidden group hover:border-purple-400/60 hover:shadow-lg hover:shadow-purple-500/5 transition-all shadow-sm">
+                    <i class="fas fa-masks-theater absolute -right-3 -bottom-4 text-7xl md:text-8xl text-purple-500/[0.07] group-hover:text-purple-500/10 transition-colors pointer-events-none"></i>
+                    <div class="relative">
+                        <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-500/10 flex items-center justify-center mb-4">
+                            <i class="fas fa-masks-theater text-purple-600 dark:text-purple-400"></i>
+                        </div>
+                        <p class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-1">{{ $stats['totalBudaya'] ?? '0' }}</p>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm font-medium" data-i18n="budaya">Budaya</p>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 md:p-6 relative overflow-hidden group hover:border-orange-400/60 hover:shadow-lg hover:shadow-orange-500/5 transition-all shadow-sm">
+                    <i class="fas fa-utensils absolute -right-3 -bottom-4 text-7xl md:text-8xl text-orange-500/[0.07] group-hover:text-orange-500/10 transition-colors pointer-events-none"></i>
+                    <div class="relative">
+                        <div class="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-500/10 flex items-center justify-center mb-4">
+                            <i class="fas fa-utensils text-orange-600 dark:text-orange-400"></i>
+                        </div>
+                        <p class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-1">{{ $stats['totalKuliner'] ?? '0' }}</p>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm font-medium" data-i18n="kuliner">Kuliner</p>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 md:p-6 relative overflow-hidden group hover:border-amber-400/60 hover:shadow-lg hover:shadow-amber-500/5 transition-all shadow-sm">
+                    <i class="fas fa-star absolute -right-3 -bottom-4 text-7xl md:text-8xl text-amber-500/[0.07] group-hover:text-amber-500/10 transition-colors pointer-events-none"></i>
+                    <div class="relative">
+                        <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-500/10 flex items-center justify-center mb-4">
+                            <i class="fas fa-star text-amber-500 dark:text-amber-400"></i>
+                        </div>
+                        <p class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-1">{{ $stats['totalReview'] ?? '0' }}</p>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm font-medium" data-i18n="review">Review</p>
+                    </div>
+                </div>
             </div>
-            <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
-                <h3 class="text-lg font-bold text-slate-900 dark:text-white" data-i18n="distribusi_konten">Distribusi Konten</h3>
-                <p class="text-slate-500 dark:text-slate-400 text-sm mb-4" data-i18n="perbandingan_konten">Perbandingan Destinasi, Budaya, Kuliner.</p>
-                <div class="relative w-full h-[250px] flex justify-center"><canvas id="contentChart"></canvas></div>
-            </div>
-            <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 lg:col-span-2 shadow-sm">
-                <h3 class="text-lg font-bold text-slate-900 dark:text-white" data-i18n="top_destinasi">Top 5 Destinasi</h3>
-                <p class="text-slate-500 dark:text-slate-400 text-sm mb-4" data-i18n="berdasarkan_ulasan">Berdasarkan jumlah ulasan pengunjung.</p>
-                <div class="relative w-full h-[250px]"><canvas id="topDestinasiChart"></canvas></div>
-            </div>
-            <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
-                <h3 class="text-lg font-bold text-slate-900 dark:text-white" data-i18n="top_kuliner">Top 5 Kuliner</h3>
-                <p class="text-slate-500 dark:text-slate-400 text-sm mb-4" data-i18n="berdasarkan_ulasan">Berdasarkan jumlah ulasan pengunjung.</p>
-                <div class="relative w-full h-[250px]"><canvas id="topKulinerChart"></canvas></div>
-            </div>
-            <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
-                <h3 class="text-lg font-bold text-slate-900 dark:text-white" data-i18n="top_budaya">Top 5 Budaya</h3>
-                <p class="text-slate-500 dark:text-slate-400 text-sm mb-4" data-i18n="berdasarkan_ulasan">Berdasarkan jumlah ulasan pengunjung.</p>
-                <div class="relative w-full h-[250px]"><canvas id="topBudayaChart"></canvas></div>
-            </div>
-            <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
-                <h3 class="text-lg font-bold text-slate-900 dark:text-white" data-i18n="user_aktif">Pengguna Paling Aktif Menilai</h3>
-                <p class="text-slate-500 dark:text-slate-400 text-sm mb-4" data-i18n="user_terbanyak">User dengan ulasan terbanyak.</p>
-                <div class="relative w-full h-[250px]"><canvas id="userReviewChart"></canvas></div>
-            </div>
-            <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
-                <h3 class="text-lg font-bold text-slate-900 dark:text-white" data-i18n="sebaran_destinasi">Sebaran Destinasi</h3>
-                <p class="text-slate-500 dark:text-slate-400 text-sm mb-4" data-i18n="top_kabupaten">Top 5 Kabupaten dengan destinasi terbanyak.</p>
-                <div class="relative w-full h-[250px]"><canvas id="kabupatenChart"></canvas></div>
+
+            <!-- AREA GRAFIK -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 mb-6">
+                <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 md:p-6 shadow-sm">
+                    <div class="flex items-start gap-3 mb-5">
+                        <div class="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-500/10 text-amber-500 flex items-center justify-center shrink-0"><i class="fas fa-star-half-alt text-sm"></i></div>
+                        <div>
+                            <h3 class="text-base md:text-lg font-bold leading-tight text-slate-900 dark:text-white" data-i18n="statistik_ulasan">Statistik Ulasan</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm" data-i18n="distribusi_rating">Distribusi rating bintang.</p>
+                        </div>
+                    </div>
+                    <div class="relative w-full h-[250px]"><canvas id="ratingChart"></canvas></div>
+                </div>
+                <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 md:p-6 shadow-sm">
+                    <div class="flex items-start gap-3 mb-5">
+                        <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0"><i class="fas fa-chart-pie text-sm"></i></div>
+                        <div>
+                            <h3 class="text-base md:text-lg font-bold leading-tight text-slate-900 dark:text-white" data-i18n="distribusi_konten">Distribusi Konten</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm" data-i18n="perbandingan_konten">Perbandingan Destinasi, Budaya, Kuliner.</p>
+                        </div>
+                    </div>
+                    <div class="relative w-full h-[250px] flex justify-center"><canvas id="contentChart"></canvas></div>
+                </div>
+                <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 md:p-6 lg:col-span-2 shadow-sm">
+                    <div class="flex items-start gap-3 mb-5">
+                        <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0"><i class="fas fa-map-marker-alt text-sm"></i></div>
+                        <div>
+                            <h3 class="text-base md:text-lg font-bold leading-tight text-slate-900 dark:text-white" data-i18n="top_destinasi">Top 5 Destinasi</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm" data-i18n="berdasarkan_ulasan">Berdasarkan jumlah ulasan pengunjung.</p>
+                        </div>
+                    </div>
+                    <div class="relative w-full h-[250px]"><canvas id="topDestinasiChart"></canvas></div>
+                </div>
+                <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 md:p-6 shadow-sm">
+                    <div class="flex items-start gap-3 mb-5">
+                        <div class="w-9 h-9 rounded-xl bg-orange-100 dark:bg-orange-500/10 text-orange-500 flex items-center justify-center shrink-0"><i class="fas fa-utensils text-sm"></i></div>
+                        <div>
+                            <h3 class="text-base md:text-lg font-bold leading-tight text-slate-900 dark:text-white" data-i18n="top_kuliner">Top 5 Kuliner</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm" data-i18n="berdasarkan_ulasan">Berdasarkan jumlah ulasan pengunjung.</p>
+                        </div>
+                    </div>
+                    <div class="relative w-full h-[250px]"><canvas id="topKulinerChart"></canvas></div>
+                </div>
+                <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 md:p-6 shadow-sm">
+                    <div class="flex items-start gap-3 mb-5">
+                        <div class="w-9 h-9 rounded-xl bg-purple-100 dark:bg-purple-500/10 text-purple-500 flex items-center justify-center shrink-0"><i class="fas fa-masks-theater text-sm"></i></div>
+                        <div>
+                            <h3 class="text-base md:text-lg font-bold leading-tight text-slate-900 dark:text-white" data-i18n="top_budaya">Top 5 Budaya</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm" data-i18n="berdasarkan_ulasan">Berdasarkan jumlah ulasan pengunjung.</p>
+                        </div>
+                    </div>
+                    <div class="relative w-full h-[250px]"><canvas id="topBudayaChart"></canvas></div>
+                </div>
+                <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 md:p-6 shadow-sm">
+                    <div class="flex items-start gap-3 mb-5">
+                        <div class="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-500/10 text-blue-500 flex items-center justify-center shrink-0"><i class="fas fa-user-check text-sm"></i></div>
+                        <div>
+                            <h3 class="text-base md:text-lg font-bold leading-tight text-slate-900 dark:text-white" data-i18n="user_aktif">Pengguna Paling Aktif Menilai</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm" data-i18n="user_terbanyak">User dengan ulasan terbanyak.</p>
+                        </div>
+                    </div>
+                    <div class="relative w-full h-[250px]"><canvas id="userReviewChart"></canvas></div>
+                </div>
+                <div class="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 md:p-6 shadow-sm">
+                    <div class="flex items-start gap-3 mb-5">
+                        <div class="w-9 h-9 rounded-xl bg-pink-100 dark:bg-pink-500/10 text-pink-500 flex items-center justify-center shrink-0"><i class="fas fa-location-dot text-sm"></i></div>
+                        <div>
+                            <h3 class="text-base md:text-lg font-bold leading-tight text-slate-900 dark:text-white" data-i18n="sebaran_destinasi">Sebaran Destinasi</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm" data-i18n="top_kabupaten">Top 5 Kabupaten dengan destinasi terbanyak.</p>
+                        </div>
+                    </div>
+                    <div class="relative w-full h-[250px]"><canvas id="kabupatenChart"></canvas></div>
+                </div>
             </div>
         </div>
     </main>
@@ -203,36 +264,48 @@
 <!-- 🌟 MODAL PENGATURAN (DENGAN TAB & BAHASA) 🌟 -->
 <!-- ========================================== -->
 <div id="settingsModal" class="fixed inset-0 z-[999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-    <div id="settingsModalContent" class="bg-white dark:bg-[#0f172a] rounded-2xl w-full max-w-4xl h-[650px] max-h-[90vh] shadow-2xl border border-slate-200 dark:border-slate-800 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col md:flex-row">
+    <div id="settingsModalContent" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-4xl h-[650px] max-h-[90vh] shadow-2xl border border-slate-200 dark:border-slate-800 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col md:flex-row">
 
         <!-- Sidebar Tabs (Kiri) -->
-        <div class="w-full md:w-56 bg-slate-50 dark:bg-slate-800/30 border-r border-slate-200 dark:border-slate-800 p-4 flex flex-col shrink-0">
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-6 px-4" data-i18n="settings">Settings</h3>
-            <div class="space-y-1">
-                <button id="btn-tab-general" onclick="switchSettingsTab('general')" class="settings-tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 font-semibold text-sm transition-colors">
+        <div class="w-full md:w-56 bg-slate-50 dark:bg-slate-800/30 border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-800 p-4 flex flex-col shrink-0">
+
+            <!-- Mobile Header (Judul + Tombol Close) - Hanya tampil di HP -->
+            <div class="flex md:hidden items-center justify-between mb-4 px-2">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white" data-i18n="settings">Settings</h3>
+                <button onclick="closeSettingsModal()" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-500 hover:bg-red-100 hover:text-red-600 transition"><i class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Desktop Title - Hanya tampil di Desktop -->
+            <h3 class="hidden md:block text-lg font-bold text-slate-900 dark:text-white mb-6 px-4" data-i18n="settings">Settings</h3>
+
+            <!-- Tab Menu: Bisa digeser ke samping (Horizontal) di HP, Tetap Vertikal di Desktop -->
+            <div class="flex flex-row md:flex-col gap-2 md:gap-0 md:space-y-1 overflow-x-auto md:overflow-x-visible pb-2 md:pb-0 [&::-webkit-scrollbar]:hidden md:[&::-webkit-scrollbar]:block w-full">
+                <button id="btn-tab-general" onclick="switchSettingsTab('general')" class="settings-tab-btn shrink-0 w-auto md:w-full flex items-center gap-2 md:gap-3 px-3 py-2 md:px-4 md:py-3 rounded-xl text-slate-600 dark:text-slate-400 font-semibold text-sm transition-colors whitespace-nowrap">
                     <i class="fas fa-cog"></i> <span data-i18n="general">General</span>
                 </button>
-                <button id="btn-tab-profil" onclick="switchSettingsTab('profil')" class="settings-tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 font-semibold text-sm transition-colors">
+                <button id="btn-tab-profil" onclick="switchSettingsTab('profil')" class="settings-tab-btn shrink-0 w-auto md:w-full flex items-center gap-2 md:gap-3 px-3 py-2 md:px-4 md:py-3 rounded-xl text-slate-600 dark:text-slate-400 font-semibold text-sm transition-colors whitespace-nowrap">
                     <i class="fas fa-user"></i> <span data-i18n="profil_saya">Profil Saya</span>
                 </button>
-                <button id="btn-tab-data" onclick="switchSettingsTab('data')" class="settings-tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 font-semibold text-sm transition-colors">
+                <button id="btn-tab-data" onclick="switchSettingsTab('data')" class="settings-tab-btn shrink-0 w-auto md:w-full flex items-center gap-2 md:gap-3 px-3 py-2 md:px-4 md:py-3 rounded-xl text-slate-600 dark:text-slate-400 font-semibold text-sm transition-colors whitespace-nowrap">
                     <i class="fas fa-database"></i> <span data-i18n="data">Data</span>
                 </button>
-                <button id="btn-tab-about" onclick="switchSettingsTab('about')" class="settings-tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 font-semibold text-sm transition-colors">
+                <button id="btn-tab-about" onclick="switchSettingsTab('about')" class="settings-tab-btn shrink-0 w-auto md:w-full flex items-center gap-2 md:gap-3 px-3 py-2 md:px-4 md:py-3 rounded-xl text-slate-600 dark:text-slate-400 font-semibold text-sm transition-colors whitespace-nowrap">
                     <i class="fas fa-info-circle"></i> <span data-i18n="about">About</span>
                 </button>
             </div>
         </div>
 
         <!-- Area Konten (Kanan) -->
-        <div class="flex-1 p-6 md:p-8 overflow-y-auto relative">
-            <!-- Tombol Close -->
-            <button onclick="closeSettingsModal()" class="absolute top-6 right-6 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:bg-red-100 hover:text-red-600 transition z-10"><i class="fas fa-times"></i></button>
+        <div class="flex-1 p-4 md:p-8 overflow-y-auto relative">
+
+            <!-- Tombol Close (Desktop) -->
+            <button onclick="closeSettingsModal()" class="hidden md:flex absolute top-6 right-6 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 items-center justify-center text-slate-500 hover:bg-red-100 hover:text-red-600 transition z-10"><i class="fas fa-times"></i></button>
 
             <!-- 🌟 KONTEN TAB: GENERAL (TEMA & BAHASA) 🌟 -->
             <div id="tab-general" class="tab-content hidden">
-                <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-8" data-i18n="tema_tampilan">Tema Tampilan</h4>
-                <div class="grid grid-cols-3 gap-4 mb-10">
+                <!-- Disesuaikan padding & margin-nya agar lebih rapi di HP -->
+                <h4 class="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-4 md:mb-8" data-i18n="tema_tampilan">Tema Tampilan</h4>
+                <div class="grid grid-cols-3 gap-2 md:gap-4 mb-6 md:mb-10">
                     <button onclick="setTheme('light')" id="btn-theme-light" class="flex flex-col items-center justify-center py-4 rounded-xl border-2 border-transparent bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all group focus:outline-none">
                         <i class="fas fa-sun text-slate-400 group-hover:text-amber-500 text-2xl mb-3 transition-colors"></i>
                         <span class="text-sm font-semibold text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white" data-i18n="light">Light</span>
@@ -247,9 +320,9 @@
                     </button>
                 </div>
 
-                <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-4" data-i18n="pengaturan_lainnya">Pengaturan Lainnya</h4>
+                <h4 class="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-4" data-i18n="pengaturan_lainnya">Pengaturan Lainnya</h4>
                 <div class="space-y-4">
-                    <div class="flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center justify-between gap-3 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/20">
                         <div>
                             <p class="font-bold text-sm text-slate-900 dark:text-white" data-i18n="bahasa">Bahasa</p>
                             <p class="text-xs text-slate-500" data-i18n="pilih_bahasa">Pilih bahasa antarmuka.</p>
@@ -312,26 +385,26 @@
                                 <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2 ml-1" data-i18n="nama_lengkap">Nama Lengkap</label>
                                 <div class="relative group">
                                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400"><i class="fas fa-user"></i></div>
-                                    <input type="text" name="name" value="{{ auth()->user()->name }}" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none" required>
+                                    <input type="text" name="name" value="{{ auth()->user()->name }}" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition" required>
                                 </div>
                             </div>
                             <div>
                                 <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2 ml-1" data-i18n="alamat_email">Alamat Email</label>
                                 <div class="relative group">
                                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400"><i class="fas fa-envelope"></i></div>
-                                    <input type="email" name="email" value="{{ auth()->user()->email }}" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none" required>
+                                    <input type="email" name="email" value="{{ auth()->user()->email }}" class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition" required>
                                 </div>
                             </div>
                             <div class="pt-2 border-t border-slate-100 dark:border-slate-800">
                                 <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2 ml-1 mt-3" data-i18n="ganti_password">Ganti Password (Opsional)</label>
                                 <div class="relative group">
                                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400"><i class="fas fa-lock"></i></div>
-                                    <input type="password" name="password" id="passwordInput" placeholder="Biarkan kosong" class="w-full pl-11 pr-12 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none text-sm" data-i18n-placeholder="password_kosong">
+                                    <input type="password" name="password" id="passwordInput" placeholder="Biarkan kosong" class="w-full pl-11 pr-12 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none text-sm transition" data-i18n-placeholder="password_kosong">
                                     <button type="button" onclick="togglePassword()" class="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-emerald-500"><i class="fas fa-eye" id="toggleIcon"></i></button>
                                 </div>
                             </div>
                             <div class="pt-4">
-                                <button type="submit" class="w-full px-4 py-3 rounded-xl font-bold text-white bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 shadow-lg shadow-emerald-500/40 flex items-center justify-center gap-2 transform hover:-translate-y-0.5"><i class="fas fa-check-circle"></i> <span data-i18n="simpan_perubahan">Simpan Perubahan</span></button>
+                                <button type="submit" class="w-full px-4 py-3 rounded-xl font-bold text-white bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 shadow-lg shadow-emerald-500/40 flex items-center justify-center gap-2 transform hover:-translate-y-0.5 transition"><i class="fas fa-check-circle"></i> <span data-i18n="simpan_perubahan">Simpan Perubahan</span></button>
                             </div>
                         </div>
                     </div>
@@ -341,7 +414,7 @@
             <!-- TAB DATA -->
             <div id="tab-data" class="tab-content hidden">
                 <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-4" data-i18n="data_website">Data Website</h4>
-                <div class="p-10 text-center bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-dashed border-slate-300 dark:border-slate-700">
+                <div class="p-10 text-center bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700">
                     <i class="fas fa-database text-4xl text-slate-300 mb-4"></i>
                     <p class="text-slate-500" data-i18n="fitur_backup">Fitur Backup & Restore database akan tersedia di sini.</p>
                 </div>
@@ -350,7 +423,7 @@
             <!-- TAB ABOUT -->
             <div id="tab-about" class="tab-content hidden">
                 <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-4" data-i18n="tentang_app">Tentang Aplikasi</h4>
-                <div class="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 text-center">
+                <div class="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 text-center">
                     <div class="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4 text-emerald-500">
                         <i class="fas fa-leaf text-3xl"></i>
                     </div>
@@ -366,14 +439,17 @@
 
 <!-- MODAL PENGGUNA (AJAX) -->
 <div id="usersModal" class="fixed inset-0 z-[999] hidden bg-slate-900/80 backdrop-blur-sm flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-    <div id="usersModalContent" class="bg-white dark:bg-[#0f172a] rounded-3xl p-6 md:p-8 max-w-3xl w-full mx-4 shadow-2xl border border-slate-200 dark:border-slate-800 transform scale-95 transition-transform duration-300">
+    <div id="usersModalContent" class="bg-white dark:bg-[#0f172a] rounded-3xl p-5 md:p-8 max-w-3xl w-full mx-4 shadow-2xl border border-slate-200 dark:border-slate-800 transform scale-95 transition-transform duration-300">
         <div class="flex justify-between items-center mb-6">
             <div>
-                <h3 class="text-xl font-bold flex items-center gap-2"><i class="fas fa-users text-emerald-500"></i> <span data-i18n="kelola_pengguna">Kelola Pengguna</span></h3>
+                <h3 class="text-xl font-bold flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-500/10 flex items-center justify-center"><i class="fas fa-users text-emerald-500"></i></span>
+                    <span data-i18n="kelola_pengguna">Kelola Pengguna</span>
+                </h3>
             </div>
-            <button onclick="closeUsersModal()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition"><i class="fas fa-times"></i></button>
+            <button onclick="closeUsersModal()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:bg-red-100 hover:text-red-600 transition"><i class="fas fa-times"></i></button>
         </div>
-        <div class="overflow-auto max-h-[60vh] rounded-xl border border-slate-200 dark:border-slate-800 mb-6">
+        <div class="overflow-auto max-h-[60vh] rounded-2xl border border-slate-200 dark:border-slate-800 mb-6">
             <table class="w-full text-left border-collapse relative">
                 <thead class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 text-xs uppercase font-bold sticky top-0 z-10">
                     <tr>
@@ -386,7 +462,7 @@
                 <tbody id="usersTableBody" class="divide-y divide-slate-100 dark:divide-slate-800"></tbody>
             </table>
         </div>
-        <div class="flex justify-end"><button type="button" onclick="closeUsersModal()" class="px-6 py-2.5 rounded-xl font-bold bg-slate-100 dark:bg-slate-800 transition" data-i18n="tutup">Tutup</button></div>
+        <div class="flex justify-end"><button type="button" onclick="closeUsersModal()" class="px-6 py-2.5 rounded-xl font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition" data-i18n="tutup">Tutup</button></div>
     </div>
 </div>
 
@@ -394,12 +470,13 @@
 <!-- 🌟 MODAL ADMIN FEEDBACK 🌟 -->
 <!-- ========================================== -->
 <div id="adminFeedbackModal" class="fixed inset-0 z-[999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-    <div id="adminFeedbackModalContent" class="bg-white dark:bg-[#0f172a] rounded-2xl w-full max-w-5xl h-[600px] max-h-[90vh] shadow-2xl border border-slate-200 dark:border-slate-800 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col">
+    <div id="adminFeedbackModalContent" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-5xl h-[600px] max-h-[90vh] shadow-2xl border border-slate-200 dark:border-slate-800 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col">
 
         <!-- Header -->
         <div class="flex justify-between items-center p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/30 shrink-0">
-            <h3 class="text-lg md:text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <i class="fas fa-comment-dots text-emerald-500"></i> <span data-i18n="daftar_feedback">Daftar Feedback Pengguna</span>
+            <h3 class="text-lg md:text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                <span class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-500/10 flex items-center justify-center shrink-0"><i class="fas fa-comment-dots text-emerald-500"></i></span>
+                <span data-i18n="daftar_feedback">Daftar Feedback Pengguna</span>
             </h3>
             <button onclick="closeAdminFeedbackModal()" class="w-8 h-8 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:bg-red-100 hover:text-red-600 transition">
                 <i class="fas fa-times"></i>
@@ -408,7 +485,7 @@
 
         <!-- Body -->
         <div class="flex-1 p-4 md:p-6 overflow-y-auto custom-modal-scroll bg-slate-50 dark:bg-[#0b1120]">
-            <div class="overflow-auto rounded-xl border border-slate-200 dark:border-slate-800 mb-6 bg-white dark:bg-[#0f172a]">
+            <div class="overflow-auto rounded-2xl border border-slate-200 dark:border-slate-800 mb-6 bg-white dark:bg-[#0f172a]">
                 <table class="w-full text-left border-collapse relative">
                     <thead class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 text-xs uppercase font-bold sticky top-0 z-10">
                         <tr>
@@ -416,6 +493,7 @@
                             <th class="px-4 py-3 bg-slate-50 dark:bg-[#0f172a] border-b" data-i18n="subjek">Subjek</th>
                             <th class="px-4 py-3 bg-slate-50 dark:bg-[#0f172a] border-b" data-i18n="pesan">Pesan</th>
                             <th class="px-4 py-3 bg-slate-50 dark:bg-[#0f172a] border-b" data-i18n="tanggal">Tanggal</th>
+                            <th class="px-4 py-3 bg-slate-50 dark:bg-[#0f172a] border-b text-center" data-i18n="status">Status</th> <!-- Tambahan Kolom Status -->
                         </tr>
                     </thead>
                     <tbody id="feedbackTableBody" class="divide-y divide-slate-100 dark:divide-slate-800">
@@ -430,12 +508,12 @@
 <!-- MODAL KONFIRMASI HAPUS -->
 <div id="deleteModal" class="fixed inset-0 z-[1000] hidden bg-slate-900/80 backdrop-blur-sm flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
     <div id="deleteModalContent" class="bg-white dark:bg-[#0f172a] rounded-3xl p-6 md:p-8 max-w-sm w-full mx-4 shadow-2xl border border-slate-200 dark:border-slate-800 transform scale-95 transition-transform duration-300">
-        <div class="w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center mx-auto mb-4"><i class="fas fa-exclamation-triangle text-2xl text-red-600 dark:text-red-400"></i></div>
+        <div class="w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center mx-auto mb-4 ring-8 ring-red-50 dark:ring-red-900/10"><i class="fas fa-exclamation-triangle text-2xl text-red-600 dark:text-red-400"></i></div>
         <h3 id="deleteModalTitle" class="text-xl font-bold text-center mb-2" data-i18n="hapus_pengguna">Hapus Pengguna?</h3>
         <p id="deleteModalText" class="text-center text-slate-500 text-sm mb-6" data-i18n="peringatan_hapus">Akun pengguna ini akan dihapus permanen.</p>
         <div class="flex gap-3">
-            <button type="button" onclick="closeDeleteModal()" class="flex-1 px-4 py-2.5 rounded-xl font-bold bg-slate-100 dark:bg-slate-800 transition" data-i18n="batal">Batal</button>
-            <button type="button" id="confirmDeleteBtn" class="flex-1 px-4 py-2.5 rounded-xl font-bold text-white bg-red-600 shadow-lg transition" data-i18n="ya_hapus">Ya, Hapus</button>
+            <button type="button" onclick="closeDeleteModal()" class="flex-1 px-4 py-2.5 rounded-xl font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition" data-i18n="batal">Batal</button>
+            <button type="button" id="confirmDeleteBtn" class="flex-1 px-4 py-2.5 rounded-xl font-bold text-white bg-red-600 hover:bg-red-500 shadow-lg shadow-red-600/30 transition" data-i18n="ya_hapus">Ya, Hapus</button>
         </div>
     </div>
 </div>
@@ -511,7 +589,10 @@
             pengirim: "Pengirim",
             subjek: "Subjek",
             pesan: "Pesan",
-            tanggal: "Tanggal"
+            tanggal: "Tanggal",
+            status: "Status",
+            tandai_dibaca: "Tandai Dibaca",
+            dibaca: "Dibaca"
         },
         en: {
             menu_admin: "Admin Menu",
@@ -578,7 +659,10 @@
             pengirim: "Sender",
             subjek: "Subject",
             pesan: "Message",
-            tanggal: "Date"
+            tanggal: "Date",
+            status: "Status",
+            tandai_dibaca: "Mark as Read",
+            dibaca: "Read"
         }
     };
 
@@ -1096,7 +1180,7 @@
             }, 10);
 
             const tbody = document.getElementById('feedbackTableBody');
-            tbody.innerHTML = '<tr><td colspan="4" class="text-center py-6 text-slate-500"><i class="fas fa-spinner fa-spin mr-2"></i> Memuat data feedback...</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="5" class="text-center py-6 text-slate-500"><i class="fas fa-spinner fa-spin mr-2"></i> Memuat data feedback...</td></tr>';
 
             fetch("{{ route('admin.feedback.api') }}")
                 .then(res => res.json())
@@ -1105,8 +1189,18 @@
                     if (data.length > 0) {
                         data.forEach(fb => {
                             const date = new Date(fb.created_at).toLocaleString('id-ID');
+
+                            // Cek apakah sudah dibaca atau belum
+                            const isRead = fb.is_read;
+                            const rowClass = isRead ? 'opacity-60 bg-slate-50 dark:bg-slate-800/20' : 'hover:bg-slate-50 dark:hover:bg-slate-800/30';
+
+                            // Tombol Aksi
+                            const actionBtn = isRead ?
+                                `<span class="text-xs text-emerald-500 flex items-center justify-center gap-1 font-bold"><i class="fas fa-check-circle"></i> ${translations[localStorage.getItem('language') || 'id'].dibaca}</span>` :
+                                `<button onclick="markFeedbackRead(${fb.id}, this)" class="px-3 py-1.5 bg-emerald-100 text-emerald-700 hover:bg-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400 rounded-lg transition text-xs font-bold flex items-center justify-center gap-1 mx-auto"><i class="fas fa-check"></i> ${translations[localStorage.getItem('language') || 'id'].tandai_dibaca}</button>`;
+
                             html += `
-                                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition">
+                                <tr class="transition-all duration-300 ${rowClass}">
                                     <td class="px-4 py-3">
                                         <div class="flex items-center gap-3">
                                             <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shrink-0">${fb.user.name.charAt(0).toUpperCase()}</div>
@@ -1116,16 +1210,17 @@
                                     <td class="px-4 py-3 text-sm font-semibold text-slate-700 dark:text-slate-300">${fb.subject}</td>
                                     <td class="px-4 py-3 text-sm text-slate-600 dark:text-slate-400">${fb.message}</td>
                                     <td class="px-4 py-3 text-xs text-slate-500">${date}</td>
+                                    <td class="px-4 py-3 text-center">${actionBtn}</td>
                                 </tr>
                             `;
                         });
                     } else {
-                        html = '<tr><td colspan="4" class="text-center py-6 text-slate-500">Belum ada feedback.</td></tr>';
+                        html = '<tr><td colspan="5" class="text-center py-6 text-slate-500">Belum ada feedback.</td></tr>';
                     }
                     tbody.innerHTML = html;
                 })
                 .catch(err => {
-                    tbody.innerHTML = '<tr><td colspan="4" class="text-center py-6 text-red-500">Gagal memuat data.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-6 text-red-500">Gagal memuat data.</td></tr>';
                 });
         };
 
@@ -1138,6 +1233,47 @@
             setTimeout(() => {
                 modal.classList.add('hidden');
             }, 300);
+        };
+
+        // 🌟 FUNGSI BARU: TANDAI FEEDBACK TELAH DIBACA 🌟
+        window.markFeedbackRead = function(id, btnElement) {
+            // Ganti isi tombol jadi loading
+            const originalHtml = btnElement.innerHTML;
+            btnElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            btnElement.disabled = true;
+
+            // URL DISESUAIKAN DENGAN web.php KAMU
+            fetch(`/admin/feedback/read/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        // Ubah tampilan baris tr menjadi transparan
+                        const tr = btnElement.closest('tr');
+                        tr.classList.add('opacity-60', 'bg-slate-50', 'dark:bg-slate-800/20');
+                        tr.classList.remove('hover:bg-slate-50', 'dark:hover:bg-slate-800/30');
+
+                        // Ganti tombol dengan text "Dibaca" (Ceklis)
+                        const td = btnElement.parentElement;
+                        td.innerHTML = `<span class="text-xs text-emerald-500 flex items-center justify-center gap-1 font-bold"><i class="fas fa-check-circle"></i> ${translations[localStorage.getItem('language') || 'id'].dibaca}</span>`;
+                    } else {
+                        btnElement.innerHTML = originalHtml;
+                        btnElement.disabled = false;
+                        alert('Gagal mengubah status');
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    btnElement.innerHTML = originalHtml;
+                    btnElement.disabled = false;
+                    alert('Terjadi kesalahan sistem');
+                });
         };
 
 

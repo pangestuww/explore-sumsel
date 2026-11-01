@@ -208,22 +208,27 @@
     <div class="app-shell flex h-screen overflow-hidden relative">
 
         <!-- SIDEBAR KIRI (Off-Canvas di Mobile) -->
-        <aside id="userSidebar" class="fixed md:relative inset-y-0 left-0 z-[100] w-64 bg-gradient-to-b from-[#0f3d2e] to-[#062116] text-white flex flex-col justify-between shrink-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-2xl overflow-hidden">
-            <div class="p-5 md:p-6 relative z-10 flex justify-between items-center">
+        <aside id="userSidebar" class="fixed md:relative inset-y-0 left-0 z-[100] w-[85%] max-w-[300px] md:w-64 bg-gradient-to-b from-[#0f3d2e] to-[#062116] text-white flex flex-col justify-between shrink-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-2xl overflow-hidden rounded-r-3xl md:rounded-none">
+
+            <div class="p-5 md:p-6 relative z-10 flex justify-between items-start gap-2">
                 <a href="{{ route('home') }}" class="flex items-center gap-3 group">
                     <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform shrink-0">
                         <i class="fas fa-leaf text-green-700 text-lg"></i>
                     </div>
                     <div>
-                        <h1 class="font-extrabold text-lg tracking-tight leading-none">ExploreSumatera</h1>
-                        <p class="text-[10px] text-emerald-200 mt-1" data-i18n="app_tagline">Jelajahi Keindahan, Rasakan Ceritanya</p>
+                        <!-- Ukuran teks disesuaikan agar tidak bertabrakan dengan tombol X di HP -->
+                        <h1 class="font-extrabold text-base md:text-lg tracking-tight leading-none">ExploreSumatera</h1>
+                        <p class="text-[10px] text-emerald-200 mt-1 leading-tight" data-i18n="app_tagline">Jelajahi Keindahan, Rasakan Ceritanya</p>
                     </div>
                 </a>
-                <!-- Tombol Close Sidebar (Mobile) -->
-                <button onclick="toggleUserSidebar()" class="md:hidden w-9 h-9 shrink-0 rounded-xl bg-white/10 text-white/80 hover:text-white hover:bg-white/20 flex items-center justify-center transition"><i class="fas fa-times text-lg"></i></button>
+
+                <!-- Tombol Close Sidebar (Mobile) - Dibuat lebih rapi -->
+                <button onclick="toggleUserSidebar()" class="md:hidden w-8 h-8 shrink-0 rounded-full bg-white/10 text-white/80 hover:text-white hover:bg-white/20 flex items-center justify-center transition border border-white/10">
+                    <i class="fas fa-times text-sm"></i>
+                </button>
             </div>
 
-            <div class="flex-1 overflow-y-auto px-4 py-4 relative z-10">
+            <div class="flex-1 overflow-y-auto px-4 py-2 md:py-4 relative z-10">
                 <nav class="space-y-1">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-4 py-3 bg-emerald-600/30 text-white rounded-xl shadow-sm border border-emerald-500/30">
                         <i class="fas fa-home text-sm w-5 text-center"></i>
@@ -256,7 +261,9 @@
                     <h2 class="font-serif italic text-2xl text-emerald-300 leading-tight" data-i18n="sidebar_slogan">Sumatera<br>Lebih Dekat<br>Bersama Kami</h2>
                 </div>
             </div>
-            <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=600&auto=format&fit=crop" class="absolute bottom-0 left-0 w-full h-1/2 object-cover opacity-20 mix-blend-luminosity pointer-events-none z-0">
+
+            <!-- Gambar daun hanya muncul di desktop, di HP disembunyikan agar bersih -->
+            <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=600&auto=format&fit=crop" class="hidden md:block absolute bottom-0 left-0 w-full h-1/2 object-cover opacity-20 mix-blend-luminosity pointer-events-none z-0">
         </aside>
 
         <!-- AREA KONTEN -->
@@ -788,7 +795,8 @@
             <div class="relative overflow-hidden bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 px-5 py-6 md:px-8 md:py-7 text-white">
                 <div class="pointer-events-none absolute -top-10 -right-8 w-40 h-40 rounded-full bg-white/10 blur-2xl"></div>
                 <div class="pointer-events-none absolute -bottom-12 -left-6 w-32 h-32 rounded-full bg-teal-300/20 blur-2xl"></div>
-                <button type="button" onclick="closeFeedbackModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition">
+                <!-- TOMBOL X SUDAH DITAMBAH Z-20 -->
+                <button type="button" onclick="closeFeedbackModal()" class="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition">
                     <i class="fas fa-times"></i>
                 </button>
                 <div class="relative flex items-center gap-4 pr-8">

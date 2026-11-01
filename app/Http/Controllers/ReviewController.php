@@ -39,6 +39,23 @@ class ReviewController extends Controller
             Notification::send($admins, new NewReviewNotification($review));
         }
 
+        // 4. Simpan Data ke Database
+        $review = Review::create([
+            'user_id' => Auth::id(),
+            'destinasi_id' => ($validated['type'] === 'destinasi') ? $validated['id'] : null,
+            'budaya_id'    => ($validated['type'] === 'budaya') ? $validated['id'] : null,
+            'kuliner_id'   => ($validated['type'] === 'kuliner') ? $validated['id'] : null,
+            'rating'       => $validated['rating'],
+            'komentar'     => $validated['komentar'],
+            'foto'         => $fotoPath, // Simpan nama file fotonya
+        ]);
+
+        // 5. Kirim Notifikasi ke Admin
+        $admins = User::where('role', 'admin')->get();
+        if ($admins->isNotEmpty()) {
+            Notification::send($admins, new NewReviewNotification($review));
+        }
+
         return back()->with('success', 'Ulasan berhasil ditambahkan!');
     }
 }
