@@ -239,7 +239,6 @@
         transform: translateY(-8px);
     }
 
-    /* 🌟 CARD DESTINASI BARU 🌟 */
     .dest-card {
         position: relative;
         display: flex;
@@ -266,7 +265,6 @@
         box-shadow: 0 30px 60px -20px rgba(16, 185, 129, 0.35), 0 12px 24px -12px rgba(15, 23, 42, 0.25);
     }
 
-    /* kilau cahaya yang menyapu gambar saat hover */
     .dest-shine {
         position: absolute;
         inset: 0;
@@ -280,7 +278,6 @@
         transform: translateX(130%);
     }
 
-    /* garis aksen di dasar kartu */
     .dest-accent {
         position: absolute;
         left: 0;
@@ -295,7 +292,6 @@
         width: 100%;
     }
 
-    /* 🌟 GALERI: 2 BARIS MARQUEE ARAH BERLAWANAN 🌟 */
     .gallery-container {
         width: 100%;
         overflow: hidden;
@@ -316,7 +312,6 @@
         animation-duration: 85s;
     }
 
-    /* hover pada salah satu baris: baris itu berhenti */
     .gallery-container:hover .gallery-track {
         animation-play-state: paused;
     }
@@ -341,7 +336,6 @@
         }
     }
 
-    /* tiap salinan punya padding-right = gap, supaya loop mulus tanpa loncat */
     .gallery-set {
         display: flex;
         flex-shrink: 0;
@@ -361,12 +355,10 @@
         transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease, filter 0.4s ease, box-shadow 0.55s ease;
     }
 
-    /* variasi ukuran: setiap kartu ke-2 lebih lebar */
     .gallery-set .gallery-card:nth-child(3n+2) {
         width: 390px;
     }
 
-    /* baris kedua sedikit lebih pendek supaya terlihat berlapis */
     .gallery-row-b .gallery-card {
         width: 270px;
         height: 205px;
@@ -376,7 +368,6 @@
         width: 340px;
     }
 
-    /* efek fokus: kartu lain meredup saat satu kartu di-hover */
     .gallery-container:hover .gallery-card:not(:hover) {
         opacity: 0.5;
         filter: saturate(0.5) blur(1px);
@@ -500,17 +491,18 @@
                 </button>
             </form>
 
+            {{-- 🌟 BAGIAN HERO STATISTIK YANG SUDAH DINAMIS 🌟 --}}
             <div class="reveal-5 flex flex-wrap gap-12 mt-14 pt-8 border-t border-white/10">
                 <div>
-                    <p class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-amber-300 counter" data-target="10">0</p>
+                    <p class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-amber-300 counter" data-target="{{ $totalProvinsi ?? 0 }}">0</p>
                     <p class="text-xs uppercase tracking-widest text-gray-400 font-semibold mt-1">Provinsi</p>
                 </div>
                 <div>
-                    <p class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-amber-300 counter" data-target="100" data-suffix="+">0</p>
+                    <p class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-amber-300 counter" data-target="{{ $totalDestinasi ?? 0 }}" data-suffix="+">0</p>
                     <p class="text-xs uppercase tracking-widest text-gray-400 font-semibold mt-1">Destinasi</p>
                 </div>
                 <div>
-                    <p class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-amber-300 counter" data-target="50" data-suffix="+">0</p>
+                    <p class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-amber-300 counter" data-target="{{ $totalBudaya ?? 0 }}" data-suffix="+">0</p>
                     <p class="text-xs uppercase tracking-widest text-gray-400 font-semibold mt-1">Budaya</p>
                 </div>
             </div>
@@ -537,31 +529,18 @@
 
             @foreach ($kategori as $k)
             <a href="{{ $k['url'] }}" class="kategori-card group block" data-delay="{{ $k['delay'] }}">
-                {{-- Efek hover ada di div dalam, supaya tidak bentrok dengan animasi masuk di kartu luar --}}
                 <div class="relative h-full flex flex-col md:flex-row items-center gap-3 md:gap-4 p-4 md:p-5 rounded-3xl overflow-hidden text-center md:text-left bg-gray-50 dark:bg-slate-800/60 border border-gray-100 dark:border-white/5 transition-all duration-500 ease-out group-hover:-translate-y-2 group-hover:shadow-2xl {{ $k['glow'] }} group-hover:border-transparent">
-
-                    {{-- Warna penuh yang muncul saat hover --}}
                     <span class="absolute inset-0 bg-gradient-to-br {{ $k['color'] }} opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
-
-                    {{-- Kilau yang menyapu --}}
                     <span class="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 skew-x-12 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-[320%] transition-transform duration-1000 ease-out"></span>
-
-                    {{-- Ikon besar samar --}}
                     <i class="fas {{ $k['icon'] }} absolute -right-3 -bottom-5 text-7xl leading-none text-gray-900/[0.04] dark:text-white/[0.04] group-hover:text-white/20 group-hover:scale-125 group-hover:-rotate-12 transition-all duration-700 pointer-events-none"></i>
-
-                    {{-- Ikon utama --}}
                     <div class="kategori-icon relative z-10 w-16 h-16 md:w-[4.5rem] md:h-[4.5rem] shrink-0 rounded-2xl bg-gradient-to-br {{ $k['color'] }} bg-[length:200%_200%] flex items-center justify-center shadow-lg transition-all duration-500 group-hover:bg-none group-hover:bg-white/20 group-hover:ring-4 group-hover:ring-white/30">
                         <span class="ripple-effect absolute inset-0 rounded-2xl bg-white/30 opacity-0"></span>
                         <i class="fas {{ $k['icon'] }} text-white text-2xl md:text-3xl kategori-icon-inner transition-transform duration-500"></i>
                     </div>
-
-                    {{-- Teks --}}
                     <div class="relative z-10 flex-1 min-w-0">
                         <p class="text-base md:text-lg font-extrabold text-gray-800 dark:text-white group-hover:text-white transition-colors">{{ $k['label'] }}</p>
                         <p class="text-[11px] md:text-xs text-gray-500 dark:text-slate-400 group-hover:text-white/85 transition-colors leading-snug mt-0.5">{{ $k['sub'] }}</p>
                     </div>
-
-                    {{-- Panah --}}
                     <span class="relative z-10 hidden xl:flex w-9 h-9 shrink-0 rounded-full bg-white dark:bg-slate-700 text-gray-500 dark:text-slate-300 group-hover:bg-white group-hover:text-gray-900 items-center justify-center shadow-sm transition-all duration-300 group-hover:translate-x-1 group-hover:-rotate-45">
                         <i class="fas fa-arrow-right text-xs"></i>
                     </span>
@@ -591,50 +570,38 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
         @forelse ($destinasiPopuler as $i => $d)
         @php
-        // 🌟 FIX: TAMBAHKAN 'storage/' DI SINI 🌟
         $gambarUrl = $d->gambar ? (str_starts_with($d->gambar, 'http') ? $d->gambar : asset('storage/' . $d->gambar)) : 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600';
         @endphp
 
-        {{-- Wrapper terpisah: scroll-reveal di luar, hover di dalam (supaya animasinya tidak bentrok) --}}
         <div class="scroll-reveal h-full" data-delay="{{ $i * 100 }}">
             <a href="{{ route('destinasi.show', $d->slug) }}" class="dest-card group">
-
-                {{-- GAMBAR --}}
                 <div class="relative h-60 overflow-hidden bg-gray-200 dark:bg-slate-800 shimmer" data-image-wrapper>
                     <img src="{{ $gambarUrl }}" alt="{{ $d->nama }}" loading="lazy" class="w-full h-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-110 group-hover:rotate-1" data-image>
-
-                    {{-- Overlay gradasi --}}
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/10 to-slate-950/30"></div>
                     <div class="dest-shine"></div>
 
-                    {{-- Badge kategori (kiri atas) --}}
                     <div class="absolute top-4 left-4 inline-flex items-center gap-1.5 bg-black/30 backdrop-blur-md border border-white/25 text-white text-[10px] font-bold uppercase tracking-wider pl-2.5 pr-3 py-1.5 rounded-full">
                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]"></span>
                         {{ $d->kategori }}
                     </div>
 
-                    {{-- Rating (kanan atas) --}}
                     <div class="absolute top-4 right-4 inline-flex items-center gap-1 bg-white/95 backdrop-blur-md px-2.5 py-1.5 rounded-full shadow-lg">
                         <i class="fas fa-star text-amber-500 text-[10px]"></i>
                         <span class="text-xs font-extrabold text-gray-800">{{ $d->rating }}</span>
                     </div>
 
-                    {{-- Nomor urut (dekoratif) --}}
                     <span class="absolute bottom-3 right-5 text-5xl font-black leading-none text-white/20 select-none transition-all duration-500 group-hover:text-white/40 group-hover:-translate-y-1">{{ sprintf('%02d', $i + 1) }}</span>
 
-                    {{-- Lokasi (kiri bawah) --}}
                     <div class="absolute bottom-4 left-4 inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-md border border-white/20 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
                         <i class="fas fa-location-dot text-emerald-300 text-[11px]"></i>
                         {{ $d->kabupaten->nama }}
                     </div>
                 </div>
 
-                {{-- ISI KARTU --}}
                 <div class="flex flex-col flex-1 p-6 pt-5">
                     <h3 class="font-extrabold text-xl leading-snug text-gray-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors line-clamp-1">{{ $d->nama }}</h3>
                     <p class="text-sm text-gray-500 dark:text-slate-400 leading-relaxed mt-2 mb-5 line-clamp-2 flex-1">{{ Str::limit($d->deskripsi, 80) }}</p>
 
-                    {{-- Footer: harga + tombol detail --}}
                     <div class="flex items-center justify-between gap-3 pt-4 border-t border-dashed border-gray-200 dark:border-slate-700/70">
                         <div>
                             <p class="text-[10px] text-gray-400 dark:text-slate-500 uppercase tracking-widest font-bold mb-0.5">Tiket masuk</p>
@@ -657,7 +624,6 @@
                         </span>
                     </div>
                 </div>
-
                 <span class="dest-accent"></span>
             </a>
         </div>
@@ -691,82 +657,69 @@
 
             @php
             $kartuWisata = [
-                [
-                    'judul' => 'Wisata Alam',
-                    'desk' => 'Jelajahi keindahan gunung, danau, air terjun, dan panorama alam Sumatera.',
-                    'url' => route('destinasi.index'),
-                    'ikon' => 'fa-mountain',
-                    'ikonBg' => 'bg-emerald-500 shadow-emerald-900/40',
-                    'grad' => 'from-emerald-400/25 to-emerald-950/40',
-                    'glow' => 'hover:shadow-emerald-400/25',
-                    'cta' => 'Jelajahi Alam',
-                    'chips' => ['Gunung', 'Danau', 'Air Terjun'],
-                ],
-                [
-                    'judul' => 'Wisata Budaya',
-                    'desk' => 'Kenali tradisi, kesenian, rumah adat, dan warisan budaya masyarakat Sumatera.',
-                    'url' => route('budaya.index'),
-                    'ikon' => 'fa-masks-theater',
-                    'ikonBg' => 'bg-purple-500 shadow-purple-900/40',
-                    'grad' => 'from-purple-400/25 to-purple-950/30',
-                    'glow' => 'hover:shadow-purple-400/25',
-                    'cta' => 'Jelajahi Budaya',
-                    'chips' => ['Tari', 'Rumah Adat', 'Tradisi'],
-                ],
-                [
-                    'judul' => 'Wisata Kuliner',
-                    'desk' => 'Nikmati cita rasa khas Sumatera dari makanan tradisional hingga kuliner legendaris.',
-                    'url' => route('kuliner.index'),
-                    'ikon' => 'fa-utensils',
-                    'ikonBg' => 'bg-orange-500 shadow-orange-900/40',
-                    'grad' => 'from-orange-400/25 to-orange-950/30',
-                    'glow' => 'hover:shadow-orange-400/25',
-                    'cta' => 'Jelajahi Kuliner',
-                    'chips' => ['Makanan Khas', 'Jajanan', 'Legendaris'],
-                ],
-                [
-                    'judul' => 'Semua Destinasi',
-                    'desk' => 'Temukan berbagai pilihan tempat wisata menarik untuk perjalananmu berikutnya.',
-                    'url' => route('destinasi.index'),
-                    'ikon' => 'fa-route',
-                    'ikonBg' => 'bg-amber-500 shadow-amber-900/40',
-                    'grad' => 'from-amber-300/25 to-amber-900/30',
-                    'glow' => 'hover:shadow-amber-300/25',
-                    'cta' => 'Lihat Destinasi',
-                    'chips' => ['Alam', 'Budaya', 'Kuliner'],
-                ],
+            [
+            'judul' => 'Wisata Alam',
+            'desk' => 'Jelajahi keindahan gunung, danau, air terjun, dan panorama alam Sumatera.',
+            'url' => route('destinasi.index'),
+            'ikon' => 'fa-mountain',
+            'ikonBg' => 'bg-emerald-500 shadow-emerald-900/40',
+            'grad' => 'from-emerald-400/25 to-emerald-950/40',
+            'glow' => 'hover:shadow-emerald-400/25',
+            'cta' => 'Jelajahi Alam',
+            'chips' => ['Gunung', 'Danau', 'Air Terjun'],
+            ],
+            [
+            'judul' => 'Wisata Budaya',
+            'desk' => 'Kenali tradisi, kesenian, rumah adat, dan warisan budaya masyarakat Sumatera.',
+            'url' => route('budaya.index'),
+            'ikon' => 'fa-masks-theater',
+            'ikonBg' => 'bg-purple-500 shadow-purple-900/40',
+            'grad' => 'from-purple-400/25 to-purple-950/30',
+            'glow' => 'hover:shadow-purple-400/25',
+            'cta' => 'Jelajahi Budaya',
+            'chips' => ['Tari', 'Rumah Adat', 'Tradisi'],
+            ],
+            [
+            'judul' => 'Wisata Kuliner',
+            'desk' => 'Nikmati cita rasa khas Sumatera dari makanan tradisional hingga kuliner legendaris.',
+            'url' => route('kuliner.index'),
+            'ikon' => 'fa-utensils',
+            'ikonBg' => 'bg-orange-500 shadow-orange-900/40',
+            'grad' => 'from-orange-400/25 to-orange-950/30',
+            'glow' => 'hover:shadow-orange-400/25',
+            'cta' => 'Jelajahi Kuliner',
+            'chips' => ['Makanan Khas', 'Jajanan', 'Legendaris'],
+            ],
+            [
+            'judul' => 'Semua Destinasi',
+            'desk' => 'Temukan berbagai pilihan tempat wisata menarik untuk perjalananmu berikutnya.',
+            'url' => route('destinasi.index'),
+            'ikon' => 'fa-route',
+            'ikonBg' => 'bg-amber-500 shadow-amber-900/40',
+            'grad' => 'from-amber-300/25 to-amber-900/30',
+            'glow' => 'hover:shadow-amber-300/25',
+            'cta' => 'Lihat Destinasi',
+            'chips' => ['Alam', 'Budaya', 'Kuliner'],
+            ],
             ];
             @endphp
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                 @foreach($kartuWisata as $k)
                 <a href="{{ $k['url'] }}" class="group relative flex flex-col h-full overflow-hidden rounded-3xl p-6 border border-white/15 bg-gradient-to-br {{ $k['grad'] }} backdrop-blur-md transition-all duration-500 hover:-translate-y-2 hover:border-white/40 hover:shadow-2xl {{ $k['glow'] }}">
-
-                    {{-- Ikon besar sebagai watermark --}}
                     <i class="fas {{ $k['ikon'] }} absolute -right-5 -bottom-8 text-[9rem] leading-none text-white/[0.06] transition-all duration-700 group-hover:text-white/[0.13] group-hover:scale-110 group-hover:-rotate-12 pointer-events-none"></i>
-
-                    {{-- Kilau yang menyapu saat hover --}}
                     <span class="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 skew-x-12 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-[300%] transition-transform duration-1000 ease-out"></span>
-
-                    {{-- Nomor --}}
                     <span class="absolute top-6 right-6 text-xs font-black tracking-[0.25em] text-white/30 group-hover:text-white/70 transition-colors">0{{ $loop->iteration }}</span>
-
-                    {{-- Ikon kategori --}}
                     <div class="relative w-14 h-14 rounded-2xl {{ $k['ikonBg'] }} flex items-center justify-center mb-6 shadow-lg ring-4 ring-white/10 transition-all duration-500 group-hover:scale-110 group-hover:-rotate-6">
                         <i class="fas {{ $k['ikon'] }} text-white text-2xl"></i>
                     </div>
-
                     <h3 class="relative text-white text-xl font-extrabold mb-2">{{ $k['judul'] }}</h3>
                     <p class="relative text-emerald-50/70 text-sm leading-relaxed mb-5 flex-1">{{ $k['desk'] }}</p>
-
-                    {{-- Chip isi kategori --}}
                     <div class="relative flex flex-wrap gap-1.5 mb-5">
                         @foreach($k['chips'] as $chip)
                         <span class="text-[10px] font-semibold uppercase tracking-wider text-white/80 bg-white/10 border border-white/15 px-2.5 py-1 rounded-full group-hover:bg-white/20 transition-colors">{{ $chip }}</span>
                         @endforeach
                     </div>
-
-                    {{-- CTA (selalu sejajar di dasar kartu) --}}
                     <div class="relative mt-auto flex items-center justify-between pt-4 border-t border-white/15 text-sm font-bold text-emerald-100 group-hover:text-white transition-colors">
                         <span>{{ $k['cta'] }}</span>
                         <span class="w-8 h-8 rounded-full bg-white/15 group-hover:bg-white group-hover:text-emerald-800 flex items-center justify-center transition-all duration-300 group-hover:translate-x-1 group-hover:-rotate-45">
@@ -789,7 +742,6 @@
 
 {{-- 🌟 GALERI KEINDAHAN (1 BARIS MARQUEE) 🌟 --}}
 <section class="relative py-24 bg-slate-50 dark:bg-slate-950 overflow-hidden transition-colors duration-300">
-    {{-- Dekorasi latar --}}
     <div class="absolute -top-24 left-1/4 w-96 h-96 bg-emerald-400/10 dark:bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
     <div class="absolute -bottom-24 right-1/4 w-96 h-96 bg-amber-300/10 dark:bg-amber-400/5 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -808,7 +760,6 @@
     $jumlahGaleri = $galeriItems->count();
     $dasarGaleri = collect();
     if ($jumlahGaleri > 0) {
-    // ulangi data kalau sedikit, supaya marquee selalu penuh di layar lebar
     for ($r = 0; $r < (int) ceil(8 / $jumlahGaleri); $r++) {
         $dasarGaleri=$dasarGaleri->concat($galeriItems);
         }
@@ -823,7 +774,6 @@
             @foreach($barisGaleri as $baris)
             <div class="gallery-container">
                 <div class="gallery-track {{ $baris['class'] }}">
-                    {{-- Dua salinan identik agar loop tanpa putus --}}
                     @foreach([0, 1] as $salinan)
                     <div class="gallery-set" @if($salinan) aria-hidden="true" @endif>
                         @foreach($baris['items'] as $d)
@@ -833,19 +783,13 @@
                         <a href="{{ route('destinasi.show', $d->slug) }}" class="gallery-card group block" @if($salinan) tabindex="-1" @endif>
                             <img src="{{ $galeriGambar }}" alt="{{ $d->nama }}" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-110">
                             <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-slate-950/10"></div>
-
-                            {{-- Chip kategori --}}
                             <span class="absolute top-4 left-4 inline-flex items-center gap-1.5 bg-black/30 backdrop-blur-md border border-white/25 text-white text-[10px] font-bold uppercase tracking-wider pl-2.5 pr-3 py-1.5 rounded-full">
                                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]"></span>
                                 {{ $d->kategori }}
                             </span>
-
-                            {{-- Ikon panah (muncul saat hover) --}}
                             <span class="g-arrow absolute top-4 right-4 w-9 h-9 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-lg">
                                 <i class="fas fa-arrow-right text-xs"></i>
                             </span>
-
-                            {{-- Info (naik saat hover) --}}
                             <div class="g-info absolute left-5 right-5 bottom-5 text-white">
                                 <p class="text-lg font-extrabold leading-tight drop-shadow line-clamp-1">{{ $d->nama }}</p>
                                 <p class="g-more text-xs font-semibold text-emerald-300 mt-1.5 flex items-center gap-1.5">
@@ -896,6 +840,7 @@
         }, {
             threshold: 0.1
         });
+
         document.querySelectorAll('.scroll-reveal').forEach(function(el) {
             observer.observe(el);
         });
@@ -911,6 +856,7 @@
         }, {
             threshold: 0.5
         });
+
         counters.forEach(function(c) {
             counterObserver.observe(c);
         });
@@ -969,6 +915,7 @@
         }, {
             threshold: 0.3
         });
+
         kategoriCards.forEach(function(card) {
             kategoriObserver.observe(card);
         });

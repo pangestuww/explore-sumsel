@@ -9,6 +9,73 @@ $totalReview = $destinasi->reviews->count();
 $avgRating = $totalReview > 0 ? number_format($destinasi->reviews->avg('rating'), 1) : '0.0';
 @endphp
 
+{{-- 🌟 CSS UNTUK SCROLLABLE GALLERY 🌟 --}}
+<style>
+    .v-gallery-container {
+        height: 380px;
+        overflow-y: auto;
+        /* Mengaktifkan scroll vertikal */
+        padding-right: 6px;
+        /* Jarak agar konten tidak nabrak scrollbar */
+    }
+
+    /* Desain Custom Scrollbar */
+    .v-gallery-container::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .v-gallery-container::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .v-gallery-container::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+    }
+
+    .dark .v-gallery-container::-webkit-scrollbar-thumb {
+        background: #334155;
+    }
+
+    .v-gallery-container::-webkit-scrollbar-thumb:hover {
+        background: #10b981;
+        /* Warna emerald saat di-hover */
+    }
+
+    .v-gallery-track {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .v-gallery-card {
+        width: 100%;
+        height: 160px;
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        flex-shrink: 0;
+        border: 1px solid rgba(226, 232, 240, 0.5);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .dark .v-gallery-card {
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .v-gallery-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .v-gallery-card:hover img {
+        transform: scale(1.1);
+    }
+</style>
+
 {{-- HERO IMAGE (Menggunakan Background Image agar tidak melar saat di-zoom) --}}
 @php
 $gambarUrl = $destinasi->gambar ? (str_starts_with($destinasi->gambar, 'http') ? $destinasi->gambar : asset('storage/' . $destinasi->gambar)) : 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200';
@@ -75,7 +142,6 @@ $gambarUrl = $destinasi->gambar ? (str_starts_with($destinasi->gambar, 'http') ?
                     </h2>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                        {{-- Ikon Tanpa Background --}}
                         <div class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
                             <div class="w-12 h-12 flex items-center justify-center text-2xl shrink-0">
                                 <i class="fas fa-map-marker-alt text-emerald-500"></i>
@@ -133,7 +199,7 @@ $gambarUrl = $destinasi->gambar ? (str_starts_with($destinasi->gambar, 'http') ?
                     </div>
                 </div>
 
-                {{-- 🌟 DESKRIPSI BAWAH (Berdiri Sendiri, di atas ulasan) 🌟 --}}
+                {{-- DESKRIPSI BAWAH --}}
                 @if(!empty($destinasi->deskripsi_bawah))
                 <div class="bg-white dark:bg-[#0f172a] rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 dark:border-slate-800">
                     <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-3">
@@ -171,7 +237,7 @@ $gambarUrl = $destinasi->gambar ? (str_starts_with($destinasi->gambar, 'http') ?
                     @endif
 
                     @auth
-                    <form method="POST" action="{{ route('review.store') }}" class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 mb-8">
+                    <form method="POST" action="{{ route('review.store') }}" enctype="multipart/form-data" class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 mb-8">
                         @csrf
                         <input type="hidden" name="type" value="destinasi">
                         <input type="hidden" name="id" value="{{ $destinasi->id }}">
@@ -189,6 +255,19 @@ $gambarUrl = $destinasi->gambar ? (str_starts_with($destinasi->gambar, 'http') ?
 
                         <textarea name="komentar" rows="3" required placeholder="Bagaimana pengalaman Anda di sini?"
                             class="w-full bg-white dark:bg-slate-900 text-slate-800 dark:text-white border border-slate-300 dark:border-slate-600 rounded-xl p-4 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-3 resize-none"></textarea>
+
+                        {{-- INPUT FOTO --}}
+                        <div class="mb-4">
+                            <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Tambah Foto (Opsional)</label>
+                            <input type="file" name="foto" id="foto-input" accept="image/*" onchange="previewImage(event)" class="block w-full text-sm text-slate-500 dark:text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 dark:file:bg-emerald-500/20 dark:file:text-emerald-400 transition-all cursor-pointer">
+
+                            <div id="image-preview-container" class="mt-3 hidden">
+                                <img id="image-preview" src="" alt="Preview" class="w-32 h-32 object-cover rounded-xl border-2 border-emerald-500">
+                            </div>
+                            @error('foto')
+                            <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
+                            @enderror
+                        </div>
 
                         <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition shadow-lg shadow-emerald-600/30">
                             Kirim Ulasan
@@ -214,6 +293,14 @@ $gambarUrl = $destinasi->gambar ? (str_starts_with($destinasi->gambar, 'http') ?
                                         </div>
                                     </div>
                                     <p class="text-slate-600 dark:text-slate-300 leading-relaxed">{{ $review->komentar }}</p>
+
+                                    {{-- FOTO DARI USER --}}
+                                    @if($review->foto)
+                                    <div class="mt-3">
+                                        <img src="{{ asset('storage/' . $review->foto) }}" alt="Foto Ulasan" class="w-32 h-32 object-cover rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer hover:scale-105 transition-transform" onclick="window.open(this.src, '_blank')">
+                                    </div>
+                                    @endif
+
                                     <p class="text-xs text-slate-400 dark:text-slate-500 mt-3 font-medium"><i class="far fa-clock mr-1"></i> {{ $review->created_at->diffForHumans() }}</p>
                                 </div>
                             </div>
@@ -232,9 +319,10 @@ $gambarUrl = $destinasi->gambar ? (str_starts_with($destinasi->gambar, 'http') ?
 
             {{-- KOLOM KANAN (Sidebar tanpa sticky) --}}
             <div class="space-y-6">
+
+                {{-- KARTU HARGA & FAVORIT --}}
                 <div class="bg-white dark:bg-[#0f172a] rounded-3xl p-6 md:p-8 shadow-xl border border-slate-200 dark:border-slate-800">
                     <div class="text-center mb-6 border-b border-slate-100 dark:border-slate-800 pb-6">
-                        {{-- Rating Transparan --}}
                         <div class="inline-flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-4 py-1.5 rounded-full font-bold mb-3 backdrop-blur-sm">
                             <i class="fas fa-star text-amber-500"></i>
                             <span>{{ $avgRating }}</span>
@@ -277,6 +365,37 @@ $gambarUrl = $destinasi->gambar ? (str_starts_with($destinasi->gambar, 'http') ?
                     </div>
                     @endguest
                 </div>
+
+                {{-- 🌟 GALERI PENGUNJUNG (BISA DI-SCROLL) 🌟 --}}
+                @if(isset($fotoUlasan) && $fotoUlasan->count() > 0)
+                <div class="bg-white dark:bg-[#0f172a] rounded-3xl p-5 shadow-xl border border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 dark:text-white">Galeri Pengunjung</h3>
+                    </div>
+
+                    <div class="v-gallery-container">
+                        <div class="v-gallery-track">
+                            @foreach($fotoUlasan as $item)
+                            @php $fotoUrl = asset('storage/' . $item->foto); @endphp
+                            <div class="v-gallery-card group cursor-pointer" onclick="window.open('{{ $fotoUrl }}', '_blank')">
+                                <img src="{{ $fotoUrl }}" alt="Foto Ulasan" loading="lazy">
+                                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <i class="fas fa-expand text-white text-xl"></i>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    {{-- Teks diubah karena sekarang scroll manual --}}
+                    <p class="text-center text-[10px] text-slate-400 mt-3"><i class="fas fa-mouse mr-1"></i> Geser ke bawah untuk melihat semua</p>
+                </div>
+                @endif
+                {{-- 🌟 AKHIR TAMBAHAN GALLERY 🌟 --}}
+
             </div>
         </div>
     </div>
@@ -326,5 +445,28 @@ $gambarUrl = $destinasi->gambar ? (str_starts_with($destinasi->gambar, 'http') ?
     </div>
 </section>
 @endif
+
+{{-- SCRIPT PREVIEW GAMBAR --}}
+<script>
+    function previewImage(event) {
+        const input = event.target;
+        const previewContainer = document.getElementById('image-preview-container');
+        const previewImage = document.getElementById('image-preview');
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                previewImage.src = e.target.result;
+                previewContainer.classList.remove('hidden');
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            previewImage.src = "";
+            previewContainer.classList.add('hidden');
+        }
+    }
+</script>
 
 @endsection

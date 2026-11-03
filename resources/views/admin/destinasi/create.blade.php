@@ -219,12 +219,23 @@
                 <div class="mb-6">
                     <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Deskripsi</label>
                     <textarea name="deskripsi" rows="4" required class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">{{ old('deskripsi') }}</textarea>
-                    <!-- Tambahan Deskripsi Bawah -->
-                    <div class="mb-6">
-                        <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Deskripsi Bawah (Tambahan)</label>
-                        <textarea name="deskripsi_bawah" rows="4" placeholder="Masukkan deskripsi bagian bawah di sini..." class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"></textarea>
-                    </div>
                 </div>
+
+                <!-- Tambahan Deskripsi Bawah (Dipisah biar rapi) -->
+                <div class="mb-6">
+                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Deskripsi Bawah (Tambahan)</label>
+                    <textarea name="deskripsi_bawah" rows="4" placeholder="Masukkan deskripsi bagian bawah di sini..." class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">{{ old('deskripsi_bawah') }}</textarea>
+                </div>
+
+                {{-- 🌟 TAMBAHAN BARU: INPUT LINK GOOGLE MAPS 🌟 --}}
+                <div class="mb-6 p-4 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-xl">
+                    <label class="block text-sm font-bold text-emerald-800 dark:text-emerald-400 mb-2">
+                        <i class="fas fa-link text-emerald-500 mr-1"></i> Perbarui Lokasi (Tempel Link Google Maps)
+                    </label>
+                    <input type="text" name="link_maps" id="link_maps" value="{{ old('link_maps') }}" class="w-full px-4 py-3 rounded-xl border border-emerald-300 dark:border-emerald-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none" placeholder="https://www.google.com/maps/...">
+                    <p class="text-xs text-emerald-600/80 dark:text-emerald-500 mt-2">Sistem akan otomatis mengambil koordinat dari link tersebut.</p>
+                </div>
+                {{-- 🌟 AKHIR TAMBAHAN 🌟 --}}
 
                 <div class="mb-8 p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl">
                     <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
@@ -269,7 +280,7 @@
         var kabSelect = document.getElementById('filterKabupaten');
         var allKabOptions = Array.from(kabSelect.querySelectorAll('option[data-provinsi]'));
 
-        // Inisialisasi Select2 Provinsi & Kabupaten (Jenis udah gak pake ini)
+        // Inisialisasi Select2 Provinsi & Kabupaten
         $(provSelect).select2({
             placeholder: "-- Pilih Provinsi --",
             width: '100%'
@@ -361,6 +372,28 @@
                 displayLng.innerText = oldLng;
             }
         }
+
+        // 🌟 TAMBAHAN BARU: LOGIKA BACA LINK GOOGLE MAPS 🌟
+        var inputLinkMaps = document.getElementById('link_maps');
+        if (inputLinkMaps) {
+            inputLinkMaps.addEventListener('input', function(e) {
+                var url = e.target.value;
+                var regex = /@(-?\d+\.\d+),(-?\d+\.\d+)|q=(-?\d+\.\d+),(-?\d+\.\d+)/;
+                var match = url.match(regex);
+
+                if (match) {
+                    var lat = match[1] ? parseFloat(match[1]) : parseFloat(match[3]);
+                    var lng = match[2] ? parseFloat(match[2]) : parseFloat(match[4]);
+
+                    if (!isNaN(lat) && !isNaN(lng)) {
+                        map.setView([lat, lng], 16);
+                        marker.setLatLng([lat, lng]);
+                        updateCoords(lat.toFixed(6), lng.toFixed(6));
+                    }
+                }
+            });
+        }
+        // 🌟 AKHIR TAMBAHAN 🌟
 
         // PENCARIAN LOKASI
         var btnSearch = document.getElementById('btnSearchLocation');

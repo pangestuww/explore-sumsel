@@ -3,6 +3,9 @@
 @section('title', 'Tambah Budaya - Admin')
 
 @section('content')
+{{-- CSS Leaflet --}}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
 <div class="min-h-screen bg-slate-50 dark:bg-[#0b1120] py-10 transition-colors duration-300">
     <div class="container mx-auto px-4 md:px-6 max-w-4xl">
 
@@ -72,6 +75,39 @@
                     <textarea name="deskripsi" rows="4" required class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">{{ old('deskripsi') }}</textarea>
                 </div>
 
+                {{-- ==================================================== --}}
+                {{-- PETA LOKASI & LINK GOOGLE MAPS --}}
+                {{-- ==================================================== --}}
+                <div class="mb-8 bg-slate-50 dark:bg-[#11211d] border border-slate-200 dark:border-[#1a2e29] rounded-2xl p-6">
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <i class="fas fa-map-marker-alt text-emerald-500"></i> Determine Location
+                    </h3>
+
+                    {{-- 🌟 INPUT LINK DIPINDAH KE ATAS PETA AGAR LANGSUNG KELIHATAN 🌟 --}}
+                    <div class="mb-4">
+                        <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
+                            <i class="fas fa-link text-emerald-500 mr-1"></i> Perbarui Lokasi (Tempel Link Google Maps)
+                        </label>
+                        <input type="text" name="link_maps" id="link_maps" value="{{ old('link_maps') }}" class="w-full px-4 py-3 rounded-xl border border-emerald-300 dark:border-[#1a2e29] bg-white dark:bg-[#0f1a18] text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none" placeholder="https://www.google.com/maps/...">
+                        <p class="text-xs text-slate-500 mt-2">Sistem akan otomatis mengambil koordinat dari link tersebut.</p>
+                    </div>
+
+                    {{-- Container Peta --}}
+                    <div id="map" style="height: 300px; width: 100%; z-index: 1;" class="rounded-xl border border-slate-300 dark:border-slate-700 mb-4"></div>
+
+                    <input type="hidden" name="lat" id="lat" value="{{ old('lat') }}">
+                    <input type="hidden" name="lng" id="lng" value="{{ old('lng') }}">
+
+                    <div class="flex gap-4">
+                        <div class="flex-1 bg-white dark:bg-[#0f1a18] px-4 py-2 rounded-lg border border-slate-200 dark:border-[#1a2e29] text-sm font-bold text-slate-700 dark:text-slate-300">
+                            Lat: <span id="lat-display">{{ old('lat') ?: 'Not selected' }}</span>
+                        </div>
+                        <div class="flex-1 bg-white dark:bg-[#0f1a18] px-4 py-2 rounded-lg border border-slate-200 dark:border-[#1a2e29] text-sm font-bold text-slate-700 dark:text-slate-300">
+                            Lng: <span id="lng-display">{{ old('lng') ?: 'Not selected' }}</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="flex justify-end gap-4 pt-4 border-t border-slate-200 dark:border-slate-800">
                     <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-8 py-3 rounded-xl transition-all shadow-lg shadow-emerald-600/30">
                         <i class="fas fa-save mr-2"></i> Simpan Budaya
@@ -82,4 +118,61 @@
 
     </div>
 </div>
+
+{{-- Script Leaflet --}}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var defaultLat = parseFloat("{{ old('lat') ? old('lat') : '-2.990934' }}");
+        var defaultLng = parseFloat("{{ old('lng') ? old('lng') : '104.756554' }}");
+        var defaultZoom = parseInt("{{ old('lat') ? '15' : '9' }}");
+
+        if (document.getElementById('map')) {
+            var map = L.map('map').setView([defaultLat, defaultLng], defaultZoom);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            var marker = L.marker([defaultLat, defaultLng], {
+                draggable: true
+            }).addTo(map);
+
+            function updateLatLng(lat, lng) {
+                document.getElementById('lat').value = lat;
+                document.getElementById('lng').value = lng;
+                document.getElementById('lat-display').innerText = lat;
+                document.getElementById('lng-display').innerText = lng;
+            }
+
+            map.on('click', function(e) {
+                marker.setLatLng(e.latlng);
+                updateLatLng(e.latlng.lat, e.latlng.lng);
+            });
+
+            marker.on('dragend', function() {
+                var position = marker.getLatLng();
+                updateLatLng(position.lat, position.lng);
+            });
+
+            // Logika mendeteksi link
+            document.getElementById('link_maps').addEventListener('input', function(e) {
+                var url = e.target.value;
+                var regex = /@(-?\d+\.\d+),(-?\d+\.\d+)|q=(-?\d+\.\d+),(-?\d+\.\d+)/;
+                var match = url.match(regex);
+
+                if (match) {
+                    var lat = match[1] ? parseFloat(match[1]) : parseFloat(match[3]);
+                    var lng = match[2] ? parseFloat(match[2]) : parseFloat(match[4]);
+
+                    if (!isNaN(lat) && !isNaN(lng)) {
+                        map.setView([lat, lng], 16);
+                        marker.setLatLng([lat, lng]);
+                        updateLatLng(lat, lng);
+                    }
+                }
+            });
+        }
+    });
+</script>
 @endsection

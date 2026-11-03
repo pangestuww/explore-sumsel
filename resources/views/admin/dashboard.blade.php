@@ -3,92 +3,83 @@
 @section('title', 'Admin Dashboard - Explore Sumatera')
 
 @section('content')
-{{-- 📱 FIX MOBILE: di mobile halaman bisa scroll biasa (min-h), di desktop tetap h-[calc(100vh-80px)] + overflow-hidden --}}
-<div class="flex flex-col md:flex-row min-h-[calc(100vh-80px)] md:h-[calc(100vh-80px)] md:overflow-hidden bg-slate-50 dark:bg-[#0b1120] text-slate-800 dark:text-white transition-colors duration-300">
+<div class="flex flex-col md:flex-row min-h-[calc(100vh-80px)] md:h-[calc(100vh-80px)] md:overflow-hidden bg-slate-50 dark:bg-[#0b1120] text-slate-800 dark:text-white transition-colors duration-300 relative">
 
-    <!-- SIDEBAR KIRI (di mobile menjadi menu horizontal di atas) -->
-    <aside class="w-full md:w-64 md:h-full bg-white dark:bg-[#0f172a] border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-800 flex flex-col shrink-0 transition-colors duration-300 shadow-[0_1px_0_0_rgba(15,23,42,0.03)] md:shadow-none">
-        <div class="hidden md:flex items-center gap-3 p-6 border-b border-slate-200 dark:border-slate-800 shrink-0">
-            <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
-                <i class="fas fa-shield-alt"></i>
+    <!-- 🌟 OVERLAY MOBILE SIDEBAR (Hanya Muncul di HP saat Sidebar Terbuka) 🌟 -->
+    <div id="adminSidebarOverlay" onclick="toggleAdminSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[90] hidden md:hidden transition-opacity"></div>
+
+    <!-- SIDEBAR KIRI (Disembunyikan di mobile, muncul jika hamburger diklik) -->
+    <aside id="adminSidebar" class="fixed md:relative inset-y-0 left-0 z-[100] w-64 h-full bg-white dark:bg-[#0f172a] border-r border-slate-200 dark:border-slate-800 flex flex-col shrink-0 transition-transform duration-300 transform -translate-x-full md:translate-x-0">
+        <div class="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-800 shrink-0">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="min-w-0">
+                    <h2 class="font-bold text-lg leading-tight text-slate-900 dark:text-white transition-colors" data-i18n="menu_admin">Menu Admin</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="kelola_konten">Kelola Konten</p>
+                </div>
             </div>
-            <div class="min-w-0">
-                <h2 class="font-bold text-lg leading-tight text-slate-900 dark:text-white transition-colors" data-i18n="menu_admin">Menu Admin</h2>
-                <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="kelola_konten">Kelola Konten</p>
-            </div>
+            <!-- Tombol Close Sidebar (Mobile) -->
+            <button onclick="toggleAdminSidebar()" class="md:hidden text-slate-500 hover:text-red-500">
+                <i class="fas fa-times text-xl"></i>
+            </button>
         </div>
 
-        <div class="md:flex-1 overflow-x-auto md:overflow-x-visible md:overflow-y-auto py-3 md:py-6 px-3 md:px-4 [&::-webkit-scrollbar]:hidden md:[&::-webkit-scrollbar]:block">
-            <p class="hidden md:block text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4 px-2" data-i18n="utama">Utama</p>
-            <nav class="flex flex-row md:flex-col gap-2 md:gap-0 md:space-y-1 w-max md:w-auto">
-                <a href="{{ route('admin.dashboard') }}" class="shrink-0 whitespace-nowrap flex items-center gap-3 px-3 py-2.5 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white rounded-xl shadow-md shadow-emerald-600/25 md:mb-3">
+        <div class="flex-1 overflow-y-auto py-6 px-4">
+            <p class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4 px-2" data-i18n="utama">Utama</p>
+            <nav class="flex flex-col gap-0 space-y-1 w-full">
+                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-3 py-2.5 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white rounded-xl shadow-md shadow-emerald-600/25 mb-3">
                     <i class="fas fa-th-large text-sm w-5 text-center"></i>
                     <span class="font-semibold text-sm" data-i18n="dashboard">Dashboard</span>
                 </a>
 
-                <a href="{{ route('admin.destinasi.create') }}" class="shrink-0 whitespace-nowrap flex items-center gap-3 px-3 py-2.5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-dashed border-emerald-300 dark:border-emerald-700/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 hover:border-emerald-400 rounded-xl transition-colors md:mb-4">
+                <a href="{{ route('admin.destinasi.create') }}" class="flex items-center gap-3 px-3 py-2.5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-dashed border-emerald-300 dark:border-emerald-700/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 hover:border-emerald-400 rounded-xl transition-colors mb-4">
                     <i class="fas fa-plus-circle text-sm w-5 text-center"></i>
                     <span class="font-bold text-sm" data-i18n="tambah_konten">Tambah Konten</span>
                 </a>
 
-                <div class="hidden md:block h-px bg-slate-200 dark:bg-slate-800 my-4"></div>
+                <div class="h-px bg-slate-200 dark:bg-slate-800 my-4"></div>
 
-                <a href="{{ route('admin.destinasi.index') }}" class="group shrink-0 whitespace-nowrap flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl transition-colors">
+                <a href="{{ route('admin.destinasi.index') }}" class="group flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl transition-colors">
                     <i class="fas fa-map-marker-alt text-sm w-5 text-center group-hover:text-emerald-500 transition-colors"></i>
                     <span class="font-medium text-sm" data-i18n="destinasi">Destinasi</span>
                 </a>
 
-                <a href="{{ route('admin.budaya.index') }}" class="group shrink-0 whitespace-nowrap flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl transition-colors">
+                <a href="{{ route('admin.budaya.index') }}" class="group flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl transition-colors">
                     <i class="fas fa-masks-theater text-sm w-5 text-center group-hover:text-purple-500 transition-colors"></i>
                     <span class="font-medium text-sm" data-i18n="budaya">Budaya</span>
                 </a>
 
-                <a href="{{ route('admin.kuliner.index') }}" class="group shrink-0 whitespace-nowrap flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl transition-colors">
+                <a href="{{ route('admin.kuliner.index') }}" class="group flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl transition-colors">
                     <i class="fas fa-utensils text-sm w-5 text-center group-hover:text-orange-500 transition-colors"></i>
                     <span class="font-medium text-sm" data-i18n="kuliner">Kuliner</span>
                 </a>
 
-                <button onclick="openUsersModal()" class="group shrink-0 whitespace-nowrap md:w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl text-left transition-colors">
+                <button onclick="openUsersModal()" class="group w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl text-left transition-colors">
                     <i class="fas fa-users text-sm w-5 text-center group-hover:text-blue-500 transition-colors"></i>
                     <span class="font-medium text-sm" data-i18n="pengguna">Pengguna</span>
                 </button>
 
-                <!-- 🌟 MENU FEEDBACK BARU 🌟 -->
-                <button onclick="openAdminFeedbackModal()" class="group shrink-0 whitespace-nowrap md:w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl text-left transition-colors">
+                <button onclick="openAdminFeedbackModal()" class="group w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl text-left transition-colors">
                     <i class="fas fa-comment-dots text-sm w-5 text-center group-hover:text-pink-500 transition-colors"></i>
                     <span class="font-medium text-sm" data-i18n="feedback">Feedback</span>
                 </button>
-
-                <!-- 📱 Pengaturan & Keluar: di mobile ikut masuk ke baris menu horizontal (disembunyikan di desktop) -->
-                <button onclick="openSettingsModal('general')" class="md:hidden shrink-0 whitespace-nowrap flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl text-left">
-                    <i class="fas fa-cog text-sm w-5 text-center"></i>
-                    <span class="font-medium text-sm" data-i18n="pengaturan">Pengaturan</span>
-                </button>
-
-                <form method="POST" action="{{ route('logout') }}" class="md:hidden shrink-0">
-                    @csrf
-                    <button type="submit" class="whitespace-nowrap flex items-center gap-3 px-3 py-2.5 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-xl text-left transition-colors">
-                        <i class="fas fa-sign-out-alt text-sm w-5 text-center"></i>
-                        <span class="font-medium text-sm">Keluar</span>
-                    </button>
-                </form>
             </nav>
         </div>
 
-        <!-- Bawah sidebar (hanya tampil di desktop) -->
-        <div class="hidden md:block p-4 border-t border-slate-200 dark:border-slate-800 space-y-1 shrink-0">
-            <!-- Tombol Pengaturan -->
+        <!-- Bawah sidebar -->
+        <div class="p-4 border-t border-slate-200 dark:border-slate-800 space-y-1 shrink-0">
             <button onclick="openSettingsModal('general')" class="w-full flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white rounded-xl text-left transition-colors">
                 <i class="fas fa-cog text-sm w-5 text-center"></i>
                 <span class="font-medium text-sm" data-i18n="pengaturan">Pengaturan</span>
             </button>
 
-            <!-- 🌟 TOMBOL KELUAR BARU 🌟 -->
             <form method="POST" action="{{ route('logout') }}" class="w-full">
                 @csrf
                 <button type="submit" class="w-full flex items-center gap-3 px-3 py-2.5 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-xl text-left transition-colors">
                     <i class="fas fa-sign-out-alt text-sm w-5 text-center"></i>
-                    <span class="font-medium text-sm">Keluar</span>
+                    <span class="font-medium text-sm" data-i18n="keluar">Keluar</span>
                 </button>
             </form>
         </div>
@@ -96,6 +87,15 @@
 
     <!-- KONTEN KANAN (DASHBOARD) -->
     <main class="flex-1 p-4 md:p-8 lg:p-10 md:overflow-y-auto md:h-full min-w-0">
+
+        <!-- 🌟 TOMBOL HAMBURGER KIRI (Hanya Muncul di Mobile) 🌟 -->
+        <div class="md:hidden flex items-center gap-3 mb-6">
+            <button onclick="toggleAdminSidebar()" class="w-10 h-10 rounded-xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-900 dark:text-white shadow-sm">
+                <i class="fas fa-bars text-lg"></i>
+            </button>
+            <h1 class="text-xl font-bold text-slate-900 dark:text-white">Menu Admin</h1>
+        </div>
+
         <div class="max-w-7xl mx-auto">
 
             <header class="flex items-center justify-between mb-5 md:mb-8">
@@ -303,7 +303,6 @@
 
             <!-- 🌟 KONTEN TAB: GENERAL (TEMA & BAHASA) 🌟 -->
             <div id="tab-general" class="tab-content hidden">
-                <!-- Disesuaikan padding & margin-nya agar lebih rapi di HP -->
                 <h4 class="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-4 md:mb-8" data-i18n="tema_tampilan">Tema Tampilan</h4>
                 <div class="grid grid-cols-3 gap-2 md:gap-4 mb-6 md:mb-10">
                     <button onclick="setTheme('light')" id="btn-theme-light" class="flex flex-col items-center justify-center py-4 rounded-xl border-2 border-transparent bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all group focus:outline-none">
@@ -493,7 +492,7 @@
                             <th class="px-4 py-3 bg-slate-50 dark:bg-[#0f172a] border-b" data-i18n="subjek">Subjek</th>
                             <th class="px-4 py-3 bg-slate-50 dark:bg-[#0f172a] border-b" data-i18n="pesan">Pesan</th>
                             <th class="px-4 py-3 bg-slate-50 dark:bg-[#0f172a] border-b" data-i18n="tanggal">Tanggal</th>
-                            <th class="px-4 py-3 bg-slate-50 dark:bg-[#0f172a] border-b text-center" data-i18n="status">Status</th> <!-- Tambahan Kolom Status -->
+                            <th class="px-4 py-3 bg-slate-50 dark:bg-[#0f172a] border-b text-center" data-i18n="status">Status</th>
                         </tr>
                     </thead>
                     <tbody id="feedbackTableBody" class="divide-y divide-slate-100 dark:divide-slate-800">
@@ -520,6 +519,24 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    // 🌟 SCRIPT TOGGLE SIDEBAR ADMIN (MOBILE) 🌟
+    function toggleAdminSidebar() {
+        const sidebar = document.getElementById('adminSidebar');
+        const overlay = document.getElementById('adminSidebarOverlay');
+
+        if (sidebar.classList.contains('-translate-x-full')) {
+            sidebar.classList.remove('-translate-x-full');
+            sidebar.classList.add('translate-x-0');
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            sidebar.classList.remove('translate-x-0');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    }
+
     // ==========================================
     // 🌟 KAMUS BAHASA (TRANSLATIONS DICTIONARY) 🌟
     // ==========================================
@@ -1189,12 +1206,8 @@
                     if (data.length > 0) {
                         data.forEach(fb => {
                             const date = new Date(fb.created_at).toLocaleString('id-ID');
-
-                            // Cek apakah sudah dibaca atau belum
                             const isRead = fb.is_read;
                             const rowClass = isRead ? 'opacity-60 bg-slate-50 dark:bg-slate-800/20' : 'hover:bg-slate-50 dark:hover:bg-slate-800/30';
-
-                            // Tombol Aksi
                             const actionBtn = isRead ?
                                 `<span class="text-xs text-emerald-500 flex items-center justify-center gap-1 font-bold"><i class="fas fa-check-circle"></i> ${translations[localStorage.getItem('language') || 'id'].dibaca}</span>` :
                                 `<button onclick="markFeedbackRead(${fb.id}, this)" class="px-3 py-1.5 bg-emerald-100 text-emerald-700 hover:bg-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400 rounded-lg transition text-xs font-bold flex items-center justify-center gap-1 mx-auto"><i class="fas fa-check"></i> ${translations[localStorage.getItem('language') || 'id'].tandai_dibaca}</button>`;

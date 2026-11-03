@@ -1060,6 +1060,22 @@
         </div>
     </div>
 
+    <!-- ========================================== -->
+    <!-- 🌟 MODAL SUKSES FEEDBACK (POP-UP BARU) 🌟 -->
+    <!-- ========================================== -->
+    <div id="successPopup" class="fixed inset-0 z-[99999] hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div id="successPopupContent" class="bg-white dark:bg-[#0f172a] rounded-3xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300">
+            <div class="w-20 h-20 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-check-circle text-4xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Berhasil!</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Terima kasih! Feedback Anda telah terkirim ke Admin.</p>
+            <button onclick="closeSuccessPopup()" class="w-full py-3 rounded-xl font-bold text-white bg-emerald-500 hover:bg-emerald-600 shadow-lg shadow-emerald-500/30 transition-all">
+                Tutup
+            </button>
+        </div>
+    </div>
+
     <!-- FLOATING SETTINGS BUTTON -->
     <button onclick="openGlobalSettings()" class="fixed bottom-5 right-5 md:bottom-8 md:right-8 z-[900] w-12 h-12 md:w-14 md:h-14 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.5)] flex items-center justify-center transition-all duration-300 transform hover:scale-110 group animate-float-btn" title="Pengaturan Tema & Bahasa">
         <i class="fas fa-cog text-xl md:text-2xl group-hover:rotate-90 transition-transform duration-500"></i>
@@ -1373,7 +1389,30 @@
             }
         }
 
-        // 🌟 FUNGSI SUBMIT FEEDBACK YANG SUDAH DIPERBAIKI 🌟
+        // 🌟 FUNGSI POP-UP SUKSES BARU 🌟
+        function showSuccessPopup() {
+            const modal = document.getElementById('successPopup');
+            const content = document.getElementById('successPopupContent');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeSuccessPopup() {
+            const modal = document.getElementById('successPopup');
+            const content = document.getElementById('successPopupContent');
+            modal.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // 🌟 FUNGSI SUBMIT FEEDBACK (DIPERBARUI MENGGUNAKAN POPUP) 🌟
         function submitFeedback(event) {
             event.preventDefault();
             const subject = document.getElementById('feedbackSubject').value;
@@ -1388,7 +1427,7 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json', // 🌟 KUNCI UTAMA AGAR TIDAK ERROR
+                        'Accept': 'application/json',
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                     body: JSON.stringify({
@@ -1408,16 +1447,23 @@
                 })
                 .then(data => {
                     if (data.success) {
-                        alert('Terima kasih! Feedback Anda telah terkirim ke Admin.');
+                        // Tutup modal form feedback
                         closeFeedbackModal();
+
+                        // Reset form
                         document.getElementById('feedbackSubject').value = '';
                         document.getElementById('feedbackMessage').value = '';
                         document.querySelectorAll('.fb-chip').forEach(c => c.classList.remove('active'));
+
+                        // Tampilkan popup sukses baru kita (dengan delay sedikit agar transisi mulus)
+                        setTimeout(() => {
+                            showSuccessPopup();
+                        }, 350);
                     }
                 })
                 .catch(err => {
                     console.error(err);
-                    alert(err.message); // Menampilkan pesan error asli
+                    alert(err.message); // Tetap pakai alert untuk error
                 })
                 .finally(() => {
                     submitBtn.innerHTML = originalText;

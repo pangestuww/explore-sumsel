@@ -6,6 +6,7 @@ use App\Models\Budaya;
 use App\Models\Provinsi;
 use App\Models\Kabupaten;
 use App\Models\Favorit;
+use App\Models\Review; // 🌟 WAJIB DITAMBAHKAN: Import model Review
 use Illuminate\Http\Request;
 
 class BudayaController extends Controller
@@ -62,8 +63,17 @@ class BudayaController extends Controller
                 ->where('budaya_id', $budaya->id)
                 ->exists();
         }
+
         $reviews = $budaya->reviews()->with('user')->latest()->get();
 
-        return view('budaya.show', compact('budaya', 'isFavorited', 'reviews'));
+        // 🌟 TAMBAHAN BARU: Ambil foto dari ulasan untuk Galeri di Sidebar 🌟
+        $fotoUlasan = Review::where('budaya_id', $budaya->id)
+            ->whereNotNull('foto')
+            ->latest()
+            ->take(6)
+            ->get();
+
+        // Masukkan 'fotoUlasan' ke dalam compact
+        return view('budaya.show', compact('budaya', 'isFavorited', 'reviews', 'fotoUlasan'));
     }
 }

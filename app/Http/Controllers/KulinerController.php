@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kuliner;
 use App\Models\Kabupaten;
 use App\Models\Provinsi;
+use App\Models\Review; // 🌟 TAMBAHKAN INI: Import model Review
 use Illuminate\Http\Request;
 
 class KulinerController extends Controller
@@ -48,14 +49,22 @@ class KulinerController extends Controller
         $user = $request->user();
 
         if ($user) {
-            // Paksa panggil langsung tanpa lewat 'use'
             $isFavorited = \App\Models\Favorit::where('user_id', $user->id)
                 ->where('kuliner_id', $kuliner->id)
                 ->exists();
         }
+        
         // Ambil ulasan
         $reviews = $kuliner->reviews()->with('user')->latest()->get();
 
-        return view('kuliner.show', compact('kuliner', 'isFavorited', 'reviews'));
+        // 🌟 TAMBAHAN BARU: Ambil foto dari ulasan untuk Galeri di Sidebar 🌟
+        $fotoUlasan = Review::where('kuliner_id', $kuliner->id)
+            ->whereNotNull('foto')
+            ->latest()
+            ->take(6)
+            ->get();
+
+        // Masukkan 'fotoUlasan' ke dalam compact
+        return view('kuliner.show', compact('kuliner', 'isFavorited', 'reviews', 'fotoUlasan'));
     }
 }

@@ -1,78 +1,89 @@
-<nav class="bg-white dark:bg-slate-900 shadow-sm sticky top-0 z-50 border-b border-gray-100 dark:border-slate-800 transition-colors duration-300">
-    <div class="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+@php
+$isAdminPage = request()->is('admin*');
 
-        {{-- Logo --}}
-        <a href="{{ route('home') }}" class="flex items-center gap-2 group">
-            <div class="w-10 h-10 bg-gradient-to-br from-green-600 to-green-800 rounded-xl flex items-center justify-center shadow-lg shadow-green-600/20 group-hover:scale-105 transition-transform">
-                <i class="fas fa-leaf text-white text-lg"></i>
-            </div>
-            <span class="font-extrabold text-xl text-gray-900 dark:text-white tracking-tight">
-                Explore<span class="text-green-700 dark:text-green-400">Sumatera</span>
-            </span>
-        </a>
+// Admin: tetap sticky biasa (supaya sidebar admin tidak ketimpa).
+// Publik: melayang (fixed) + transparan blur.
+$navWrap = $isAdminPage
+? 'sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-sm border-b border-gray-100 dark:border-slate-800 transition-colors duration-300'
+: 'fixed top-0 inset-x-0 z-50 px-3 md:px-6 pt-3 md:pt-4 pointer-events-none';
 
-        {{-- Menu Desktop --}}
-        <div class="hidden md:flex items-center gap-1 text-gray-700 dark:text-slate-300 text-sm font-semibold">
-            <a href="{{ route('home') }}" class="px-4 py-2 rounded-lg transition {{ request()->routeIs('home') ? 'text-green-700 dark:text-green-400 bg-green-50 dark:bg-emerald-950' : 'hover:text-green-700 dark:hover:text-green-400 hover:bg-gray-50 dark:hover:bg-slate-800' }}" data-i18n="nav_home">Beranda</a>
-            <a href="{{ route('destinasi.index') }}" class="px-4 py-2 rounded-lg transition {{ request()->routeIs('destinasi.*') ? 'text-green-700 dark:text-green-400 bg-green-50 dark:bg-emerald-950' : 'hover:text-green-700 dark:hover:text-green-400 hover:bg-gray-50 dark:hover:bg-slate-800' }}" data-i18n="nav_destinasi">Destinasi</a>
-            <a href="{{ route('budaya.index') }}" class="px-4 py-2 rounded-lg transition {{ request()->routeIs('budaya.*') ? 'text-green-700 dark:text-green-400 bg-green-50 dark:bg-emerald-950' : 'hover:text-green-700 dark:hover:text-green-400 hover:bg-gray-50 dark:hover:bg-slate-800' }}" data-i18n="nav_budaya">Budaya</a>
-            <a href="{{ route('kuliner.index') }}" class="px-4 py-2 rounded-lg transition {{ request()->routeIs('kuliner.*') ? 'text-green-700 dark:text-green-400 bg-green-50 dark:bg-emerald-950' : 'hover:text-green-700 dark:hover:text-green-400 hover:bg-gray-50 dark:hover:bg-slate-800' }}" data-i18n="nav_kuliner">Kuliner</a>
-        </div>
+$barWrap = $isAdminPage
+? ''
+: 'relative mx-auto max-w-7xl rounded-2xl md:rounded-full pointer-events-auto';
 
-        {{-- Right Actions --}}
-        <div class="flex items-center gap-2 md:gap-4">
+$barInner = $isAdminPage
+? 'container mx-auto px-4 md:px-6 py-4 flex items-center justify-between'
+: 'px-3 md:px-6 py-2 md:py-2.5 flex items-center justify-between';
 
-            {{-- SEARCH BUTTON (Desktop) --}}
-            <a href="{{ route('destinasi.index') }}" class="hidden md:flex w-10 h-10 rounded-full bg-gray-100 dark:bg-slate-800 items-center justify-center hover:bg-gray-200 dark:hover:bg-slate-700 transition cursor-pointer" title="Cari">
-                <i class="fas fa-search text-gray-600 dark:text-slate-300 text-sm"></i>
+$notifTop = $isAdminPage ? 'top-[72px]' : 'top-[80px]';
+@endphp
+
+<nav class="{{ $navWrap }}">
+    <div class="{{ $barWrap }}">
+
+        {{-- Layer kaca (blur dipisah dari konten supaya elemen "fixed" di dalamnya tidak ikut terkunci) --}}
+        @unless($isAdminPage)
+        <div aria-hidden="true" class="absolute inset-0 -z-10 rounded-2xl md:rounded-full bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl backdrop-saturate-150 border border-white/60 dark:border-white/10 shadow-lg shadow-slate-900/10"></div>
+        @endunless
+
+        <div class="{{ $barInner }}">
+
+            {{-- Logo --}}
+            <a href="{{ route('home') }}" class="flex items-center gap-2 group">
+                <div class="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-green-600 to-green-800 rounded-xl flex items-center justify-center shadow-lg shadow-green-600/20 group-hover:scale-105 transition-transform">
+                    <i class="fas fa-leaf text-white text-base md:text-lg"></i>
+                </div>
+                <span class="font-extrabold text-lg md:text-xl text-gray-900 dark:text-white tracking-tight">
+                    Explore<span class="text-green-700 dark:text-green-400">Sumatera</span>
+                </span>
             </a>
 
-            {{-- NOTIFIKASI (Desktop) --}}
-            @auth
-            <div class="relative hidden md:block">
-                <button id="navNotifBtn" type="button" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-slate-700 transition relative">
-                    <i class="fas fa-bell text-gray-600 dark:text-slate-300 text-sm"></i>
-                    <span id="navNotifDot" class="hidden absolute top-2 right-2 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white dark:border-slate-900 animate-pulse"></span>
-                </button>
-
-                <div id="navNotifDropdown" class="hidden absolute right-0 mt-3 w-80 bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-gray-100 dark:border-slate-800 z-[100] overflow-hidden transition-all duration-200">
-                    <div class="p-4 border-b border-gray-100 dark:border-slate-800 flex justify-between items-center bg-gray-50 dark:bg-slate-800/50">
-                        <h3 class="font-bold text-gray-800 dark:text-white text-sm" data-i18n="notif_title">Notifikasi</h3>
-                        <span id="navNotifCount" class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Memuat...</span>
-                    </div>
-                    <div id="navNotifList" class="max-h-80 overflow-y-auto custom-scrollbar">
-                        <div class="p-6 text-center text-sm text-gray-500"><i class="fas fa-spinner fa-spin text-xl mb-2 text-emerald-500"></i><br>Memuat notifikasi...</div>
-                    </div>
-                </div>
+            {{-- Menu Desktop --}}
+            <div class="hidden md:flex items-center gap-1 text-gray-700 dark:text-slate-300 text-sm font-semibold">
+                <a href="{{ route('home') }}" class="px-4 py-2 rounded-full transition {{ request()->routeIs('home') ? 'text-green-700 dark:text-green-400 bg-green-50/80 dark:bg-emerald-950/80' : 'hover:text-green-700 dark:hover:text-green-400 hover:bg-white/60 dark:hover:bg-slate-800/60' }}" data-i18n="nav_home">Beranda</a>
+                <a href="{{ route('destinasi.index') }}" class="px-4 py-2 rounded-full transition {{ request()->routeIs('destinasi.*') ? 'text-green-700 dark:text-green-400 bg-green-50/80 dark:bg-emerald-950/80' : 'hover:text-green-700 dark:hover:text-green-400 hover:bg-white/60 dark:hover:bg-slate-800/60' }}" data-i18n="nav_destinasi">Destinasi</a>
+                <a href="{{ route('budaya.index') }}" class="px-4 py-2 rounded-full transition {{ request()->routeIs('budaya.*') ? 'text-green-700 dark:text-green-400 bg-green-50/80 dark:bg-emerald-950/80' : 'hover:text-green-700 dark:hover:text-green-400 hover:bg-white/60 dark:hover:bg-slate-800/60' }}" data-i18n="nav_budaya">Budaya</a>
+                <a href="{{ route('kuliner.index') }}" class="px-4 py-2 rounded-full transition {{ request()->routeIs('kuliner.*') ? 'text-green-700 dark:text-green-400 bg-green-50/80 dark:bg-emerald-950/80' : 'hover:text-green-700 dark:hover:text-green-400 hover:bg-white/60 dark:hover:bg-slate-800/60' }}" data-i18n="nav_kuliner">Kuliner</a>
             </div>
-            @endauth
 
-            {{-- Auth Desktop --}}
-            <div class="hidden md:block">
+            {{-- Right Actions --}}
+            <div class="flex items-center gap-1.5 md:gap-3">
+
+                {{-- SEARCH BUTTON (Desktop + Mobile, publik & admin) --}}
+                <a href="{{ route('destinasi.index') }}"
+                    class="flex w-9 h-9 md:w-10 md:h-10 rounded-full bg-gray-100/80 dark:bg-slate-800/80 items-center justify-center hover:bg-gray-200 dark:hover:bg-slate-700 transition cursor-pointer" title="Cari">
+                    <i class="fas fa-search text-gray-600 dark:text-slate-300 text-sm"></i>
+                </a>
+
+                {{-- NOTIFIKASI (Desktop + Mobile, publik & admin) --}}
                 @auth
-                {{-- JIKA ADMIN --}}
-                @if(Auth::user()->isAdmin())
-                {{-- 1. JIKA ADMIN DI HALAMAN ADMIN (TANPA DROPDOWN) --}}
-                @if(request()->is('admin*'))
-                <div class="flex items-center gap-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 pl-2 pr-4 py-1.5 rounded-full shadow-sm cursor-default">
-                    @if(Auth::user()->photo)
-                    <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover shadow-sm">
-                    @elseif(Auth::user()->avatar)
-                    <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover shadow-sm">
-                    @else
-                    <div class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400 flex items-center justify-center text-sm font-black">
-                        {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
-                    </div>
-                    @endif
-                    <div class="text-left hidden sm:block max-w-[150px]">
-                        <p class="text-sm font-bold text-gray-800 dark:text-white leading-none truncate">{{ Auth::user()->name }}</p>
+                <div class="relative">
+                    <button id="navNotifBtn" type="button" class="w-9 h-9 md:w-10 md:h-10 rounded-full bg-gray-100/80 dark:bg-slate-800/80 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-slate-700 transition relative">
+                        <i class="fas fa-bell text-gray-600 dark:text-slate-300 text-sm"></i>
+                        <span id="navNotifDot" class="hidden absolute top-2 right-2 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white dark:border-slate-900 animate-pulse"></span>
+                    </button>
+
+                    {{-- Mobile: fixed full-width di bawah navbar, Desktop: absolute di bawah tombol --}}
+                    <div id="navNotifDropdown" class="hidden fixed left-4 right-4 {{ $notifTop }} md:absolute md:left-auto md:right-0 md:top-auto md:mt-4 md:w-80 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-gray-100 dark:border-slate-800 z-[100] overflow-hidden transition-all duration-200 pointer-events-auto">
+                        <div class="p-4 border-b border-gray-100 dark:border-slate-800 flex justify-between items-center bg-gray-50 dark:bg-slate-800/50">
+                            <h3 class="font-bold text-gray-800 dark:text-white text-sm" data-i18n="notif_title">Notifikasi</h3>
+                            <span id="navNotifCount" class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Memuat...</span>
+                        </div>
+                        <div id="navNotifList" class="max-h-80 overflow-y-auto custom-scrollbar">
+                            <div class="p-6 text-center text-sm text-gray-500"><i class="fas fa-spinner fa-spin text-xl mb-2 text-emerald-500"></i><br>Memuat notifikasi...</div>
+                        </div>
                     </div>
                 </div>
+                @endauth
 
-                {{-- 2. JIKA ADMIN DI HALAMAN PUBLIK (DROPDOWN) --}}
-                @else
-                <div class="relative" id="adminDropdownContainer">
-                    <button id="adminDropdownBtn" class="flex items-center gap-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 pl-2 pr-3 py-1.5 rounded-full transition shadow-sm">
+                {{-- Auth Desktop --}}
+                <div class="hidden md:block">
+                    @auth
+                    {{-- JIKA ADMIN --}}
+                    @if(Auth::user()->isAdmin())
+                    {{-- 1. ADMIN DI HALAMAN ADMIN (TANPA DROPDOWN) --}}
+                    @if($isAdminPage)
+                    <div class="flex items-center gap-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 pl-2 pr-4 py-1.5 rounded-full shadow-sm cursor-default">
                         @if(Auth::user()->photo)
                         <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover shadow-sm">
                         @elseif(Auth::user()->avatar)
@@ -85,76 +96,118 @@
                         <div class="text-left hidden sm:block max-w-[150px]">
                             <p class="text-sm font-bold text-gray-800 dark:text-white leading-none truncate">{{ Auth::user()->name }}</p>
                         </div>
-                        <i class="fas fa-chevron-down text-gray-400 text-xs ml-1"></i>
-                    </button>
-
-                    <div id="adminDropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-gray-100 dark:border-slate-700 py-2 z-[100]">
-                        <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700 font-semibold">
-                            <i class="fas fa-tachometer-alt w-5 text-center mr-2"></i> Dashboard
-                        </a>
-                        <div class="border-t border-gray-100 dark:border-slate-700 my-1"></div>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="w-full text-left block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 font-semibold">
-                                <i class="fas fa-sign-out-alt w-5 text-center mr-2"></i> Keluar
-                            </button>
-                        </form>
                     </div>
-                </div>
-                @endif
 
-                {{-- JIKA USER BIASA --}}
-                @else
-                <div class="relative" id="userDropdownContainer">
-                    <button id="userDropdownBtn" class="flex items-center gap-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 pl-2 pr-3 py-1.5 rounded-full transition shadow-sm">
+                    {{-- 2. ADMIN DI HALAMAN PUBLIK (DROPDOWN) --}}
+                    @else
+                    <div class="relative" id="adminDropdownContainer">
+                        <button id="adminDropdownBtn" class="flex items-center gap-2 bg-white/80 dark:bg-slate-800/80 border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 pl-1.5 pr-3 py-1 rounded-full transition shadow-sm">
+                            @if(Auth::user()->photo)
+                            <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover shadow-sm">
+                            @elseif(Auth::user()->avatar)
+                            <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover shadow-sm">
+                            @else
+                            <div class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400 flex items-center justify-center text-sm font-black">
+                                {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
+                            </div>
+                            @endif
+                            <div class="text-left hidden sm:block max-w-[150px]">
+                                <p class="text-sm font-bold text-gray-800 dark:text-white leading-none truncate">{{ Auth::user()->name }}</p>
+                            </div>
+                            <i class="fas fa-chevron-down text-gray-400 text-xs ml-1"></i>
+                        </button>
+
+                        <div id="adminDropdownMenu" class="hidden absolute right-0 mt-4 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-gray-100 dark:border-slate-700 py-2 z-[100]">
+                            <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700 font-semibold">
+                                <i class="fas fa-tachometer-alt w-5 text-center mr-2"></i> Dashboard
+                            </a>
+                            <div class="border-t border-gray-100 dark:border-slate-700 my-1"></div>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full text-left block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 font-semibold">
+                                    <i class="fas fa-sign-out-alt w-5 text-center mr-2"></i> Keluar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    @endif
+
+                    {{-- JIKA USER BIASA --}}
+                    @else
+                    <div class="relative" id="userDropdownContainer">
+                        <button id="userDropdownBtn" class="flex items-center gap-2 bg-white/80 dark:bg-slate-800/80 border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 pl-1.5 pr-3 py-1 rounded-full transition shadow-sm">
+                            @if(Auth::user()->photo)
+                            <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover shadow-sm">
+                            @elseif(Auth::user()->avatar)
+                            <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover shadow-sm">
+                            @else
+                            <div class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400 flex items-center justify-center text-sm font-black">
+                                {{ strtoupper(substr(Auth::user()->name ?? 'U', 0, 1)) }}
+                            </div>
+                            @endif
+                            <div class="text-left hidden sm:block max-w-[150px]">
+                                <p class="text-sm font-bold text-gray-800 dark:text-white leading-none truncate">{{ Auth::user()->name }}</p>
+                            </div>
+                            <i class="fas fa-chevron-down text-gray-400 text-xs ml-1"></i>
+                        </button>
+
+                        <div id="userDropdownMenu" class="hidden absolute right-0 mt-4 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-gray-100 dark:border-slate-700 py-2 z-[100]">
+                            <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700 font-semibold">
+                                <i class="fas fa-tachometer-alt w-5 text-center mr-2"></i> Dashboard
+                            </a>
+                            <div class="border-t border-gray-100 dark:border-slate-700 my-1"></div>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full text-left block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 font-semibold">
+                                    <i class="fas fa-sign-out-alt w-5 text-center mr-2"></i> Keluar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    @endif
+                    @else
+                    <a href="{{ route('login') }}" class="inline-flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white px-5 py-2.5 rounded-full transition font-bold text-sm shadow-md shadow-green-700/20" data-i18n="nav_login">
+                        <i class="fas fa-sign-in-alt text-xs"></i> Masuk
+                    </a>
+                    @endauth
+                </div>
+
+                {{-- Avatar + hamburger (Mobile) --}}
+                <div class="flex items-center gap-1.5 md:hidden">
+                    @auth
+                    {{-- Avatar hanya di halaman admin (di publik, Dashboard ada di menu hamburger biar pill tidak sesak) --}}
+                    @if($isAdminPage)
+                    <a href="{{ Auth::user()->isAdmin() ? route('admin.dashboard') : route('dashboard') }}"
+                        class="w-9 h-9 rounded-full overflow-hidden bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center text-emerald-700 dark:text-emerald-400 font-black text-sm">
                         @if(Auth::user()->photo)
-                        <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover shadow-sm">
+                        <img src="{{ asset('storage/' . Auth::user()->photo) }}" class="w-full h-full object-cover" alt="Avatar">
                         @elseif(Auth::user()->avatar)
-                        <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover shadow-sm">
+                        <img src="{{ asset('storage/' . Auth::user()->avatar) }}" class="w-full h-full object-cover" alt="Avatar">
                         @else
-                        <div class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400 flex items-center justify-center text-sm font-black">
-                            {{ strtoupper(substr(Auth::user()->name ?? 'U', 0, 1)) }}
-                        </div>
+                        {{ strtoupper(substr(Auth::user()->name ?? 'U', 0, 1)) }}
                         @endif
-                        <div class="text-left hidden sm:block max-w-[150px]">
-                            <p class="text-sm font-bold text-gray-800 dark:text-white leading-none truncate">{{ Auth::user()->name }}</p>
-                        </div>
-                        <i class="fas fa-chevron-down text-gray-400 text-xs ml-1"></i>
+                    </a>
+                    @endif
+                    @endauth
+
+                    {{-- Hamburger disembunyikan di halaman admin --}}
+                    @if(!$isAdminPage)
+                    <button onclick="toggleMobileMenu()" aria-label="Buka menu" class="w-9 h-9 rounded-full bg-slate-100/80 dark:bg-slate-800/80 flex items-center justify-center text-slate-700 dark:text-white focus:outline-none">
+                        <i class="fas fa-bars text-base"></i>
                     </button>
-
-                    <div id="userDropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-gray-100 dark:border-slate-700 py-2 z-[100]">
-                        <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700 font-semibold">
-                            <i class="fas fa-tachometer-alt w-5 text-center mr-2"></i> Dashboard
-                        </a>
-                        <div class="border-t border-gray-100 dark:border-slate-700 my-1"></div>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="w-full text-left block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 font-semibold">
-                                <i class="fas fa-sign-out-alt w-5 text-center mr-2"></i> Keluar
-                            </button>
-                        </form>
-                    </div>
+                    @endif
                 </div>
-                @endif
-                @else
-                <a href="{{ route('login') }}" class="inline-flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white px-5 py-2.5 rounded-lg transition font-bold text-sm shadow-md shadow-green-700/20" data-i18n="nav_login">
-                    <i class="fas fa-sign-in-alt text-xs"></i> Masuk
-                </a>
-                @endauth
             </div>
-
-            {{-- Tombol Hamburger (Mobile) --}}
-            <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-white focus:outline-none">
-                <i class="fas fa-bars text-lg"></i>
-            </button>
         </div>
     </div>
 
-    {{-- Menu Mobile Overlay --}}
-    <div id="mobileMenuOverlay" class="fixed inset-0 z-[999] bg-slate-900/50 backdrop-blur-sm hidden md:hidden transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+    {{-- MENU MOBILE PUBLIK (Disembunyikan di Halaman Admin) --}}
+    @if(!$isAdminPage)
+    <!-- Menu Mobile Overlay -->
+    <div id="mobileMenuOverlay" class="fixed inset-0 z-[999] bg-slate-900/50 backdrop-blur-sm hidden md:hidden transition-opacity duration-300 pointer-events-auto" onclick="toggleMobileMenu()"></div>
 
-    {{-- Menu Mobile Sidebar --}}
-    <div id="mobileMenuSidebar" class="fixed top-0 right-0 h-full w-[280px] bg-white dark:bg-slate-900 z-[1000] shadow-2xl transform translate-x-full transition-transform duration-300 md:hidden flex flex-col">
+    <!-- Menu Mobile Sidebar -->
+    <div id="mobileMenuSidebar" class="fixed top-0 right-0 h-full w-[280px] bg-white dark:bg-slate-900 z-[1000] shadow-2xl transform translate-x-full transition-transform duration-300 md:hidden flex flex-col pointer-events-auto">
         <div class="p-6 flex justify-between items-center border-b border-gray-100 dark:border-slate-800">
             <span class="font-bold text-lg dark:text-white">Menu</span>
             <button onclick="toggleMobileMenu()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-red-500 transition"><i class="fas fa-times"></i></button>
@@ -179,6 +232,7 @@
             @endauth
         </div>
     </div>
+    @endif
 </nav>
 
 <!-- Gaya Scrollbar Custom untuk Notifikasi -->
@@ -206,16 +260,18 @@
     function toggleMobileMenu() {
         const overlay = document.getElementById('mobileMenuOverlay');
         const sidebar = document.getElementById('mobileMenuSidebar');
-        if (sidebar.classList.contains('translate-x-full')) {
-            overlay.classList.remove('hidden');
-            sidebar.classList.remove('translate-x-full');
-            sidebar.classList.add('translate-x-0');
-            document.body.style.overflow = 'hidden';
-        } else {
-            overlay.classList.add('hidden');
-            sidebar.classList.remove('translate-x-0');
-            sidebar.classList.add('translate-x-full');
-            document.body.style.overflow = 'auto';
+        if (sidebar && overlay) {
+            if (sidebar.classList.contains('translate-x-full')) {
+                overlay.classList.remove('hidden');
+                sidebar.classList.remove('translate-x-full');
+                sidebar.classList.add('translate-x-0');
+                document.body.style.overflow = 'hidden';
+            } else {
+                overlay.classList.add('hidden');
+                sidebar.classList.remove('translate-x-0');
+                sidebar.classList.add('translate-x-full');
+                document.body.style.overflow = 'auto';
+            }
         }
     }
 
