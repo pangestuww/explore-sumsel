@@ -5,8 +5,8 @@
 @section('content')
 
 @php
-$totalReview = $destinasi->reviews->count();
-$avgRating = $totalReview > 0 ? number_format($destinasi->reviews->avg('rating'), 1) : '0.0';
+$totalReview = $reviews->count();
+$avgRating = $totalReview > 0 ? number_format($reviews->avg('rating'), 1) : '0.0';
 @endphp
 
 {{-- 🌟 CSS UNTUK SCROLLABLE GALLERY 🌟 --}}
@@ -14,12 +14,9 @@ $avgRating = $totalReview > 0 ? number_format($destinasi->reviews->avg('rating')
     .v-gallery-container {
         height: 380px;
         overflow-y: auto;
-        /* Mengaktifkan scroll vertikal */
         padding-right: 6px;
-        /* Jarak agar konten tidak nabrak scrollbar */
     }
 
-    /* Desain Custom Scrollbar */
     .v-gallery-container::-webkit-scrollbar {
         width: 6px;
     }
@@ -39,7 +36,6 @@ $avgRating = $totalReview > 0 ? number_format($destinasi->reviews->avg('rating')
 
     .v-gallery-container::-webkit-scrollbar-thumb:hover {
         background: #10b981;
-        /* Warna emerald saat di-hover */
     }
 
     .v-gallery-track {
@@ -76,7 +72,7 @@ $avgRating = $totalReview > 0 ? number_format($destinasi->reviews->avg('rating')
     }
 </style>
 
-{{-- HERO IMAGE (Menggunakan Background Image agar tidak melar saat di-zoom) --}}
+{{-- HERO IMAGE --}}
 @php
 $gambarUrl = $destinasi->gambar ? (str_starts_with($destinasi->gambar, 'http') ? $destinasi->gambar : asset('storage/' . $destinasi->gambar)) : 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200';
 @endphp
@@ -93,7 +89,6 @@ $gambarUrl = $destinasi->gambar ? (str_starts_with($destinasi->gambar, 'http') ?
             <span class="text-white font-medium">{{ $destinasi->nama }}</span>
         </nav>
 
-        {{-- Badge Transparan --}}
         <span class="inline-block bg-white/10 backdrop-blur-md text-white text-xs font-bold px-4 py-1.5 rounded-full capitalize mb-4 border border-white/20 shadow-lg">
             {{ $destinasi->kategori }}
         </span>
@@ -226,6 +221,12 @@ $gambarUrl = $destinasi->gambar ? (str_starts_with($destinasi->gambar, 'http') ?
                     </div>
                     @endif
 
+                    @if (session('error'))
+                    <div class="bg-red-100 dark:bg-red-950/50 text-red-700 dark:text-red-400 p-4 rounded-xl mb-6 font-semibold text-sm border border-red-200 dark:border-red-900">
+                        <i class="fas fa-exclamation-circle mr-1"></i> {{ session('error') }}
+                    </div>
+                    @endif
+
                     @if ($errors->any())
                     <div class="bg-red-100 dark:bg-red-950/50 text-red-700 dark:text-red-400 p-4 rounded-xl mb-6 font-semibold text-sm border border-red-200 dark:border-red-900">
                         <ul>
@@ -237,74 +238,106 @@ $gambarUrl = $destinasi->gambar ? (str_starts_with($destinasi->gambar, 'http') ?
                     @endif
 
                     @auth
-                    <form method="POST" action="{{ route('review.store') }}" enctype="multipart/form-data" class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 mb-8">
-                        @csrf
-                        <input type="hidden" name="type" value="destinasi">
-                        <input type="hidden" name="id" value="{{ $destinasi->id }}">
+                        @if($userReview)
+                            {{-- 🌟 JIKA SUDAH ULAS: Tampilkan Bintang & Teks (Read Only) 🌟 --}}
+                            <div class="bg-emerald-50 dark:bg-slate-800/80 border border-emerald-200 dark:border-emerald-500/30 rounded-2xl p-6 mb-8 shadow-sm relative overflow-hidden">
+                                <div class="absolute top-0 right-0 bg-emerald-500 text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl">Ulasan Anda</div>
+                                
+                                <h3 class="font-bold text-slate-900 dark:text-white mb-4 mt-2">Terima kasih atas ulasan Anda!</h3>
+                                
+                                <div class="flex items-center gap-1 mb-3 text-amber-400 text-xl">
+                                    @for($i = 1; $i <= 5; $i++)
+                                        <i class="{{ $i <= $userReview->rating ? 'fas' : 'far' }} fa-star"></i>
+                                    @endfor
+                                    <span class="text-slate-600 dark:text-slate-300 text-sm font-bold ml-2">{{ $userReview->rating }}.0 / 5.0</span>
+                                </div>
 
-                        <h3 class="font-bold text-slate-900 dark:text-white mb-3 text-sm">Tulis Ulasan Anda</h3>
+                                <p class="text-slate-700 dark:text-slate-300 text-sm italic">"{{ $userReview->komentar }}"</p>
 
-                        <div class="flex items-center gap-1 mb-4 flex-row-reverse justify-end">
-                            @for($i = 5; $i >= 1; $i--)
-                            <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" class="hidden peer" required />
-                            <label for="star{{ $i }}" class="text-slate-300 dark:text-slate-600 cursor-pointer text-3xl hover:text-amber-400 peer-checked:text-amber-400 transition-colors">
-                                <i class="fas fa-star"></i>
-                            </label>
-                            @endfor
-                        </div>
-
-                        <textarea name="komentar" rows="3" required placeholder="Bagaimana pengalaman Anda di sini?"
-                            class="w-full bg-white dark:bg-slate-900 text-slate-800 dark:text-white border border-slate-300 dark:border-slate-600 rounded-xl p-4 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-3 resize-none"></textarea>
-
-                        {{-- INPUT FOTO --}}
-                        <div class="mb-4">
-                            <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Tambah Foto (Opsional)</label>
-                            <input type="file" name="foto" id="foto-input" accept="image/*" onchange="previewImage(event)" class="block w-full text-sm text-slate-500 dark:text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 dark:file:bg-emerald-500/20 dark:file:text-emerald-400 transition-all cursor-pointer">
-
-                            <div id="image-preview-container" class="mt-3 hidden">
-                                <img id="image-preview" src="" alt="Preview" class="w-32 h-32 object-cover rounded-xl border-2 border-emerald-500">
+                                @if($userReview->foto)
+                                    <div class="mt-4">
+                                        <img src="{{ asset('storage/' . $userReview->foto) }}" alt="Foto Ulasan" class="w-32 h-32 object-cover rounded-xl border-2 border-emerald-500/50 cursor-pointer hover:scale-105 transition-transform" onclick="window.open(this.src, '_blank')">
+                                    </div>
+                                @endif
+                                
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-4"><i class="fas fa-clock mr-1"></i> {{ $userReview->created_at->diffForHumans() }}</p>
                             </div>
-                            @error('foto')
-                            <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
-                            @enderror
-                        </div>
+                        @else
+                            {{-- 🌟 JIKA BELUM ULAS: Tampilkan Form 🌟 --}}
+                            <form method="POST" action="{{ route('review.store') }}" enctype="multipart/form-data" class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 mb-8">
+                                @csrf
+                                <input type="hidden" name="type" value="destinasi">
+                                <input type="hidden" name="id" value="{{ $destinasi->id }}">
 
-                        <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition shadow-lg shadow-emerald-600/30">
-                            Kirim Ulasan
-                        </button>
-                    </form>
+                                <h3 class="font-bold text-slate-900 dark:text-white mb-3 text-sm">Tulis Ulasan Anda</h3>
+
+                                <div class="flex items-center gap-1 mb-4 flex-row-reverse justify-end">
+                                    @for($i = 5; $i >= 1; $i--)
+                                    <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" class="hidden peer" required />
+                                    <label for="star{{ $i }}" class="text-slate-300 dark:text-slate-600 cursor-pointer text-3xl hover:text-amber-400 peer-checked:text-amber-400 transition-colors">
+                                        <i class="fas fa-star"></i>
+                                    </label>
+                                    @endfor
+                                </div>
+
+                                <textarea name="komentar" rows="3" required placeholder="Bagaimana pengalaman Anda di sini?"
+                                    class="w-full bg-white dark:bg-slate-900 text-slate-800 dark:text-white border border-slate-300 dark:border-slate-600 rounded-xl p-4 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-3 resize-none"></textarea>
+
+                                {{-- INPUT FOTO --}}
+                                <div class="mb-4">
+                                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Tambah Foto (Opsional)</label>
+                                    <input type="file" name="foto" id="foto-input" accept="image/*" onchange="previewImage(event)" class="block w-full text-sm text-slate-500 dark:text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 dark:file:bg-emerald-500/20 dark:file:text-emerald-400 transition-all cursor-pointer">
+
+                                    <div id="image-preview-container" class="mt-3 hidden">
+                                        <img id="image-preview" src="" alt="Preview" class="w-32 h-32 object-cover rounded-xl border-2 border-emerald-500">
+                                    </div>
+                                    @error('foto')
+                                    <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition shadow-lg shadow-emerald-600/30">
+                                    Kirim Ulasan
+                                </button>
+                            </form>
+                        @endif
                     @endauth
 
                     @if ($totalReview > 0)
                     <div class="space-y-4">
-                        @foreach ($destinasi->reviews as $review)
-                        <div class="bg-white dark:bg-[#0f172a] rounded-2xl p-5 border border-slate-100 dark:border-slate-800 shadow-sm">
-                            <div class="flex items-start gap-4">
-                                <div class="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 flex items-center justify-center font-bold text-lg shrink-0">
-                                    {{ strtoupper(substr($review->user->name ?? 'U', 0, 1)) }}
-                                </div>
-                                <div class="flex-1">
-                                    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-2">
-                                        <p class="font-bold text-slate-900 dark:text-white text-lg">{{ $review->user->name ?? 'User' }}</p>
-                                        <div class="flex items-center gap-1 text-amber-400 text-sm">
-                                            @for ($i = 1; $i <= 5; $i++)
-                                                <i class="fas fa-star {{ $i <= $review->rating ? 'text-amber-400' : 'text-slate-200 dark:text-slate-700' }}"></i>
-                                                @endfor
+                        @foreach ($reviews as $review)
+                            {{-- 🌟 SKIP ULASAN MILIK SENDIRI KARENA SUDAH DITAMPILKAN DI ATAS 🌟 --}}
+                            @if(Auth::check() && $review->user_id == Auth::id())
+                                @continue
+                            @endif
+
+                            <div class="bg-white dark:bg-[#0f172a] rounded-2xl p-5 border border-slate-100 dark:border-slate-800 shadow-sm">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 flex items-center justify-center font-bold text-lg shrink-0">
+                                        {{ strtoupper(substr($review->user->name ?? 'U', 0, 1)) }}
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-2">
+                                            <p class="font-bold text-slate-900 dark:text-white text-lg">{{ $review->user->name ?? 'User' }}</p>
+                                            <div class="flex items-center gap-1 text-amber-400 text-sm">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <i class="fas fa-star {{ $i <= $review->rating ? 'text-amber-400' : 'text-slate-200 dark:text-slate-700' }}"></i>
+                                                    @endfor
+                                            </div>
                                         </div>
-                                    </div>
-                                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed">{{ $review->komentar }}</p>
+                                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">{{ $review->komentar }}</p>
 
-                                    {{-- FOTO DARI USER --}}
-                                    @if($review->foto)
-                                    <div class="mt-3">
-                                        <img src="{{ asset('storage/' . $review->foto) }}" alt="Foto Ulasan" class="w-32 h-32 object-cover rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer hover:scale-105 transition-transform" onclick="window.open(this.src, '_blank')">
-                                    </div>
-                                    @endif
+                                        {{-- FOTO DARI USER --}}
+                                        @if($review->foto)
+                                        <div class="mt-3">
+                                            <img src="{{ asset('storage/' . $review->foto) }}" alt="Foto Ulasan" class="w-32 h-32 object-cover rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer hover:scale-105 transition-transform" onclick="window.open(this.src, '_blank')">
+                                        </div>
+                                        @endif
 
-                                    <p class="text-xs text-slate-400 dark:text-slate-500 mt-3 font-medium"><i class="far fa-clock mr-1"></i> {{ $review->created_at->diffForHumans() }}</p>
+                                        <p class="text-xs text-slate-400 dark:text-slate-500 mt-3 font-medium"><i class="far fa-clock mr-1"></i> {{ $review->created_at->diffForHumans() }}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                     @else
@@ -390,11 +423,9 @@ $gambarUrl = $destinasi->gambar ? (str_starts_with($destinasi->gambar, 'http') ?
                         </div>
                     </div>
 
-                    {{-- Teks diubah karena sekarang scroll manual --}}
                     <p class="text-center text-[10px] text-slate-400 mt-3"><i class="fas fa-mouse mr-1"></i> Geser ke bawah untuk melihat semua</p>
                 </div>
                 @endif
-                {{-- 🌟 AKHIR TAMBAHAN GALLERY 🌟 --}}
 
             </div>
         </div>

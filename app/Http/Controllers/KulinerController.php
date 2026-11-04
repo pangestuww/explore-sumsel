@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Kuliner;
 use App\Models\Kabupaten;
 use App\Models\Provinsi;
-use App\Models\Review; // 🌟 TAMBAHKAN INI: Import model Review
+use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KulinerController extends Controller
 {
@@ -40,7 +41,6 @@ class KulinerController extends Controller
         return view('kuliner.index', compact('kuliners', 'provinsis', 'kabupatens'));
     }
 
-    // Tambahkan Request $request di dalam parameter show
     public function show(Request $request, $slug)
     {
         $kuliner = Kuliner::with('kabupaten.provinsi')->where('slug', $slug)->firstOrFail();
@@ -54,17 +54,24 @@ class KulinerController extends Controller
                 ->exists();
         }
         
-        // Ambil ulasan
+        // Ambil semua ulasan untuk ditampilkan
         $reviews = $kuliner->reviews()->with('user')->latest()->get();
 
-        // 🌟 TAMBAHAN BARU: Ambil foto dari ulasan untuk Galeri di Sidebar 🌟
+        // 🌟 Cek apakah user sudah pernah ulas
+        $userReview = null;
+        if (Auth::check()) {
+            $userReview = Review::where('user_id', Auth::id())
+                                ->where('kuliner_id', $kuliner->id)
+                                ->first();
+        }
+
+        // Ambil foto dari ulasan untuk Galeri di Sidebar
         $fotoUlasan = Review::where('kuliner_id', $kuliner->id)
             ->whereNotNull('foto')
             ->latest()
             ->take(6)
             ->get();
 
-        // Masukkan 'fotoUlasan' ke dalam compact
-        return view('kuliner.show', compact('kuliner', 'isFavorited', 'reviews', 'fotoUlasan'));
+        return view('kuliner.show', compact('kuliner', 'isFavorited', 'reviews', 'fotoUlasan', 'userReview'));
     }
 }

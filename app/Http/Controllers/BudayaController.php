@@ -6,12 +6,12 @@ use App\Models\Budaya;
 use App\Models\Provinsi;
 use App\Models\Kabupaten;
 use App\Models\Favorit;
-use App\Models\Review; // 🌟 WAJIB DITAMBAHKAN: Import model Review
+use App\Models\Review; 
 use Illuminate\Http\Request;
 
 class BudayaController extends Controller
 {
-    // FUNGSI UNTUK MENAMPILKAN DAFTAR BUDAYA (Yang tadi hilang)
+    // FUNGSI UNTUK MENAMPILKAN DAFTAR BUDAYA
     public function index(Request $request)
     {
         // 1. Ambil data dengan relasi
@@ -56,24 +56,34 @@ class BudayaController extends Controller
         $budaya = Budaya::with('kabupaten.provinsi')->where('slug', $slug)->firstOrFail();
 
         $isFavorited = false;
-        $user = $request->user(); // Ambil user dari request (anti garis merah)
+        $user = $request->user(); // Ambil user dari request
 
+        // 🌟 CEK FAVORIT
         if ($user) {
             $isFavorited = Favorit::where('user_id', $user->id)
                 ->where('budaya_id', $budaya->id)
                 ->exists();
         }
 
+        // Ambil semua ulasan untuk ditampilkan di bawah
         $reviews = $budaya->reviews()->with('user')->latest()->get();
 
-        // 🌟 TAMBAHAN BARU: Ambil foto dari ulasan untuk Galeri di Sidebar 🌟
+        // 🌟 TAMBAHAN BARU: Cek apakah user yang login sudah pernah review budaya ini
+        $userReview = null;
+        if ($user) {
+            $userReview = Review::where('user_id', $user->id)
+                                ->where('budaya_id', $budaya->id)
+                                ->first();
+        }
+
+        // Ambil foto dari ulasan untuk Galeri di Sidebar
         $fotoUlasan = Review::where('budaya_id', $budaya->id)
             ->whereNotNull('foto')
             ->latest()
             ->take(6)
             ->get();
 
-        // Masukkan 'fotoUlasan' ke dalam compact
-        return view('budaya.show', compact('budaya', 'isFavorited', 'reviews', 'fotoUlasan'));
+        // Masukkan 'userReview' ke dalam compact agar bisa dibaca oleh file Blade
+        return view('budaya.show', compact('budaya', 'isFavorited', 'reviews', 'fotoUlasan', 'userReview'));
     }
 }

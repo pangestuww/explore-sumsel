@@ -6,7 +6,7 @@ use App\Models\Destinasi;
 use App\Models\Kabupaten;
 use App\Models\Provinsi;
 use App\Models\Favorit;
-use App\Models\Review; // 🌟 TAMBAHKAN INI: Import model Review
+use App\Models\Review; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +14,6 @@ class DestinasiController extends Controller
 {
     public function index(Request $request)
     {
-        // Kode index() milikmu TETAP UTUH
         $query = Destinasi::with(['kabupaten.provinsi', 'reviews']);
 
         if ($request->filled('provinsi')) {
@@ -49,12 +48,10 @@ class DestinasiController extends Controller
 
     public function show($slug)
     {
-        // 1. Kode asli milikmu TETAP UTUH
         $destinasi = Destinasi::with(['kabupaten.provinsi', 'reviews.user'])
             ->where('slug', $slug)
             ->firstOrFail();
 
-        // 2. Kode asli milikmu TETAP UTUH
         $terkait = Destinasi::with('kabupaten')
             ->where('kabupaten_id', $destinasi->kabupaten_id)
             ->where('id', '!=', $destinasi->id)
@@ -69,7 +66,6 @@ class DestinasiController extends Controller
                 ->get();
         }
 
-        // 3. Kode asli milikmu TETAP UTUH
         $isFavorited = false;
         if (Auth::check()) {
             $isFavorited = Favorit::where('user_id', Auth::id())
@@ -77,23 +73,30 @@ class DestinasiController extends Controller
                 ->exists();
         }
 
-        // 4. Kode asli milikmu TETAP UTUH
         $reviews = $destinasi->reviews()->with('user')->latest()->get();
 
-        // 🌟 TAMBAHAN BARU: Ambil foto dari ulasan untuk Galeri Vertikal di Sidebar 🌟
+        // Ambil foto dari ulasan untuk Galeri Vertikal di Sidebar
         $fotoUlasan = Review::where('destinasi_id', $destinasi->id)
             ->whereNotNull('foto')
             ->latest()
             ->take(6)
             ->get();
 
-        // 🌟 UBAH BAGIAN INI: Tambahkan 'fotoUlasan' ke dalam compact 🌟
+        // 🌟 TAMBAHAN BARU: Cek apakah user sudah pernah ulas destinasi ini
+        $userReview = null;
+        if (Auth::check()) {
+            $userReview = Review::where('user_id', Auth::id())
+                                ->where('destinasi_id', $destinasi->id)
+                                ->first();
+        }
+
         return view('destinasi.show', compact(
             'destinasi',
             'terkait',
             'isFavorited',
             'reviews',
-            'fotoUlasan' // <-- Tambahan variabel baru
+            'fotoUlasan',
+            'userReview' // <-- Tambahkan variabel baru ini
         ));
     }
 }
