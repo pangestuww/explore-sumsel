@@ -529,8 +529,8 @@
     <!-- 🌟 MODAL PROFIL SAYA (FIXED MOBILE) 🌟 -->
     <!-- ========================================== -->
     @auth
-    <div id="userProfileModal" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <div id="userProfileModalContent" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-4xl shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col md:flex-row h-[90vh] md:h-[600px] md:max-h-[90vh]">
+    <div id="userProfileModal" onclick="closeUserProfileModal()" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div id="userProfileModalContent" onclick="event.stopPropagation()" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-4xl shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col md:flex-row h-[90vh] md:h-[600px] md:max-h-[90vh]">
 
             <!-- Sidebar Kiri Modal (Hanya Desktop) -->
             <div class="hidden md:flex w-64 bg-slate-50 dark:bg-slate-800/50 border-r border-slate-200 dark:border-slate-700 p-6 flex-col">
@@ -626,8 +626,8 @@
     <!-- ========================================== -->
     <!-- 🌟 MODAL ITINERARY (JADWAL PERJALANAN) 🌟 -->
     <!-- ========================================== -->
-    <div id="itineraryModal" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <div id="itineraryModalContent" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-lg max-h-[90vh] shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-y-auto custom-modal-scroll">
+    <div id="itineraryModal" onclick="closeItineraryModal()" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div id="itineraryModalContent" onclick="event.stopPropagation()" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-lg max-h-[90vh] shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-y-auto custom-modal-scroll">
 
             <!-- Header -->
             <div class="flex justify-between items-center p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/30">
@@ -682,8 +682,8 @@
     <!-- ========================================== -->
     <!-- 🌟 MODAL FAVORIT (DESAIN BARU MODERN) 🌟 -->
     <!-- ========================================== -->
-    <div id="favoritModal" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <div id="favoritModalContent" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-5xl shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col h-[600px] max-h-[90vh]">
+    <div id="favoritModal" onclick="closeFavoritModal()" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div id="favoritModalContent" onclick="event.stopPropagation()" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-5xl shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col h-[600px] max-h-[90vh]">
 
             <!-- Header Modal -->
             <div class="flex justify-between items-center p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f172a] shrink-0">
@@ -788,8 +788,8 @@
     <!-- ========================================== -->
     <!-- 🌟 MODAL FEEDBACK (USER) 🌟 -->
     <!-- ========================================== -->
-    <div id="feedbackModal" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <div id="feedbackModalContent" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-lg max-h-[90vh] shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-y-auto custom-modal-scroll">
+    <div id="feedbackModal" onclick="closeFeedbackModal()" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div id="feedbackModalContent" onclick="event.stopPropagation()" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-lg max-h-[90vh] shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-y-auto custom-modal-scroll">
 
             <!-- Header bergradasi -->
             <div class="relative overflow-hidden bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 px-5 py-6 md:px-8 md:py-7 text-white">
@@ -860,8 +860,8 @@
     <!-- 🌟 MODAL PERJALANAN SAYA (LIHAT SEMUA) 🌟 -->
     <!-- ========================================== -->
     @php $journeyFavs = $favorites ?? collect(); @endphp
-    <div id="journeyModal" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <div id="journeyModalContent" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-3xl shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col h-[600px] max-h-[90vh]">
+    <div id="journeyModal" onclick="closeJourneyModal()" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div id="journeyModalContent" onclick="event.stopPropagation()" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-3xl shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col h-[600px] max-h-[90vh]">
 
             <!-- Header -->
             <div class="flex justify-between items-center p-4 md:p-6 pb-0 md:pb-0 bg-white dark:bg-[#0f172a] shrink-0">
@@ -968,8 +968,8 @@
     <!-- 🌟 MODAL SEMUA REVIEW 🌟 -->
     <!-- ========================================== -->
     @php $modalReviews = $allReviews ?? $recentReviews ?? collect(); @endphp
-    <div id="reviewsModal" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <div id="reviewsModalContent" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-3xl shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col h-[600px] max-h-[90vh]">
+    <div id="reviewsModal" onclick="closeReviewsModal()" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div id="reviewsModalContent" onclick="event.stopPropagation()" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-3xl shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col h-[600px] max-h-[90vh]">
 
             <!-- Header Modal -->
             <div class="flex justify-between items-center p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f172a] shrink-0">
@@ -1063,8 +1063,8 @@
     <!-- ========================================== -->
     <!-- 🌟 MODAL SUKSES FEEDBACK (POP-UP BARU) 🌟 -->
     <!-- ========================================== -->
-    <div id="successPopup" class="fixed inset-0 z-[99999] hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <div id="successPopupContent" class="bg-white dark:bg-[#0f172a] rounded-3xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300">
+    <div id="successPopup" onclick="closeSuccessPopup()" class="fixed inset-0 z-[99999] hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div id="successPopupContent" onclick="event.stopPropagation()" class="bg-white dark:bg-[#0f172a] rounded-3xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300">
             <div class="w-20 h-20 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto mb-6">
                 <i class="fas fa-check-circle text-4xl"></i>
             </div>
@@ -1082,8 +1082,8 @@
     </button>
 
     <!-- GLOBAL SETTINGS MODAL (Tema & Bahasa) -->
-    <div id="globalSettingsModal" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <div id="globalSettingsContent" class="bg-white dark:bg-[#0f172a] rounded-2xl w-full max-w-lg max-h-[90vh] shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col">
+    <div id="globalSettingsModal" onclick="closeGlobalSettings()" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div id="globalSettingsContent" onclick="event.stopPropagation()" class="bg-white dark:bg-[#0f172a] rounded-2xl w-full max-w-lg max-h-[90vh] shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col">
             <div class="flex justify-between items-center p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/30 shrink-0">
                 <h3 class="text-lg md:text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <i class="fas fa-cog text-emerald-500"></i> <span data-i18n="settings">Pengaturan</span>

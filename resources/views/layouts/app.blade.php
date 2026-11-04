@@ -93,8 +93,9 @@
     </button>
     @endif
 
-    <div id="globalSettingsModal" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <div id="globalSettingsContent" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-lg shadow-2xl border border-slate-200 dark:border-slate-800 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col">
+    <!-- 🌟 MODAL PENGATURAN (SUDAH DIPERBAIKI) 🌟 -->
+    <div id="globalSettingsModal" onclick="closeGlobalSettings()" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div id="globalSettingsContent" onclick="event.stopPropagation()" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-lg shadow-2xl border border-slate-200 dark:border-slate-800 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col">
             <div class="flex justify-between items-center p-6 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-[#0f172a]">
                 <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2"><span data-i18n="settings">Pengaturan</span></h3>
                 <button onclick="closeGlobalSettings()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:bg-red-100 hover:text-red-600 transition"><i class="fas fa-times"></i></button>
