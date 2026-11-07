@@ -9,8 +9,19 @@ class Feedback extends Model
 {
     use HasFactory;
 
-    // Tabel default Laravel untuk model ini adalah 'feedback' (uncountable noun)
-    protected $fillable = ['user_id', 'subject', 'message', 'is_read'];
+    protected $fillable = [
+        'user_id',
+        'subject',
+        'message',
+        'is_read',
+        'is_spam',
+        'spam_reason',
+    ];
+
+    protected $casts = [
+        'is_read' => 'boolean',
+        'is_spam' => 'boolean',
+    ];
 
     public function user()
     {

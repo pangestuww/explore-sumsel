@@ -1189,6 +1189,7 @@
         window.openAdminFeedbackModal = function() {
             const modal = document.getElementById('adminFeedbackModal');
             const content = document.getElementById('adminFeedbackModalContent');
+
             modal.classList.remove('hidden');
             setTimeout(() => {
                 modal.classList.remove('opacity-0');
@@ -1197,46 +1198,108 @@
             }, 10);
 
             const tbody = document.getElementById('feedbackTableBody');
-            tbody.innerHTML = '<tr><td colspan="5" class="text-center py-6 text-slate-500"><i class="fas fa-spinner fa-spin mr-2"></i> Memuat data feedback...</td></tr>';
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="text-center py-6 text-slate-500">
+                        <i class="fas fa-spinner fa-spin mr-2"></i>
+                        Memuat data feedback...
+                    </td>
+                </tr>
+            `;
 
-            fetch("{{ route('admin.feedback.api') }}")
-                .then(res => res.json())
+            // Mengambil daftar feedback dari endpoint admin.
+            fetch("{{ route('admin.feedback.api') }}", {
+                headers: { 'Accept': 'application/json' }
+            })
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error('Gagal mengambil data feedback. HTTP ' + res.status);
+                    }
+                    return res.json();
+                })
                 .then(data => {
+                    if (!Array.isArray(data)) {
+                        throw new Error('Format data feedback tidak sesuai.');
+                    }
+
+                    // Filter tambahan di tampilan. Filter utama tetap dilakukan di server.
+                    const normalFeedback = data.filter(fb => {
+                        return fb.is_spam !== true && fb.is_spam !== 1 && fb.is_spam !== '1';
+                    });
+
+                    const escapeHTML = (value) => {
+                        return String(value ?? '').replace(/[&<>"']/g, char => ({
+                            '&': '&amp;',
+                            '<': '&lt;',
+                            '>': '&gt;',
+                            '"': '&quot;',
+                            "'": '&#039;'
+                        })[char]);
+                    };
+
                     let html = '';
-                    if (data.length > 0) {
-                        data.forEach(fb => {
-                            const date = new Date(fb.created_at).toLocaleString('id-ID');
-                            const isRead = fb.is_read;
-                            const rowClass = isRead ? 'opacity-60 bg-slate-50 dark:bg-slate-800/20' : 'hover:bg-slate-50 dark:hover:bg-slate-800/30';
-                            const actionBtn = isRead ?
-                                `<span class="text-xs text-emerald-500 flex items-center justify-center gap-1 font-bold"><i class="fas fa-check-circle"></i> ${translations[localStorage.getItem('language') || 'id'].dibaca}</span>` :
-                                `<button onclick="markFeedbackRead(${fb.id}, this)" class="px-3 py-1.5 bg-emerald-100 text-emerald-700 hover:bg-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400 rounded-lg transition text-xs font-bold flex items-center justify-center gap-1 mx-auto"><i class="fas fa-check"></i> ${translations[localStorage.getItem('language') || 'id'].tandai_dibaca}</button>`;
+                    const lang = localStorage.getItem('language') || 'id';
+                    const languageText = translations[lang] || translations.id;
+
+                    if (normalFeedback.length > 0) {
+                        normalFeedback.forEach(fb => {
+                            const date = fb.created_at
+                                ? new Date(fb.created_at).toLocaleString('id-ID')
+                                : '-';
+                            const isRead = fb.is_read === true || fb.is_read === 1 || fb.is_read === '1';
+                            const rowClass = isRead
+                                ? 'opacity-60 bg-slate-50 dark:bg-slate-800/20'
+                                : 'hover:bg-slate-50 dark:hover:bg-slate-800/30';
+
+                            const name = escapeHTML(fb.user?.name || 'Pengguna');
+                            const subject = escapeHTML(fb.subject || '-');
+                            const message = escapeHTML(fb.message || '-');
+                            const initial = name.charAt(0).toUpperCase();
+                            const feedbackId = Number(fb.id);
+
+                            const actionBtn = isRead
+                                ? `<span class="text-xs text-emerald-500 flex items-center justify-center gap-1 font-bold"><i class="fas fa-check-circle"></i> ${escapeHTML(languageText.dibaca || 'Dibaca')}</span>`
+                                : `<button onclick="markFeedbackRead(${feedbackId}, this)" class="px-3 py-1.5 bg-emerald-100 text-emerald-700 hover:bg-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400 rounded-lg transition text-xs font-bold flex items-center justify-center gap-1 mx-auto"><i class="fas fa-check"></i> ${escapeHTML(languageText.tandai_dibaca || 'Tandai Dibaca')}</button>`;
 
                             html += `
                                 <tr class="transition-all duration-300 ${rowClass}">
                                     <td class="px-4 py-3">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shrink-0">${fb.user.name.charAt(0).toUpperCase()}</div>
-                                            <span class="font-bold text-slate-800 dark:text-white text-sm">${fb.user.name}</span>
+                                            <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shrink-0">${initial}</div>
+                                            <span class="font-bold text-slate-800 dark:text-white text-sm">${name}</span>
                                         </div>
                                     </td>
-                                    <td class="px-4 py-3 text-sm font-semibold text-slate-700 dark:text-slate-300">${fb.subject}</td>
-                                    <td class="px-4 py-3 text-sm text-slate-600 dark:text-slate-400">${fb.message}</td>
+                                    <td class="px-4 py-3 text-sm font-semibold text-slate-700 dark:text-slate-300">${subject}</td>
+                                    <td class="px-4 py-3 text-sm text-slate-600 dark:text-slate-400">${message}</td>
                                     <td class="px-4 py-3 text-xs text-slate-500">${date}</td>
                                     <td class="px-4 py-3 text-center">${actionBtn}</td>
                                 </tr>
                             `;
                         });
                     } else {
-                        html = '<tr><td colspan="5" class="text-center py-6 text-slate-500">Belum ada feedback.</td></tr>';
+                        html = `
+                            <tr>
+                                <td colspan="5" class="text-center py-8 text-slate-500">
+                                    <i class="fas fa-inbox text-3xl mb-3 block"></i>
+                                    Belum ada feedback normal.
+                                </td>
+                            </tr>
+                        `;
                     }
+
                     tbody.innerHTML = html;
                 })
                 .catch(err => {
-                    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-6 text-red-500">Gagal memuat data.</td></tr>';
+                    console.error('Kesalahan memuat feedback:', err);
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="5" class="text-center py-6 text-red-500">
+                                Gagal memuat data feedback. Periksa route dan server Laravel.
+                            </td>
+                        </tr>
+                    `;
                 });
         };
-
         window.closeAdminFeedbackModal = function() {
             const modal = document.getElementById('adminFeedbackModal');
             const content = document.getElementById('adminFeedbackModalContent');
