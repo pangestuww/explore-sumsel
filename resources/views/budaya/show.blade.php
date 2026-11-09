@@ -7,6 +7,15 @@
 @php
 $totalReview = $budaya->reviews->count();
 $avgRating = $totalReview > 0 ? number_format($budaya->reviews->avg('rating'), 1) : '0.0';
+
+// FUNGSI UNTUK MENGUBAH LINK TEKS MENJADI BISA DIKLIK
+$formatTeks = function($teks) {
+    // 1. Amankan teks dari script berbahaya
+    $teksAman = e($teks);
+    // 2. Cari pola URL dan ubah menjadi tag <a>
+    $pola = '/((http|https):\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}(?::[0-9]+)?(?:\/[^\s]*)?)/i';
+    return preg_replace($pola, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-emerald-600 dark:text-emerald-400 font-bold hover:underline">$1</a>', $teksAman);
+};
 @endphp
 
 {{-- 🌟 CSS UNTUK SCROLLABLE GALLERY 🌟 --}}
@@ -124,8 +133,9 @@ $gambarUrl = $budaya->gambar ? (str_starts_with($budaya->gambar, 'http') ? $buda
 
                 <div class="bg-white dark:bg-[#0f1a18] rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 dark:border-[#1a2e29]">
                     <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Tentang Budaya</h2>
+                    {{-- PERUBAHAN DI SINI: Menggunakan {!! !!} dan fungsi $formatTeks --}}
                     <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-lg whitespace-pre-line">
-                        {{ $budaya->deskripsi }}
+                        {!! $formatTeks($budaya->deskripsi) !!}
                     </p>
                 </div>
 
@@ -200,8 +210,9 @@ $gambarUrl = $budaya->gambar ? (str_starts_with($budaya->gambar, 'http') ? $buda
                 @if(!empty($budaya->deskripsi_bawah))
                 <div class="bg-white dark:bg-[#0f1a18] rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 dark:border-[#1a2e29]">
                     <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Informasi Tambahan</h2>
+                    {{-- PERUBAHAN DI SINI --}}
                     <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-lg whitespace-pre-line">
-                        {{ $budaya->deskripsi_bawah }}
+                        {!! $formatTeks($budaya->deskripsi_bawah) !!}
                     </p>
                 </div>
                 @endif
@@ -269,7 +280,6 @@ $gambarUrl = $budaya->gambar ? (str_starts_with($budaya->gambar, 'http') ? $buda
                             </div>
                             @endif
 
-                            {{-- 🌟 INI YANG DIUBAH MENJADI updated_at 🌟 --}}
                             <p class="text-xs text-slate-400 dark:text-slate-500 mt-3">{{ $review->updated_at->diffForHumans() }}</p>
                         </div>
                         @empty

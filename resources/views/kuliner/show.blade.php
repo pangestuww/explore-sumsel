@@ -7,6 +7,15 @@
 @php
 $totalReview = $reviews->count();
 $avgRating = $totalReview > 0 ? number_format($reviews->avg('rating'), 1) : '0.0';
+
+// FUNGSI UNTUK MENGUBAH LINK TEKS MENJADI BISA DIKLIK
+$formatTeks = function($teks) {
+    // 1. Amankan teks dari script berbahaya
+    $teksAman = e($teks);
+    // 2. Cari pola URL dan ubah menjadi tag <a>
+    $pola = '/((http|https):\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}(?::[0-9]+)?(?:\/[^\s]*)?)/i';
+    return preg_replace($pola, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-emerald-600 dark:text-emerald-400 font-bold hover:underline">$1</a>', $teksAman);
+};
 @endphp
 
 {{-- 🌟 CSS UNTUK SCROLLABLE GALLERY 🌟 --}}
@@ -126,8 +135,9 @@ $gambarUrl = str_starts_with($kuliner->gambar, 'http') ? $kuliner->gambar : asse
 
                 <div class="bg-white dark:bg-[#0f1a18] rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 dark:border-[#1a2e29] transition-colors duration-300">
                     <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Tentang Kuliner</h2>
+                    {{-- PERUBAHAN DI SINI: Menggunakan {!! !!} dan fungsi $formatTeks --}}
                     <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-lg whitespace-pre-line">
-                        {{ $kuliner->deskripsi }}
+                        {!! $formatTeks($kuliner->deskripsi) !!}
                     </p>
                 </div>
 
@@ -168,8 +178,9 @@ $gambarUrl = str_starts_with($kuliner->gambar, 'http') ? $kuliner->gambar : asse
                 @if(!empty($kuliner->deskripsi_bawah))
                 <div class="bg-white dark:bg-[#0f1a18] rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 dark:border-[#1a2e29] transition-colors duration-300">
                     <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Informasi Tambahan</h2>
+                    {{-- PERUBAHAN DI SINI --}}
                     <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-lg whitespace-pre-line">
-                        {{ $kuliner->deskripsi_bawah }}
+                        {!! $formatTeks($kuliner->deskripsi_bawah) !!}
                     </p>
                 </div>
                 @endif

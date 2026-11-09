@@ -7,6 +7,16 @@
 @php
 $totalReview = $destinasi->reviews->count();
 $avgRating = $totalReview > 0 ? number_format($destinasi->reviews->avg('rating'), 1) : '0.0';
+
+// FUNGSI UNTUK MENGUBAH LINK TEKS MENJADI BISA DIKLIK
+$formatTeks = function($teks) {
+    // 1. Amankan teks dari script berbahaya
+    $teksAman = e($teks);
+    // 2. Cari pola URL dan ubah menjadi tag <a>
+    $pola = '/((http|https):\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}(?::[0-9]+)?(?:\/[^\s]*)?)/i';
+    $teksLink = preg_replace($pola, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-emerald-600 dark:text-emerald-400 font-bold hover:underline">$1</a>', $teksAman);
+    return $teksLink;
+};
 @endphp
 
 {{-- 🌟 CSS UNTUK SCROLLABLE GALLERY 🌟 --}}
@@ -125,8 +135,9 @@ $gambarUrl = $destinasi->gambar ? (str_starts_with($destinasi->gambar, 'http') ?
                     <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-3">
                         <span class="w-2 h-8 bg-emerald-500 rounded-full"></span> Tentang Destinasi
                     </h2>
+                    {{-- PERUBAHAN DI SINI: Menggunakan {!! !!} dan fungsi $formatTeks --}}
                     <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-base md:text-lg text-justify whitespace-pre-line">
-                        {{ $destinasi->deskripsi }}
+                        {!! $formatTeks($destinasi->deskripsi) !!}
                     </p>
                 </div>
 
@@ -200,8 +211,9 @@ $gambarUrl = $destinasi->gambar ? (str_starts_with($destinasi->gambar, 'http') ?
                     <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-3">
                         <span class="w-2 h-8 bg-emerald-500 rounded-full"></span> Informasi Tambahan
                     </h2>
+                    {{-- PERUBAHAN DI SINI --}}
                     <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-base md:text-lg text-justify whitespace-pre-line">
-                        {{ $destinasi->deskripsi_bawah }}
+                        {!! $formatTeks($destinasi->deskripsi_bawah) !!}
                     </p>
                 </div>
                 @endif
@@ -296,7 +308,6 @@ $gambarUrl = $destinasi->gambar ? (str_starts_with($destinasi->gambar, 'http') ?
                                     </div>
                                     @endif
 
-                                    {{-- 🌟 INI YANG DIUBAH MENJADI updated_at 🌟 --}}
                                     <p class="text-xs text-slate-400 dark:text-slate-500 mt-3 font-medium"><i class="far fa-clock mr-1"></i> {{ $review->updated_at->diffForHumans() }}</p>
                                 </div>
                             </div>
