@@ -14,12 +14,30 @@ use App\Notifications\NewContentNotification;
 
 class AdminDestinasiController extends Controller
 {
-    public function index()
+    // 🌟 HANYA BAGIAN INI YANG BERUBAH (DITAMBAH FILTER & PER_PAGE) 🌟
+    public function index(Request $request)
     {
-        $destinasis = Destinasi::with('kabupaten.provinsi')->latest()->paginate(10);
+        $query = Destinasi::with('kabupaten.provinsi');
+
+        // Filter Search
+        if ($request->filled('search')) {
+            $query->where('nama', 'like', '%' . $request->search . '%');
+        }
+
+        // Filter Kategori
+        if ($request->filled('kategori')) {
+            $query->where('kategori', $request->kategori);
+        }
+
+        // Show Entries (Default 10)
+        $perPage = $request->input('per_page', 10);
+
+        $destinasis = $query->latest()->paginate($perPage)->withQueryString();
+
         $kabupatens = Kabupaten::orderBy('nama')->get();
         return view('admin.destinasi.index', compact('destinasis', 'kabupatens'));
     }
+    // 🌟 SELESAI BAGIAN YANG BERUBAH 🌟
 
     public function create()
     {
@@ -36,9 +54,9 @@ class AdminDestinasiController extends Controller
             'jenis' => 'required|string',
             'harga_tiket' => 'required|numeric',
             'deskripsi' => 'required|string',
-            'deskripsi_bawah' => 'nullable|string', // 🌟 Tambahan Baru
-            'jam_buka' => 'nullable|string|max:255', // 🌟 Tambahan Baru
-            'waktu_terbaik' => 'nullable|string|max:255', // 🌟 Tambahan Baru
+            'deskripsi_bawah' => 'nullable|string',
+            'jam_buka' => 'nullable|string|max:255',
+            'waktu_terbaik' => 'nullable|string|max:255',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
@@ -83,13 +101,13 @@ class AdminDestinasiController extends Controller
             'jenis' => 'required|string',
             'harga_tiket' => 'required|numeric',
             'deskripsi' => 'required|string',
-            'deskripsi_bawah' => 'nullable|string', // 🌟 Tambahan Baru
-            'jam_buka' => 'nullable|string|max:255', // 🌟 Tambahan Baru
-            'waktu_terbaik' => 'nullable|string|max:255', // 🌟 Tambahan Baru
+            'deskripsi_bawah' => 'nullable|string',
+            'jam_buka' => 'nullable|string|max:255',
+            'waktu_terbaik' => 'nullable|string|max:255',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
-            'link_maps' => 'nullable|string', // 🌟 Tambahan (sebelumnya belum ada di update)
+            'link_maps' => 'nullable|string',
         ]);
 
         $destinasi = Destinasi::findOrFail($id);

@@ -14,12 +14,30 @@ use App\Notifications\NewContentNotification;
 
 class AdminKulinerController extends Controller
 {
-    public function index()
+    // 🌟 HANYA BAGIAN INI YANG BERUBAH (DITAMBAH FILTER & PER_PAGE) 🌟
+    public function index(Request $request)
     {
-        $kuliners = Kuliner::with('kabupaten')->latest()->paginate(10);
+        $query = Kuliner::with('kabupaten');
+
+        // Filter Search
+        if ($request->filled('search')) {
+            $query->where('nama', 'like', '%' . $request->search . '%');
+        }
+
+        // Filter Jenis
+        if ($request->filled('jenis')) {
+            $query->where('jenis', $request->jenis);
+        }
+
+        // Show Entries (Default 10)
+        $perPage = $request->input('per_page', 10);
+
+        $kuliners = $query->latest()->paginate($perPage)->withQueryString();
+
         $kabupatens = Kabupaten::with('provinsi')->get();
         return view('admin.kuliner.index', compact('kuliners', 'kabupatens'));
     }
+    // 🌟 SELESAI BAGIAN YANG BERUBAH 🌟
 
     public function create()
     {

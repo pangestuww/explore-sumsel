@@ -18,7 +18,7 @@ class ReviewController extends Controller
             return back()->with('error', 'Anda harus login untuk mengirim ulasan.');
         }
 
-        // 2. Validasi Input
+        // 2. Validasi Input (Termasuk validasi Foto)
         $validated = $request->validate([
             'type' => 'required|in:destinasi,budaya,kuliner',
             'id' => 'required',
@@ -27,45 +27,38 @@ class ReviewController extends Controller
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        // 3. 🌟 CEK DUPLIKASI: Apakah user sudah pernah ulas tempat ini? 🌟
-        $kolom = '';
-        if ($validated['type'] === 'destinasi') $kolom = 'destinasi_id';
-        elseif ($validated['type'] === 'budaya') $kolom = 'budaya_id';
-        elseif ($validated['type'] === 'kuliner') $kolom = 'kuliner_id';
-
-        $sudahUlas = Review::where('user_id', Auth::id())
-                           ->where($kolom, $validated['id'])
-                           ->exists();
-
-        if ($sudahUlas) {
-            // Jika sudah ada, kembalikan dengan pesan error
-            return back()->with('error', 'Anda sudah pernah memberikan ulasan untuk tempat ini!');
-        }
-
-        // 4. Proses Upload Foto (Jika user mengunggah foto)
+        // 3. Proses Upload Foto (Jika user mengunggah foto)
         $fotoPath = null;
         if ($request->hasFile('foto')) {
             $fotoPath = $request->file('foto')->store('reviews', 'public');
         }
 
-        // 5. Simpan Data Ulasan ke Database
-        $review = Review::create([
+        // 4. Simpan/Update Data Ulasan ke Database
+        $kriteria = [
             'user_id'      => Auth::id(),
             'destinasi_id' => ($validated['type'] === 'destinasi') ? $validated['id'] : null,
             'budaya_id'    => ($validated['type'] === 'budaya') ? $validated['id'] : null,
             'kuliner_id'   => ($validated['type'] === 'kuliner') ? $validated['id'] : null,
-            'rating'       => $validated['rating'],
-            'komentar'     => $validated['komentar'],
-            'foto'         => $fotoPath,
-        ]);
+        ];
 
-        // 6. Kirim Notifikasi ke Semua Admin
+        $dataUlasan = [
+            'rating'   => $validated['rating'],
+            'komentar' => $validated['komentar'],
+        ];
+
+        if ($fotoPath) {
+            $dataUlasan['foto'] = $fotoPath;
+        }
+
+        $review = Review::updateOrCreate($kriteria, $dataUlasan);
+
+        // 5. Kirim Notifikasi ke Semua Admin
         $admins = User::where('role', 'admin')->get();
         if ($admins->isNotEmpty()) {
             Notification::send($admins, new NewReviewNotification($review));
         }
 
-        // 7. Kembalikan user ke halaman sebelumnya dengan pesan sukses
+        // 6. Kembalikan user ke halaman sebelumnya dengan pesan sukses
         return back()->with('success', 'Ulasan berhasil ditambahkan!');
     }
 }

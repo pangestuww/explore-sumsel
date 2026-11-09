@@ -72,7 +72,7 @@ $avgRating = $totalReview > 0 ? number_format($reviews->avg('rating'), 1) : '0.0
     }
 </style>
 
-{{-- HERO SECTION (Menggunakan Background Image) --}}
+{{-- HERO SECTION --}}
 @php
 $gambarUrl = str_starts_with($kuliner->gambar, 'http') ? $kuliner->gambar : asset($kuliner->gambar);
 @endphp
@@ -121,12 +121,6 @@ $gambarUrl = str_starts_with($kuliner->gambar, 'http') ? $kuliner->gambar : asse
                 @if(session('success'))
                 <div class="bg-emerald-100 border border-emerald-400 text-emerald-700 px-4 py-3 rounded-xl mb-4 text-sm font-bold">
                     <i class="fas fa-check-circle mr-2"></i> {{ session('success') }}
-                </div>
-                @endif
-                
-                @if(session('error'))
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl mb-4 text-sm font-bold">
-                    <i class="fas fa-exclamation-circle mr-2"></i> {{ session('error') }}
                 </div>
                 @endif
 
@@ -187,115 +181,79 @@ $gambarUrl = str_starts_with($kuliner->gambar, 'http') ? $kuliner->gambar : asse
                         <span class="text-sm text-slate-500 dark:text-slate-400">{{ $totalReview }} ulasan</span>
                     </div>
 
-                    @auth
-                        @if($userReview)
-                            {{-- 🌟 JIKA SUDAH ULAS: Tampilkan Bintang & Teks (Read Only) 🌟 --}}
-                            <div class="bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 rounded-2xl p-6 mb-8 shadow-sm relative overflow-hidden">
-                                <div class="absolute top-0 right-0 bg-emerald-500 text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl">Ulasan Anda</div>
-                                
-                                <h3 class="font-bold text-slate-900 dark:text-white mb-4 mt-2">Terima kasih atas ulasan Anda!</h3>
-                                
-                                <div class="flex gap-1 mb-3 text-xl text-amber-400">
-                                    @for($i = 1; $i <= 5; $i++)
-                                        <i class="{{ $i <= $userReview->rating ? 'fas' : 'far' }} fa-star"></i>
-                                    @endfor
-                                    <span class="text-slate-600 dark:text-slate-300 text-sm font-bold ml-2 mt-1">{{ $userReview->rating }}.0 / 5.0</span>
+                    <div class="bg-white dark:bg-[#0f1a18] border border-slate-200 dark:border-[#1a2e29] rounded-2xl p-6 mb-8 shadow-sm transition-colors duration-300">
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-4">Tulis Ulasan Anda</h3>
+                        @auth
+                        <form action="{{ route('review.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="type" value="kuliner">
+                            <input type="hidden" name="id" value="{{ $kuliner->id }}">
+
+                            <div class="flex gap-1 mb-4 text-2xl text-slate-300 dark:text-slate-600 star-rating-container">
+                                <input type="radio" name="rating" value="1" id="star1-kul" class="hidden" required><label for="star1-kul" class="cursor-pointer hover:text-amber-400 transition-colors"><i class="far fa-star"></i></label>
+                                <input type="radio" name="rating" value="2" id="star2-kul" class="hidden"><label for="star2-kul" class="cursor-pointer hover:text-amber-400 transition-colors"><i class="far fa-star"></i></label>
+                                <input type="radio" name="rating" value="3" id="star3-kul" class="hidden"><label for="star3-kul" class="cursor-pointer hover:text-amber-400 transition-colors"><i class="far fa-star"></i></label>
+                                <input type="radio" name="rating" value="4" id="star4-kul" class="hidden"><label for="star4-kul" class="cursor-pointer hover:text-amber-400 transition-colors"><i class="far fa-star"></i></label>
+                                <input type="radio" name="rating" value="5" id="star5-kul" class="hidden"><label for="star5-kul" class="cursor-pointer hover:text-amber-400 transition-colors"><i class="far fa-star"></i></label>
+                            </div>
+
+                            <textarea name="komentar" rows="3" placeholder="Bagaimana rasanya kuliner ini?" class="w-full bg-slate-50 dark:bg-[#11211d] border border-slate-300 dark:border-[#1a2e29] rounded-xl p-4 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 mb-4 text-sm transition-colors" required></textarea>
+
+                            <div class="mb-4">
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Tambah Foto (Opsional)</label>
+                                <input type="file" name="foto" id="foto-input" accept="image/*" onchange="previewImage(event)" class="block w-full text-sm text-slate-500 dark:text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 dark:file:bg-emerald-500/20 dark:file:text-emerald-400 transition-all cursor-pointer">
+
+                                <div id="image-preview-container" class="mt-3 hidden">
+                                    <img id="image-preview" src="" alt="Preview" class="w-32 h-32 object-cover rounded-xl border-2 border-emerald-500">
                                 </div>
-
-                                <p class="text-slate-700 dark:text-slate-300 text-sm italic">"{{ $userReview->komentar }}"</p>
-
-                                @if($userReview->foto)
-                                    <div class="mt-4">
-                                        <img src="{{ asset('storage/' . $userReview->foto) }}" alt="Foto Ulasan" class="w-32 h-32 object-cover rounded-xl border-2 border-emerald-500/50 cursor-pointer hover:scale-105 transition-transform" onclick="window.open(this.src, '_blank')">
-                                    </div>
-                                @endif
-                                
-                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-4"><i class="fas fa-clock mr-1"></i> {{ $userReview->created_at->diffForHumans() }}</p>
+                                @error('foto')
+                                <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
+                                @enderror
                             </div>
+
+                            <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl font-bold transition-all text-sm shadow-lg shadow-emerald-600/30">Kirim Ulasan</button>
+                        </form>
                         @else
-                            {{-- 🌟 JIKA BELUM ULAS: Tampilkan Form 🌟 --}}
-                            <div class="bg-white dark:bg-[#0f1a18] border border-slate-200 dark:border-[#1a2e29] rounded-2xl p-6 mb-8 shadow-sm transition-colors duration-300">
-                                <h3 class="font-bold text-slate-900 dark:text-white mb-4">Tulis Ulasan Anda</h3>
-                                
-                                <form action="{{ route('review.store') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="hidden" name="type" value="kuliner">
-                                    <input type="hidden" name="id" value="{{ $kuliner->id }}">
-
-                                    <div class="flex gap-1 mb-4 text-2xl text-slate-300 dark:text-slate-600 star-rating-container">
-                                        <input type="radio" name="rating" value="1" id="star1-kul" class="hidden" required><label for="star1-kul" class="cursor-pointer hover:text-amber-400 transition-colors"><i class="far fa-star"></i></label>
-                                        <input type="radio" name="rating" value="2" id="star2-kul" class="hidden"><label for="star2-kul" class="cursor-pointer hover:text-amber-400 transition-colors"><i class="far fa-star"></i></label>
-                                        <input type="radio" name="rating" value="3" id="star3-kul" class="hidden"><label for="star3-kul" class="cursor-pointer hover:text-amber-400 transition-colors"><i class="far fa-star"></i></label>
-                                        <input type="radio" name="rating" value="4" id="star4-kul" class="hidden"><label for="star4-kul" class="cursor-pointer hover:text-amber-400 transition-colors"><i class="far fa-star"></i></label>
-                                        <input type="radio" name="rating" value="5" id="star5-kul" class="hidden"><label for="star5-kul" class="cursor-pointer hover:text-amber-400 transition-colors"><i class="far fa-star"></i></label>
-                                    </div>
-
-                                    <textarea name="komentar" rows="3" placeholder="Bagaimana rasanya kuliner ini?" class="w-full bg-slate-50 dark:bg-[#11211d] border border-slate-300 dark:border-[#1a2e29] rounded-xl p-4 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 mb-4 text-sm transition-colors" required></textarea>
-
-                                    <div class="mb-4">
-                                        <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Tambah Foto (Opsional)</label>
-                                        <input type="file" name="foto" id="foto-input" accept="image/*" onchange="previewImage(event)" class="block w-full text-sm text-slate-500 dark:text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 dark:file:bg-emerald-500/20 dark:file:text-emerald-400 transition-all cursor-pointer">
-
-                                        <div id="image-preview-container" class="mt-3 hidden">
-                                            <img id="image-preview" src="" alt="Preview" class="w-32 h-32 object-cover rounded-xl border-2 border-emerald-500">
-                                        </div>
-                                        @error('foto')
-                                        <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-
-                                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl font-bold transition-all text-sm shadow-lg shadow-emerald-600/30">Kirim Ulasan</button>
-                                </form>
-                            </div>
-                        @endif
-                    @else
-                        <div class="bg-white dark:bg-[#0f1a18] border border-slate-200 dark:border-[#1a2e29] rounded-2xl p-6 mb-8 shadow-sm transition-colors duration-300 text-center">
-                            <p class="text-slate-600 dark:text-slate-400 text-sm"><a href="{{ route('login') }}" class="text-emerald-500 dark:text-emerald-400 hover:underline font-bold">Login</a> untuk menulis ulasan.</p>
-                        </div>
-                    @endauth
+                        <p class="text-slate-600 dark:text-slate-400 text-sm"><a href="{{ route('login') }}" class="text-emerald-500 dark:text-emerald-400 hover:underline font-bold">Login</a> untuk menulis ulasan.</p>
+                        @endauth
+                    </div>
 
                     <div class="space-y-4">
                         @forelse($reviews as $review)
-                            {{-- 🌟 SKIP ULASAN MILIK SENDIRI KARENA SUDAH DITAMPILKAN DI ATAS 🌟 --}}
-                            @if(Auth::check() && $review->user_id == Auth::id())
-                                @continue
+                        <div class="bg-white dark:bg-[#0f1a18] border border-slate-200 dark:border-[#1a2e29] rounded-2xl p-5 shadow-sm transition-colors duration-300">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-xs">{{ substr($review->user->name ?? 'U', 0, 1) }}</div>
+                                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">{{ $review->user->name ?? 'Pengunjung' }}</h4>
+                                </div>
+                                <div class="flex text-amber-400 text-xs">
+                                    @for($i=1; $i<=5; $i++)
+                                        <i class="{{ $i <= $review->rating ? 'fas' : 'far' }} fa-star"></i>
+                                        @endfor
+                                </div>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-300 text-sm mt-2">{{ $review->komentar }}</p>
+
+                            @if($review->foto)
+                            <div class="mt-3">
+                                <img src="{{ asset('storage/' . $review->foto) }}" alt="Foto Ulasan" class="w-32 h-32 object-cover rounded-xl border border-slate-200 dark:border-[#1a2e29] cursor-pointer hover:scale-105 transition-transform" onclick="window.open(this.src, '_blank')">
+                            </div>
                             @endif
 
-                            <div class="bg-white dark:bg-[#0f1a18] border border-slate-200 dark:border-[#1a2e29] rounded-2xl p-5 shadow-sm transition-colors duration-300">
-                                <div class="flex items-center justify-between mb-2">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-xs">{{ substr($review->user->name ?? 'U', 0, 1) }}</div>
-                                        <h4 class="font-bold text-slate-900 dark:text-white text-sm">{{ $review->user->name ?? 'Pengunjung' }}</h4>
-                                    </div>
-                                    <div class="flex text-amber-400 text-xs">
-                                        @for($i=1; $i<=5; $i++)
-                                            <i class="{{ $i <= $review->rating ? 'fas' : 'far' }} fa-star"></i>
-                                            @endfor
-                                    </div>
-                                </div>
-                                <p class="text-slate-600 dark:text-slate-300 text-sm mt-2">{{ $review->komentar }}</p>
-
-                                @if($review->foto)
-                                <div class="mt-3">
-                                    <img src="{{ asset('storage/' . $review->foto) }}" alt="Foto Ulasan" class="w-32 h-32 object-cover rounded-xl border border-slate-200 dark:border-[#1a2e29] cursor-pointer hover:scale-105 transition-transform" onclick="window.open(this.src, '_blank')">
-                                </div>
-                                @endif
-
-                                <p class="text-xs text-slate-400 dark:text-slate-500 mt-3">{{ $review->created_at->diffForHumans() }}</p>
-                            </div>
+                            {{-- 🌟 INI YANG DIUBAH MENJADI updated_at 🌟 --}}
+                            <p class="text-xs text-slate-400 dark:text-slate-500 mt-3">{{ $review->updated_at->diffForHumans() }}</p>
+                        </div>
                         @empty
-                            <div class="text-center py-8 bg-slate-100 dark:bg-[#11211d] rounded-2xl border border-slate-300 dark:border-[#1a2e29] border-dashed transition-colors">
-                                <p class="text-slate-500 dark:text-slate-400 italic text-sm">Belum ada ulasan untuk kuliner ini.</p>
-                            </div>
+                        <div class="text-center py-8 bg-slate-100 dark:bg-[#11211d] rounded-2xl border border-slate-300 dark:border-[#1a2e29] border-dashed transition-colors">
+                            <p class="text-slate-500 dark:text-slate-400 italic text-sm">Belum ada ulasan untuk kuliner ini.</p>
+                        </div>
                         @endforelse
                     </div>
                 </div>
-
             </div>
 
             {{-- KOLOM KANAN (Sidebar) --}}
             <div class="md:col-span-1 space-y-6">
-                {{-- KARTU UTAMA --}}
                 <div class="bg-white dark:bg-[#0f1a18] border border-slate-200 dark:border-[#1a2e29] rounded-2xl p-6 shadow-lg transition-colors duration-300">
                     <div class="text-center pb-6 border-b border-slate-200 dark:border-[#1a2e29]">
                         <div class="inline-flex items-center gap-2 bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 px-4 py-1.5 rounded-full text-sm font-bold mb-2">
@@ -350,7 +308,6 @@ $gambarUrl = str_starts_with($kuliner->gambar, 'http') ? $kuliner->gambar : asse
                             <i class="fas fa-share-alt"></i> Bagikan
                         </button>
 
-                        {{-- 🌟 TOMBOL BUKA PETA LOKASI 🌟 --}}
                         @if(isset($kuliner->link_maps) && $kuliner->link_maps)
                         <a href="{{ $kuliner->link_maps }}" target="_blank" class="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white py-3.5 rounded-xl font-bold transition-all text-sm shadow-lg shadow-blue-600/30">
                             <i class="fas fa-map-marked-alt"></i> Buka Peta Lokasi
@@ -363,7 +320,6 @@ $gambarUrl = str_starts_with($kuliner->gambar, 'http') ? $kuliner->gambar : asse
                     </div>
                 </div>
 
-                {{-- 🌟 GALERI PENGUNJUNG (SCROLLABLE) 🌟 --}}
                 @if(isset($fotoUlasan) && $fotoUlasan->count() > 0)
                 <div class="bg-white dark:bg-[#0f1a18] rounded-3xl p-5 shadow-xl border border-slate-200 dark:border-[#1a2e29]">
                     <div class="flex items-center gap-2 mb-4">
@@ -390,7 +346,6 @@ $gambarUrl = str_starts_with($kuliner->gambar, 'http') ? $kuliner->gambar : asse
                     <p class="text-center text-[10px] text-slate-400 mt-3"><i class="fas fa-mouse mr-1"></i> Geser ke bawah untuk melihat semua</p>
                 </div>
                 @endif
-                {{-- 🌟 AKHIR TAMBAHAN GALLERY 🌟 --}}
             </div>
 
         </div>
@@ -447,7 +402,6 @@ $gambarUrl = str_starts_with($kuliner->gambar, 'http') ? $kuliner->gambar : asse
         });
     });
 
-    // --- 🌟 SCRIPT PREVIEW GAMBAR SEBELUM UPLOAD 🌟 ---
     function previewImage(event) {
         const input = event.target;
         const previewContainer = document.getElementById('image-preview-container');

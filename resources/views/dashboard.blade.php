@@ -32,7 +32,6 @@
             font-family: 'Instrument Serif', serif;
         }
 
-        /* 🌙 Latar tema gelap: cahaya hijau lembut agar tidak datar */
         .dark body {
             background-image:
                 radial-gradient(900px 500px at 85% -10%, rgba(16, 185, 129, 0.10), transparent 60%),
@@ -40,7 +39,6 @@
             background-attachment: fixed;
         }
 
-        /* 💬 Chip subjek feedback */
         .fb-chip.active {
             background: #10b981;
             border-color: #10b981;
@@ -48,7 +46,6 @@
             box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
         }
 
-        /* 🧭 Tab modal Perjalanan Saya */
         .journey-tab {
             border-bottom: 2px solid transparent;
         }
@@ -62,7 +59,6 @@
             color: #34d399;
         }
 
-        /* 📱 Tinggi layar yang akurat di HP (address bar browser tidak memotong konten) */
         .app-shell {
             height: 100vh;
             height: 100dvh;
@@ -84,7 +80,6 @@
             animation: floatBtn 3s ease-in-out infinite;
         }
 
-        /* 🌟 ANIMASI NAVBAR 🌟 */
         @keyframes slideDownFade {
             from {
                 opacity: 0;
@@ -101,7 +96,6 @@
             animation: slideDownFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* 🔔 Lonceng bergoyang saat di-hover */
         @keyframes bellRing {
             0% {
                 transform: rotate(0);
@@ -137,7 +131,6 @@
             transform-origin: top center;
         }
 
-        /* 📂 Dropdown muncul dengan efek pop */
         @keyframes dropdownPop {
             from {
                 opacity: 0;
@@ -216,13 +209,11 @@
                         <i class="fas fa-leaf text-green-700 text-lg"></i>
                     </div>
                     <div>
-                        <!-- Ukuran teks disesuaikan agar tidak bertabrakan dengan tombol X di HP -->
                         <h1 class="font-extrabold text-base md:text-lg tracking-tight leading-none">ExploreSumatera</h1>
                         <p class="text-[10px] text-emerald-200 mt-1 leading-tight" data-i18n="app_tagline">Jelajahi Keindahan, Rasakan Ceritanya</p>
                     </div>
                 </a>
 
-                <!-- Tombol Close Sidebar (Mobile) - Dibuat lebih rapi -->
                 <button onclick="toggleUserSidebar()" class="md:hidden w-8 h-8 shrink-0 rounded-full bg-white/10 text-white/80 hover:text-white hover:bg-white/20 flex items-center justify-center transition border border-white/10">
                     <i class="fas fa-times text-sm"></i>
                 </button>
@@ -247,7 +238,6 @@
                         <span class="font-medium text-sm" data-i18n="menu_kuliner">Kuliner</span>
                     </a>
 
-                    <!-- 🌟 MENU FEEDBACK BARU 🌟 -->
                     <button onclick="openFeedbackModal()" class="w-full flex items-center gap-3 px-4 py-3 text-emerald-100/70 hover:text-white hover:bg-emerald-800/50 rounded-xl transition-all text-left">
                         <i class="fas fa-comment-dots text-sm w-5 text-center"></i>
                         <span class="font-medium text-sm" data-i18n="menu_feedback">Feedback</span>
@@ -262,7 +252,6 @@
                 </div>
             </div>
 
-            <!-- Gambar daun hanya muncul di desktop, di HP disembunyikan agar bersih -->
             <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=600&auto=format&fit=crop" class="hidden md:block absolute bottom-0 left-0 w-full h-1/2 object-cover opacity-20 mix-blend-luminosity pointer-events-none z-0">
         </aside>
 
@@ -272,17 +261,13 @@
             <!-- 🌟 TOP NAVBAR (FLOATING PILL) 🌟 -->
             <div class="px-2.5 md:px-8 pt-2.5 md:pt-5 pb-1 shrink-0 relative z-50">
                 <header class="group/nav relative h-14 md:h-[68px] max-w-6xl mx-auto bg-white/70 dark:bg-[#111c33]/75 backdrop-blur-2xl rounded-2xl flex items-center justify-between gap-2 md:gap-3 px-2 md:px-4 animate-navbar border border-slate-200/70 dark:border-white/10 shadow-[0_8px_30px_rgba(15,61,46,0.08)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.45)] hover:shadow-[0_12px_40px_rgba(16,185,129,0.18)] hover:border-emerald-500/30 dark:hover:border-emerald-400/30 transition-all duration-300">
-                    <!-- Garis cahaya hijau (muncul saat navbar di-hover) -->
                     <span class="pointer-events-none absolute bottom-0 inset-x-8 h-[2px] rounded-full bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-0 scale-x-0 group-hover/nav:opacity-100 group-hover/nav:scale-x-100 transition-all duration-500"></span>
 
-                    <!-- Kiri: Hamburger & Search -->
                     <div class="flex items-center gap-2 md:gap-3 flex-1 min-w-0">
-                        <!-- Hamburger (Mobile) -->
                         <button onclick="toggleUserSidebar()" class="md:hidden w-9 h-9 shrink-0 rounded-xl bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 dark:ring-1 dark:ring-emerald-400/20 flex items-center justify-center hover:bg-emerald-100 dark:hover:bg-emerald-500/25 hover:-translate-y-0.5 hover:shadow-md hover:shadow-emerald-500/20 active:scale-95 transition-all duration-200">
                             <i class="fas fa-bars text-sm"></i>
                         </button>
 
-                        <!-- Search -->
                         <form action="{{ url('/search') }}" method="GET" class="relative w-full min-w-0 md:max-w-md md:focus-within:max-w-lg group transition-all duration-500 ease-out">
                             <div class="absolute inset-y-0 left-0 pl-3 md:pl-3.5 flex items-center pointer-events-none">
                                 <i class="fas fa-search text-slate-400 group-hover:text-emerald-400 group-focus-within:text-emerald-500 group-focus-within:scale-125 transition-all duration-300 text-xs md:text-sm"></i>
@@ -292,10 +277,7 @@
                         </form>
                     </div>
 
-                    <!-- Kanan: Notifikasi & Profil -->
                     <div class="flex items-center gap-1 md:gap-2 shrink-0">
-
-                        <!-- NOTIFIKASI -->
                         <div class="relative">
                             <button id="notifBtn" class="bell-btn relative w-9 h-9 md:w-10 md:h-10 rounded-xl bg-slate-100/80 dark:bg-white/5 dark:ring-1 dark:ring-white/5 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 flex items-center justify-center text-slate-500 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:-translate-y-0.5 hover:shadow-md hover:shadow-emerald-500/20 active:scale-95 transition-all duration-200 focus:outline-none">
                                 <i class="fas fa-bell text-sm md:text-base"></i>
@@ -313,10 +295,8 @@
                             </div>
                         </div>
 
-                        <!-- Pemisah tipis -->
                         <div class="hidden sm:block w-px h-7 bg-slate-200 dark:bg-white/10 mx-1"></div>
 
-                        <!-- PROFIL USER -->
                         <div class="relative">
                             <button id="userMenuBtn" class="group flex items-center gap-2.5 hover:bg-slate-100/80 dark:hover:bg-white/5 hover:shadow-sm p-0.5 md:p-1 md:pr-3 rounded-xl active:scale-95 transition-all duration-200 focus:outline-none">
                                 @if(Auth::user()->photo)
@@ -330,11 +310,9 @@
                                     <p class="text-sm font-bold text-slate-800 dark:text-white leading-tight truncate">{{ Auth::user()->name ?? 'User' }}</p>
                                     <p class="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium truncate" data-i18n="role_user">User</p>
                                 </div>
-                                {{-- Dibungkus span agar benar-benar tersembunyi di mobile (class .fas Font Awesome menimpa "hidden") --}}
                                 <span class="hidden md:inline-flex items-center"><i class="fas fa-chevron-down text-[10px] text-slate-400 transition-transform duration-300" id="userChevron"></i></span>
                             </button>
 
-                            <!-- Dropdown Profil -->
                             <div id="userDropdown" class="animate-dropdown hidden absolute right-0 mt-4 w-56 bg-white/95 dark:bg-[#111c33]/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-200/50 dark:border-white/10 z-[100] overflow-hidden origin-top-right">
                                 <div class="px-4 py-3 bg-slate-50/70 dark:bg-white/5 border-b border-slate-100 dark:border-white/5 md:hidden">
                                     <p class="text-sm font-bold text-slate-800 dark:text-white truncate">{{ Auth::user()->name ?? 'User' }}</p>
@@ -360,11 +338,9 @@
                 </header>
             </div>
 
-            <!-- MAIN CONTENT (pb-28 di mobile agar tidak tertutup tombol pengaturan melayang) -->
             <main class="flex-1 overflow-y-auto px-4 pt-4 pb-28 md:p-8 custom-modal-scroll">
                 <div class="max-w-6xl mx-auto space-y-5 md:space-y-8">
 
-                    <!-- HERO BANNER -->
                     <div class="relative w-full rounded-2xl md:rounded-3xl overflow-hidden shadow-xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.55)] dark:ring-1 dark:ring-white/10 group">
                         <img src="https://i0.wp.com/www.infobudaya.net/wp-content/uploads/2021/04/large-holbung-hill-view-at-toba-lake-sumatera-indonesia-0c6f46cefbcf08ccb86f5df01e34be43.jpg?fit=1200%2C675&ssl=1" class="w-full h-52 sm:h-64 md:h-72 object-cover group-hover:scale-105 transition-transform duration-700 dark:brightness-90">
                         <div class="absolute inset-0 bg-gradient-to-r from-[#062116]/90 via-[#062116]/60 to-transparent dark:from-[#04140d]/95 dark:via-[#04140d]/65"></div>
@@ -379,10 +355,8 @@
                         </div>
                     </div>
 
-                    <!-- STATS CARDS (2 kolom ringkas di mobile) -->
                     <div class="grid grid-cols-2 gap-3 md:gap-6">
                         <div class="relative overflow-hidden bg-white/80 dark:bg-gradient-to-br dark:from-[#16233f] dark:to-[#0e182c] backdrop-blur-md rounded-2xl md:rounded-3xl p-4 md:p-6 flex flex-col md:flex-row md:items-center justify-between shadow-sm dark:shadow-[0_10px_30px_rgba(0,0,0,0.35)] border border-slate-200/50 dark:border-white/10 hover:shadow-md dark:hover:border-amber-400/30 transition-all">
-                            <!-- Cahaya aksen (hanya terlihat di tema gelap) -->
                             <div class="pointer-events-none absolute -top-10 -right-10 w-28 h-28 rounded-full bg-amber-400/0 dark:bg-amber-400/15 blur-2xl"></div>
                             <div class="relative flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
                                 <div class="w-11 h-11 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-amber-100 dark:bg-amber-500/15 dark:ring-1 dark:ring-amber-400/30 dark:shadow-[0_0_20px_rgba(245,158,11,0.25)] text-amber-500 dark:text-amber-400 flex items-center justify-center text-lg md:text-2xl shadow-inner shrink-0">
@@ -400,7 +374,6 @@
                         </div>
 
                         <div class="relative overflow-hidden bg-white/80 dark:bg-gradient-to-br dark:from-[#16233f] dark:to-[#0e182c] backdrop-blur-md rounded-2xl md:rounded-3xl p-4 md:p-6 flex flex-col md:flex-row md:items-center justify-between shadow-sm dark:shadow-[0_10px_30px_rgba(0,0,0,0.35)] border border-slate-200/50 dark:border-white/10 hover:shadow-md dark:hover:border-pink-400/30 transition-all">
-                            <!-- Cahaya aksen (hanya terlihat di tema gelap) -->
                             <div class="pointer-events-none absolute -top-10 -right-10 w-28 h-28 rounded-full bg-pink-400/0 dark:bg-pink-400/15 blur-2xl"></div>
                             <div class="relative flex flex-col md:flex-row md:items-center gap-3 md:gap-5">
                                 <div class="w-11 h-11 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-pink-100 dark:bg-pink-500/15 dark:ring-1 dark:ring-pink-400/30 dark:shadow-[0_0_20px_rgba(236,72,153,0.25)] text-pink-500 dark:text-pink-400 flex items-center justify-center text-lg md:text-2xl shadow-inner shrink-0">
@@ -418,7 +391,6 @@
                         </div>
                     </div>
 
-                    <!-- PERJALANAN SAYA -->
                     <div>
                         <div class="flex items-center justify-between mb-3 md:mb-4">
                             <div class="flex items-center gap-2">
@@ -428,8 +400,6 @@
                             <button type="button" onclick="openJourneyModal()" class="text-xs md:text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 dark:hover:text-emerald-300 flex items-center gap-1"><span data-i18n="see_all">Lihat Semua</span> <i class="fas fa-arrow-right text-xs"></i></button>
                         </div>
                         <div class="grid grid-cols-2 gap-3 md:gap-4">
-
-                            {{-- TOMBOL ITINERARY --}}
                             <button onclick="openItineraryModal()" class="w-full text-left bg-white dark:bg-gradient-to-br dark:from-[#16233f] dark:to-[#0e182c] rounded-2xl p-3.5 md:p-4 flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-4 shadow-sm dark:shadow-[0_8px_24px_rgba(0,0,0,0.3)] border border-slate-100 dark:border-white/10 hover:border-emerald-500 dark:hover:border-emerald-400/60 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)] transition group">
                                 <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-emerald-50 dark:bg-emerald-500/15 dark:ring-1 dark:ring-emerald-400/25 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-lg md:text-xl shrink-0 group-hover:scale-110 transition-transform">
                                     <i class="fas fa-calendar-alt"></i>
@@ -438,11 +408,9 @@
                                     <h3 class="font-bold text-slate-900 dark:text-white text-xs md:text-sm" data-i18n="journey_itinerary">Itinerary Saya</h3>
                                     <p class="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 leading-snug" data-i18n="journey_itinerary_desc">Atur jadwal perjalanan.</p>
                                 </div>
-                                {{-- Dibungkus span agar benar-benar tersembunyi di mobile --}}
                                 <span class="hidden md:block"><i class="fas fa-chevron-right text-slate-300 dark:text-slate-500 group-hover:text-emerald-500 transition-transform group-hover:translate-x-1"></i></span>
                             </button>
 
-                            {{-- TOMBOL FAVORIT (BUKA MODAL) --}}
                             <button onclick="openFavoritModal()" class="w-full text-left bg-white dark:bg-gradient-to-br dark:from-[#16233f] dark:to-[#0e182c] rounded-2xl p-3.5 md:p-4 flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-4 shadow-sm dark:shadow-[0_8px_24px_rgba(0,0,0,0.3)] border border-slate-100 dark:border-white/10 hover:border-emerald-500 dark:hover:border-emerald-400/60 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)] transition group">
                                 <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-emerald-50 dark:bg-emerald-500/15 dark:ring-1 dark:ring-emerald-400/25 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-lg md:text-xl shrink-0 group-hover:scale-110 transition-transform">
                                     <i class="fas fa-bookmark"></i>
@@ -456,7 +424,6 @@
                         </div>
                     </div>
 
-                    <!-- REVIEW TERAKHIR -->
                     <div>
                         <div class="flex items-center justify-between mb-3 md:mb-4">
                             <div class="flex items-center gap-2">
@@ -507,7 +474,8 @@
                                     <span class="text-slate-600 dark:text-slate-300 font-bold text-[10px] md:text-xs">{{ $review->rating }}.0/5</span>
                                 </div>
                                 <p class="text-xs md:text-sm text-slate-600 dark:text-slate-300 mb-3 italic line-clamp-2">"{{ $review->komentar }}"</p>
-                                <p class="text-[10px] md:text-xs text-slate-400 dark:text-slate-500 flex items-center gap-1"><i class="fas fa-calendar"></i> {{ $review->created_at->translatedFormat('d F Y') }}</p>
+                                {{-- 🌟 UBAH KE updated_at 🌟 --}}
+                                <p class="text-[10px] md:text-xs text-slate-400 dark:text-slate-500 flex items-center gap-1"><i class="fas fa-calendar"></i> {{ $review->updated_at->translatedFormat('d F Y') }}</p>
                             </div>
                             <span class="hidden md:block"><i class="fas fa-chevron-right text-slate-300 dark:text-slate-500 group-hover:text-emerald-500 transition"></i></span>
                         </a>
@@ -529,10 +497,8 @@
     <!-- 🌟 MODAL PROFIL SAYA (FIXED MOBILE) 🌟 -->
     <!-- ========================================== -->
     @auth
-    <div id="userProfileModal" onclick="closeUserProfileModal()" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <div id="userProfileModalContent" onclick="event.stopPropagation()" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-4xl shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col md:flex-row h-[90vh] md:h-[600px] md:max-h-[90vh]">
-
-            <!-- Sidebar Kiri Modal (Hanya Desktop) -->
+    <div id="userProfileModal" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div id="userProfileModalContent" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-4xl shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col md:flex-row h-[90vh] md:h-[600px] md:max-h-[90vh]">
             <div class="hidden md:flex w-64 bg-slate-50 dark:bg-slate-800/50 border-r border-slate-200 dark:border-slate-700 p-6 flex-col">
                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-6">Pengaturan</h3>
                 <nav class="space-y-2 flex-1">
@@ -542,10 +508,7 @@
                 </nav>
             </div>
 
-            <!-- Konten Kanan Modal -->
             <div class="flex-1 flex flex-col h-full overflow-hidden relative bg-white dark:bg-[#0f172a]">
-
-                <!-- Header Modal (Rapi di Mobile & Desktop) -->
                 <div class="flex justify-between items-center p-4 md:px-8 md:py-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/20 shrink-0">
                     <h2 class="text-lg md:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                         <i class="fas fa-user-circle text-emerald-500 md:hidden"></i> Profil Saya
@@ -555,15 +518,12 @@
                     </button>
                 </div>
 
-                <!-- Form Area (Scrollable) -->
                 <div class="flex-1 overflow-y-auto p-4 md:p-8 custom-modal-scroll">
                     <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
 
                         <div class="flex flex-col md:flex-row gap-6 md:gap-8 items-start mb-6">
-
-                            <!-- Foto Profil -->
                             <div class="flex flex-col items-center w-full md:w-auto shrink-0">
                                 <div class="relative w-24 h-24 md:w-28 md:h-28 rounded-full border-4 border-emerald-500 p-1 mb-2">
                                     @if(Auth::user()->photo)
@@ -583,7 +543,6 @@
                                 <p class="text-[10px] text-slate-500 text-center font-semibold">Maks 2MB (JPG/PNG)</p>
                             </div>
 
-                            <!-- Input Form -->
                             <div class="flex-1 space-y-4 w-full">
                                 <div>
                                     <label class="block text-[11px] md:text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Nama Lengkap</label>
@@ -626,10 +585,8 @@
     <!-- ========================================== -->
     <!-- 🌟 MODAL ITINERARY (JADWAL PERJALANAN) 🌟 -->
     <!-- ========================================== -->
-    <div id="itineraryModal" onclick="closeItineraryModal()" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <div id="itineraryModalContent" onclick="event.stopPropagation()" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-lg max-h-[90vh] shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-y-auto custom-modal-scroll">
-
-            <!-- Header -->
+    <div id="itineraryModal" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div id="itineraryModalContent" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-lg max-h-[90vh] shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-y-auto custom-modal-scroll">
             <div class="flex justify-between items-center p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/30">
                 <h3 class="text-lg md:text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <i class="fas fa-calendar-alt text-emerald-500"></i> Rencana Perjalanan
@@ -639,7 +596,6 @@
                 </button>
             </div>
 
-            <!-- Form -->
             <form class="p-4 md:p-6 space-y-4">
                 <div>
                     <label class="block text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Nama Perjalanan</label>
@@ -682,10 +638,8 @@
     <!-- ========================================== -->
     <!-- 🌟 MODAL FAVORIT (DESAIN BARU MODERN) 🌟 -->
     <!-- ========================================== -->
-    <div id="favoritModal" onclick="closeFavoritModal()" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <div id="favoritModalContent" onclick="event.stopPropagation()" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-5xl shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col h-[600px] max-h-[90vh]">
-
-            <!-- Header Modal -->
+    <div id="favoritModal" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div id="favoritModalContent" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-5xl shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col h-[600px] max-h-[90vh]">
             <div class="flex justify-between items-center p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f172a] shrink-0">
                 <div>
                     <h3 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2 md:gap-3">
@@ -701,9 +655,7 @@
                 </button>
             </div>
 
-            <!-- Body Modal -->
             <div class="flex-1 p-4 md:p-6 overflow-y-auto custom-modal-scroll bg-slate-50 dark:bg-[#0b1120]">
-
                 @if(isset($favorites) && $favorites->count() > 0)
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                     @foreach($favorites as $fav)
@@ -714,7 +666,6 @@
                     $tipe = 'Lainnya';
                     $warnaBadge = 'bg-slate-500/80 text-white';
 
-                    // Cek tipe favorit
                     if ($fav->destinasi) {
                     $link = route('destinasi.show', $fav->destinasi->slug);
                     $judul = $fav->destinasi->nama;
@@ -736,28 +687,21 @@
                     }
                     @endphp
 
-                    <!-- Card Favorit Modern -->
                     <a href="{{ $link }}" class="bg-white dark:bg-gradient-to-br dark:from-[#16233f] dark:to-[#0e182c] rounded-2xl border border-slate-200 dark:border-white/10 overflow-hidden hover:border-emerald-500 dark:hover:border-emerald-400/60 hover:shadow-xl hover:shadow-emerald-500/10 hover:-translate-y-1 transition-all duration-300 group flex flex-col">
-
-                        <!-- Gambar & Badge -->
                         <div class="relative h-40 md:h-44 w-full overflow-hidden">
                             <img src="{{ $gambar }}" alt="{{ $judul }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-
-                            <!-- Badge Kategori -->
                             <span class="absolute top-2 left-2 md:top-3 md:left-3 text-[9px] md:text-[10px] font-bold {{ $warnaBadge }} backdrop-blur-md uppercase tracking-wider px-2 py-0.5 md:px-2.5 md:py-1 rounded-full shadow-sm">
                                 {{ $tipe }}
                             </span>
                         </div>
 
-                        <!-- Konten Card -->
                         <div class="p-3 md:p-4 flex-1 flex flex-col justify-between">
                             <div>
                                 <h4 class="font-bold text-base md:text-lg text-slate-900 dark:text-white leading-tight group-hover:text-emerald-500 transition line-clamp-1">{{ $judul }}</h4>
                                 <p class="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 mt-1">Tersimpan di favorit</p>
                             </div>
 
-                            <!-- Tombol Detail -->
                             <div class="mt-3 md:mt-4 pt-2 md:pt-3 border-t border-slate-100 dark:border-white/10 flex justify-between items-center text-emerald-600 dark:text-emerald-400 font-bold text-xs md:text-sm">
                                 <span>Lihat Detail</span>
                                 <div class="w-6 h-6 md:w-7 md:h-7 rounded-full bg-emerald-50 dark:bg-emerald-500/15 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white transition-colors">
@@ -769,7 +713,6 @@
                     @endforeach
                 </div>
                 @else
-                <!-- Tampilan Jika Belum Ada Favorit -->
                 <div class="h-full flex flex-col items-center justify-center text-center py-10 px-4">
                     <div class="w-20 h-20 md:w-24 md:h-24 bg-slate-200 dark:bg-slate-800 rounded-full flex items-center justify-center mb-4 md:mb-6 shadow-inner">
                         <i class="fas fa-heart-broken text-3xl md:text-4xl text-slate-400"></i>
@@ -788,14 +731,11 @@
     <!-- ========================================== -->
     <!-- 🌟 MODAL FEEDBACK (USER) 🌟 -->
     <!-- ========================================== -->
-    <div id="feedbackModal" onclick="closeFeedbackModal()" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <div id="feedbackModalContent" onclick="event.stopPropagation()" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-lg max-h-[90vh] shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-y-auto custom-modal-scroll">
-
-            <!-- Header bergradasi -->
+    <div id="feedbackModal" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div id="feedbackModalContent" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-lg max-h-[90vh] shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-y-auto custom-modal-scroll">
             <div class="relative overflow-hidden bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 px-5 py-6 md:px-8 md:py-7 text-white">
                 <div class="pointer-events-none absolute -top-10 -right-8 w-40 h-40 rounded-full bg-white/10 blur-2xl"></div>
                 <div class="pointer-events-none absolute -bottom-12 -left-6 w-32 h-32 rounded-full bg-teal-300/20 blur-2xl"></div>
-                <!-- TOMBOL X SUDAH DITAMBAH Z-20 -->
                 <button type="button" onclick="closeFeedbackModal()" class="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition">
                     <i class="fas fa-times"></i>
                 </button>
@@ -811,7 +751,6 @@
             </div>
 
             <form class="p-5 md:p-8 space-y-5" onsubmit="submitFeedback(event)">
-                <!-- Pilihan cepat subjek -->
                 <div>
                     <p class="text-[10px] md:text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2" data-i18n="fb_quick">Pilih topik cepat</p>
                     <div class="flex flex-wrap gap-2">
@@ -830,7 +769,6 @@
                     </div>
                 </div>
 
-                <!-- Subjek -->
                 <div>
                     <label for="feedbackSubject" class="block text-[10px] md:text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2" data-i18n="subjek">Subjek</label>
                     <div class="relative">
@@ -839,13 +777,11 @@
                     </div>
                 </div>
 
-                <!-- Pesan -->
                 <div>
                     <label for="feedbackMessage" class="block text-[10px] md:text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2" data-i18n="pesan">Pesan</label>
                     <textarea id="feedbackMessage" rows="5" required placeholder="Ceritakan masukanmu di sini..." data-i18n-placeholder="fb_message_ph" class="w-full px-4 py-3 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition resize-none"></textarea>
                 </div>
 
-                <!-- Tombol kirim -->
                 <div class="pt-1">
                     <button type="submit" class="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-bold py-3.5 rounded-xl transition shadow-lg shadow-emerald-500/30 hover:-translate-y-0.5 flex items-center justify-center gap-2 text-sm">
                         <i class="fas fa-paper-plane"></i> <span data-i18n="kirim_pesan">Kirim Pesan</span>
@@ -860,10 +796,8 @@
     <!-- 🌟 MODAL PERJALANAN SAYA (LIHAT SEMUA) 🌟 -->
     <!-- ========================================== -->
     @php $journeyFavs = $favorites ?? collect(); @endphp
-    <div id="journeyModal" onclick="closeJourneyModal()" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <div id="journeyModalContent" onclick="event.stopPropagation()" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-3xl shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col h-[600px] max-h-[90vh]">
-
-            <!-- Header -->
+    <div id="journeyModal" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div id="journeyModalContent" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-3xl shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col h-[600px] max-h-[90vh]">
             <div class="flex justify-between items-center p-4 md:p-6 pb-0 md:pb-0 bg-white dark:bg-[#0f172a] shrink-0">
                 <div>
                     <h3 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2 md:gap-3">
@@ -879,7 +813,6 @@
                 </button>
             </div>
 
-            <!-- Tab -->
             <div class="flex gap-1 px-4 md:px-6 mt-4 border-b border-slate-200 dark:border-slate-800 shrink-0">
                 <button id="journeyTabFav" onclick="switchJourneyTab('fav')" class="journey-tab active px-3 md:px-4 py-3 text-sm font-bold text-slate-500 dark:text-slate-400 flex items-center gap-2 transition">
                     <i class="fas fa-bookmark"></i> <span data-i18n="tab_fav">Favorit</span>
@@ -890,10 +823,7 @@
                 </button>
             </div>
 
-            <!-- Isi -->
             <div class="flex-1 overflow-y-auto custom-modal-scroll bg-slate-50 dark:bg-[#0b1120]">
-
-                <!-- Panel Favorit -->
                 <div id="journeyPaneFav" class="p-4 md:p-6">
                     @if($journeyFavs->count() > 0)
                     <div class="space-y-3 md:space-y-4">
@@ -947,7 +877,6 @@
                     @endif
                 </div>
 
-                <!-- Panel Itinerary -->
                 <div id="journeyPaneItin" class="hidden p-4 md:p-6">
                     <div class="flex flex-col items-center justify-center text-center py-14 px-4">
                         <div class="w-20 h-20 bg-emerald-100 dark:bg-emerald-500/15 rounded-full flex items-center justify-center mb-4">
@@ -968,10 +897,8 @@
     <!-- 🌟 MODAL SEMUA REVIEW 🌟 -->
     <!-- ========================================== -->
     @php $modalReviews = $allReviews ?? $recentReviews ?? collect(); @endphp
-    <div id="reviewsModal" onclick="closeReviewsModal()" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <div id="reviewsModalContent" onclick="event.stopPropagation()" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-3xl shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col h-[600px] max-h-[90vh]">
-
-            <!-- Header Modal -->
+    <div id="reviewsModal" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div id="reviewsModalContent" class="bg-white dark:bg-[#0f172a] rounded-3xl w-full max-w-3xl shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col h-[600px] max-h-[90vh]">
             <div class="flex justify-between items-center p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f172a] shrink-0">
                 <div>
                     <h3 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2 md:gap-3">
@@ -987,7 +914,6 @@
                 </button>
             </div>
 
-            <!-- Body Modal -->
             <div class="flex-1 p-4 md:p-6 overflow-y-auto custom-modal-scroll bg-slate-50 dark:bg-[#0b1120]">
                 @if($modalReviews->count() > 0)
                 <div class="space-y-3 md:space-y-4">
@@ -1042,7 +968,8 @@
                                 <span class="text-slate-600 dark:text-slate-300 font-bold text-[10px] md:text-xs">{{ $rv->rating }}.0/5</span>
                             </div>
                             <p class="text-xs md:text-sm text-slate-600 dark:text-slate-300 italic line-clamp-2 mb-1.5">"{{ $rv->komentar }}"</p>
-                            <p class="text-[10px] md:text-xs text-slate-400 dark:text-slate-500 flex items-center gap-1"><i class="fas fa-calendar"></i> {{ $rv->created_at->translatedFormat('d F Y') }}</p>
+                            {{-- 🌟 UBAH KE updated_at 🌟 --}}
+                            <p class="text-[10px] md:text-xs text-slate-400 dark:text-slate-500 flex items-center gap-1"><i class="fas fa-calendar"></i> {{ $rv->updated_at->translatedFormat('d F Y') }}</p>
                         </div>
                     </a>
                     @endforeach
@@ -1063,8 +990,8 @@
     <!-- ========================================== -->
     <!-- 🌟 MODAL SUKSES FEEDBACK (POP-UP BARU) 🌟 -->
     <!-- ========================================== -->
-    <div id="successPopup" onclick="closeSuccessPopup()" class="fixed inset-0 z-[99999] hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <div id="successPopupContent" onclick="event.stopPropagation()" class="bg-white dark:bg-[#0f172a] rounded-3xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300">
+    <div id="successPopup" class="fixed inset-0 z-[99999] hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div id="successPopupContent" class="bg-white dark:bg-[#0f172a] rounded-3xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300">
             <div class="w-20 h-20 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto mb-6">
                 <i class="fas fa-check-circle text-4xl"></i>
             </div>
@@ -1082,8 +1009,8 @@
     </button>
 
     <!-- GLOBAL SETTINGS MODAL (Tema & Bahasa) -->
-    <div id="globalSettingsModal" onclick="closeGlobalSettings()" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <div id="globalSettingsContent" onclick="event.stopPropagation()" class="bg-white dark:bg-[#0f172a] rounded-2xl w-full max-w-lg max-h-[90vh] shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col">
+    <div id="globalSettingsModal" class="fixed inset-0 z-[9999] hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div id="globalSettingsContent" class="bg-white dark:bg-[#0f172a] rounded-2xl w-full max-w-lg max-h-[90vh] shadow-2xl border border-slate-200 dark:border-white/10 transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col">
             <div class="flex justify-between items-center p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/30 shrink-0">
                 <h3 class="text-lg md:text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <i class="fas fa-cog text-emerald-500"></i> <span data-i18n="settings">Pengaturan</span>
@@ -1389,7 +1316,6 @@
             }
         }
 
-        // 🌟 FUNGSI POP-UP SUKSES BARU 🌟
         function showSuccessPopup() {
             const modal = document.getElementById('successPopup');
             const content = document.getElementById('successPopupContent');
@@ -1412,7 +1338,6 @@
             }, 300);
         }
 
-        // 🌟 FUNGSI SUBMIT FEEDBACK (DIPERBARUI MENGGUNAKAN POPUP) 🌟
         function submitFeedback(event) {
             event.preventDefault();
             const subject = document.getElementById('feedbackSubject').value;
@@ -1447,15 +1372,10 @@
                 })
                 .then(data => {
                     if (data.success) {
-                        // Tutup modal form feedback
                         closeFeedbackModal();
-
-                        // Reset form
                         document.getElementById('feedbackSubject').value = '';
                         document.getElementById('feedbackMessage').value = '';
                         document.querySelectorAll('.fb-chip').forEach(c => c.classList.remove('active'));
-
-                        // Tampilkan popup sukses baru kita (dengan delay sedikit agar transisi mulus)
                         setTimeout(() => {
                             showSuccessPopup();
                         }, 350);
@@ -1463,7 +1383,7 @@
                 })
                 .catch(err => {
                     console.error(err);
-                    alert(err.message); // Tetap pakai alert untuk error
+                    alert(err.message);
                 })
                 .finally(() => {
                     submitBtn.innerHTML = originalText;
@@ -1471,7 +1391,6 @@
                 });
         }
 
-        // 6a. Chip subjek feedback
         function setFeedbackSubject(btn) {
             const label = btn.querySelector('span').innerText.trim();
             document.getElementById('feedbackSubject').value = label;
@@ -1480,7 +1399,6 @@
             document.getElementById('feedbackMessage').focus();
         }
 
-        // 6a2. Modal Perjalanan Saya (Lihat Semua)
         function switchJourneyTab(tab) {
             const isFav = tab === 'fav';
             document.getElementById('journeyPaneFav').classList.toggle('hidden', !isFav);
@@ -1516,7 +1434,6 @@
             }
         }
 
-        // 6b. Fungsi Modal Semua Review
         function openReviewsModal() {
             const modal = document.getElementById('reviewsModal');
             const content = document.getElementById('reviewsModalContent');
@@ -1543,7 +1460,6 @@
             }
         }
 
-        // 7. Fungsi Global Settings
         function openGlobalSettings() {
             const modal = document.getElementById('globalSettingsModal');
             const content = document.getElementById('globalSettingsContent');
@@ -1648,7 +1564,6 @@
             }
         }
 
-        // 8. Inisialisasi saat halaman dimuat
         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme') || 'system';
             setGlobalTheme(savedTheme);

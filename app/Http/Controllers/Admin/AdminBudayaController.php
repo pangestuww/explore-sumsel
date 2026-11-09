@@ -14,12 +14,30 @@ use App\Notifications\NewContentNotification;
 
 class AdminBudayaController extends Controller
 {
-    public function index()
+    // 🌟 HANYA BAGIAN INI YANG BERUBAH (DITAMBAH FILTER & PER_PAGE) 🌟
+    public function index(Request $request)
     {
-        $budayas = Budaya::with('kabupaten')->latest()->paginate(10);
+        $query = Budaya::with('kabupaten');
+
+        // Filter Search
+        if ($request->filled('search')) {
+            $query->where('nama', 'like', '%' . $request->search . '%');
+        }
+
+        // Filter Jenis
+        if ($request->filled('jenis')) {
+            $query->where('jenis', $request->jenis);
+        }
+
+        // Show Entries (Default 10)
+        $perPage = $request->input('per_page', 10);
+
+        $budayas = $query->latest()->paginate($perPage)->withQueryString();
+
         $kabupatens = Kabupaten::with('provinsi')->get();
         return view('admin.budaya.index', compact('budayas', 'kabupatens'));
     }
+    // 🌟 SELESAI BAGIAN YANG BERUBAH 🌟
 
     public function create()
     {
@@ -34,10 +52,10 @@ class AdminBudayaController extends Controller
             'kabupaten_id' => 'required|exists:kabupatens,id',
             'jenis' => 'required|string',
             'deskripsi' => 'required|string',
-            'deskripsi_bawah' => 'nullable|string', // 🌟 Tambahan Baru
-            'harga_tiket' => 'nullable|numeric', // 🌟 Tambahan Baru
-            'jam_buka' => 'nullable|string|max:255', // 🌟 Tambahan Baru
-            'waktu_terbaik' => 'nullable|string|max:255', // 🌟 Tambahan Baru
+            'deskripsi_bawah' => 'nullable|string',
+            'harga_tiket' => 'nullable|numeric',
+            'jam_buka' => 'nullable|string|max:255',
+            'waktu_terbaik' => 'nullable|string|max:255',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'latitude' => 'nullable|string',
             'longitude' => 'nullable|string',
@@ -81,14 +99,14 @@ class AdminBudayaController extends Controller
             'kabupaten_id' => 'required|exists:kabupatens,id',
             'jenis' => 'required|string',
             'deskripsi' => 'required|string',
-            'deskripsi_bawah' => 'nullable|string', // 🌟 Tambahan Baru
-            'harga_tiket' => 'nullable|numeric', // 🌟 Tambahan Baru
-            'jam_buka' => 'nullable|string|max:255', // 🌟 Tambahan Baru
-            'waktu_terbaik' => 'nullable|string|max:255', // 🌟 Tambahan Baru
+            'deskripsi_bawah' => 'nullable|string',
+            'harga_tiket' => 'nullable|numeric',
+            'jam_buka' => 'nullable|string|max:255',
+            'waktu_terbaik' => 'nullable|string|max:255',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'latitude' => 'nullable|string',
             'longitude' => 'nullable|string',
-            'link_maps' => 'nullable|string', // 🌟 Tambahan (sebelumnya belum ada di update)
+            'link_maps' => 'nullable|string',
         ]);
 
         $budaya = Budaya::findOrFail($id);
